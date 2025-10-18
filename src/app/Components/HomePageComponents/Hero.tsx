@@ -1,6 +1,7 @@
 'use client'
 
-import { Shield, ArrowRight, Play, ChevronLeft, ChevronRight, Users, Trophy, CheckCircle, Globe } from 'lucide-react'
+import Image from 'next/image'
+import { Shield, ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const heroSlides = [
   {
@@ -37,13 +38,6 @@ const heroSlides = [
   }
 ]
 
-const stats = [
-  { number: "500+", label: "Active Members", icon: Users },
-  { number: "50+", label: "Awards Won", icon: Trophy },
-  { number: "100+", label: "Projects Completed", icon: CheckCircle },
-  { number: "25+", label: "Industry Partners", icon: Globe }
-]
-
 interface HeroProps {
   currentSlide: number
   goToSlide: (index: number) => void
@@ -69,10 +63,13 @@ export default function Hero({
             }`}
             style={{ zIndex: index === currentSlide ? 1 : 0 }}
           >
-            <img
+            <Image
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority={index === 0}
+              unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/50"></div>
           </div>

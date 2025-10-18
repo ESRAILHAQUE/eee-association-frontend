@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Hero from './Components/HomePageComponents/Hero'
+import Achievements from './Components/HomePageComponents/Achievements'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -35,6 +36,7 @@ export default function Home() {
         nextSlide={nextSlide}
         prevSlide={prevSlide}
       />
+      <Achievements />
     </div>
   );
 }
