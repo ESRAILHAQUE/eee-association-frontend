@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Hero from './Components/HomePageComponents/Hero'
 import Achievements from './Components/HomePageComponents/Achievements'
+import Clubs from './Components/HomePageComponents/Clubs'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -37,6 +38,7 @@ export default function Home() {
         prevSlide={prevSlide}
       />
       <Achievements />
+      <Clubs />
     </div>
   );
 }
