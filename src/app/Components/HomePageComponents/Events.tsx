@@ -22,7 +22,7 @@ const upcomingEvents = [
     status: "Limited Seats"
   },
   {
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1523582407565-efee5cf4a353?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
     date: "Jan 5, 2025",
     time: "7:00 PM - 9:00 PM",
     title: "Student Chapter Leadership Meeting",

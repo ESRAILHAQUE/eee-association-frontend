@@ -16,7 +16,7 @@ export default function Footer() {
               </div>
               <div>
                 <span className="text-xl font-bold text-white">EEE Association</span>
-                <p className="text-xs text-slate-400 -mt-1">Engineering Excellence</p>
+                <p className="text-xs text-slate-400 -mt-1">Sylhet Engineering College</p>
               </div>
             </div>
             <p className="text-slate-400 mb-8 leading-relaxed text-sm">

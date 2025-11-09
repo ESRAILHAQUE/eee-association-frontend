@@ -5,6 +5,7 @@ import Hero from './Components/HomePageComponents/Hero'
 import Achievements from './Components/HomePageComponents/Achievements'
 import Clubs from './Components/HomePageComponents/Clubs'
 import Events from './Components/HomePageComponents/Events'
+import Newsletter from './Components/HomePageComponents/Newsletter'
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -40,6 +41,7 @@ export default function Home() {
       <Achievements />
       <Clubs />
       <Events />
+      <Newsletter />
     </div>
   );
 }
