@@ -1,4 +1,5 @@
 import { Calendar, Clock, MapPin, Users, ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 
 const upcomingEvents = [
   {
@@ -60,7 +61,7 @@ export default function Events() {
           {upcomingEvents.map((event, index) => (
             <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200">
               <div className="relative">
-                <img src={event.image} alt={event.title} className="w-full h-48 sm:h-56 object-cover" />
+                <Image src={event.image} alt={event.title} width={600} height={400} className="w-full h-48 sm:h-56 object-cover" unoptimized />
                 <div className="absolute top-4 left-4 flex gap-2">
                   <span className="inline-block bg-white/90 backdrop-blur-sm text-slate-800 text-xs font-semibold px-3 py-1 rounded-full">
                     {event.category}
