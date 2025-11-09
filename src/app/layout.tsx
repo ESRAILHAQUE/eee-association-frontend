@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EEE Association - Excellence in Engineering",
+  title: "EEE Association - SEC",
   description: "Empowering future electrical and electronic engineers through innovation, collaboration, and continuous learning.",
 };
 

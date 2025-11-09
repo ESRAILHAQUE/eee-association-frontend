@@ -1,4 +1,5 @@
-import { Zap, Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Footer() {
   const socialIcons = [Facebook, Twitter, Instagram, Linkedin]
@@ -11,8 +12,15 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-12">
           <div className="md:col-span-1">
             <div className="flex items-center space-x-3 mb-8">
-              <div className="w-12 h-12 bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl flex items-center justify-center shadow-lg">
-                <Zap className="w-7 h-7 text-white" />
+              <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg">
+                <Image 
+                  src="/images/SEC-Logo.png" 
+                  alt="SEC Logo" 
+                  width={48} 
+                  height={48}
+                  className="object-contain"
+                  unoptimized
+                />
               </div>
               <div>
                 <span className="text-xl font-bold text-white">EEE Association</span>

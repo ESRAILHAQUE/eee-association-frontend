@@ -1,6 +1,7 @@
 'use client'
 
-import { Menu, X, Zap } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 interface NavbarProps {
   isMenuOpen: boolean
@@ -13,12 +14,19 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg flex items-center justify-center shadow-md">
-              <Zap className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-lg  overflow-hidden">
+              <Image 
+                src="/images/SEC-Logo.png" 
+                alt="SEC Logo" 
+                width={40} 
+                height={40}
+                className="object-contain"
+                unoptimized
+              />
             </div>
             <div className="hidden sm:block">
               <span className="text-xl font-bold text-slate-800">EEE Association</span>
-              <p className="text-xs text-slate-600 -mt-1">Sylhet Engineering College</p>
+              <p className="text-xs font-medium  text-slate-600 -mt-1">Sylhet Engineering College</p>
             </div>
           </div>
           
