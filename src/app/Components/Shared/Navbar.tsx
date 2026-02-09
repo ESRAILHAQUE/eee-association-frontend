@@ -15,7 +15,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-lg  overflow-hidden">
+            <div className="w-10 h-10 rounded-lg overflow-hidden">
               <Image 
                 src="/images/SEC-Logo.png" 
                 alt="SEC Logo" 
@@ -26,21 +26,21 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
               />
             </div>
             <div className="hidden sm:block">
-              <span className="text-xl font-bold text-slate-800">EEE Association</span>
-              <p className="text-xs font-medium  text-slate-600 -mt-1">Sylhet Engineering College</p>
+              <span className="text-xl font-bold text-slate-800">Department of EEE</span>
+              <p className="text-xs font-medium text-slate-600 -mt-1">
+                Sylhet Engineering College
+              </p>
             </div>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             <a href="#home" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Home</a>
-            <a href="#about" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">About</a>
             <a href="#features" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Features</a>
             <a href="#events" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Events</a>
             <a href="#achievements" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Achievements</a>
             <a href="#contact" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Contact</a>
             <Link href="/login" className="px-4 py-2 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">Login</Link>
-            <Link href="/login" className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors">Register</Link>
           </div>
           
           {/* Mobile menu button */}
@@ -54,14 +54,12 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
           <div className="lg:hidden py-4 border-t border-slate-200">
             <div className="flex flex-col space-y-4">
               <a href="#home" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">Home</a>
-              <a href="#about" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">About</a>
               <a href="#features" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">Features</a>
               <a href="#events" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">Events</a>
               <a href="#achievements" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">Achievements</a>
               <a href="#contact" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">Contact</a>
               <div className="flex space-x-4 pt-4">
                 <Link href="/login" className="flex-1 px-4 py-2 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-center">Login</Link>
-                <Link href="/login" className="flex-1 px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors text-center">Register</Link>
               </div>
             </div>
           </div>

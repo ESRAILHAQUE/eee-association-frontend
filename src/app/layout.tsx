@@ -12,8 +12,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EEE Association - SEC",
-  description: "Empowering future electrical and electronic engineers through innovation, collaboration, and continuous learning.",
+  title: "Department of EEE - SEC",
+  description:
+    "Department of Electrical and Electronic Engineering, Sylhet Engineering College — empowering future engineers through innovation, collaboration, and continuous learning.",
 };
 
 export default function RootLayout({

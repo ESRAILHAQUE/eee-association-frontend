@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   Users,
@@ -92,6 +93,13 @@ const feeByYear = [
 ];
 
 export default function AdminDashboardPage() {
+  const [animateBars, setAnimateBars] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setAnimateBars(true), 50);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <div className="max-w-[1200px] mx-auto flex flex-col gap-8">
       <div>
@@ -222,8 +230,8 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
                   <div
-                    className={`h-2.5 rounded-full ${item.color}`}
-                    style={{ width: `${item.percent}%` }}
+                    className={`h-2.5 rounded-full ${item.color} transition-all duration-700 ease-out`}
+                    style={{ width: animateBars ? `${item.percent}%` : '0%' }}
                   />
                 </div>
               </div>

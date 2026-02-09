@@ -23,7 +23,7 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <span className="text-xl font-bold text-white">EEE Association</span>
+                <span className="text-xl font-bold text-white">Department of EEE</span>
                 <p className="text-xs text-slate-400 -mt-1">Sylhet Engineering College</p>
               </div>
             </div>
@@ -61,7 +61,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-white text-sm font-medium">Email</p>
-                  <p className="text-slate-400 text-sm">eee.association@university.edu</p>
+                  <p className="text-slate-400 text-sm">eee@sec.ac.bd</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -79,7 +79,9 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-white text-sm font-medium">Address</p>
-                  <p className="text-slate-400 text-sm">Engineering Building<br />Room 301, University Campus</p>
+                  <p className="text-slate-400 text-sm">
+                    Sylhet Engineering College
+                  </p>
                 </div>
               </div>
             </div>
@@ -110,7 +112,7 @@ export default function Footer() {
         
         <div className="border-t border-slate-800 mt-16 pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-slate-400 text-sm">
-            © 2024 EEE Association Management System. All rights reserved.
+            © 2024 Department of EEE Management System. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
             <a href="#" className="text-slate-400 hover:text-white text-xs transition-colors">Privacy Policy</a>

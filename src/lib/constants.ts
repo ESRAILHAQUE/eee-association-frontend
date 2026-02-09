@@ -29,8 +29,22 @@ export const ROUTES = {
   crNoticeBoard: '/dashboard/cr/notice-board',
   crStudents: '/dashboard/cr/students',
   crFeeManagement: '/dashboard/cr/fee-management',
-  memberEvents: '/dashboard/member/events',
+  // Super admin feature routes
   superAdminEvents: '/dashboard/super-admin/events',
+  superAdminUsers: '/dashboard/super-admin/users',
+  superAdminPayments: '/dashboard/super-admin/payments',
+  superAdminLogs: '/dashboard/super-admin/logs',
+  superAdminSettings: '/dashboard/super-admin/settings',
+  // Member feature routes
+  memberEvents: '/dashboard/member/events',
+  memberPayments: '/dashboard/member/payments',
+  memberResources: '/dashboard/member/resources',
+  memberProfile: '/dashboard/member/profile',
+  // Settings per role
+  adminSettings: '/dashboard/admin/settings',
+  crSettings: '/dashboard/cr/settings',
+  moderatorSettings: '/dashboard/moderator/settings',
+  memberSettings: '/dashboard/member/settings',
 } as const;
 
 export const DASHBOARD_NAV = {
@@ -43,18 +57,18 @@ export const DASHBOARD_NAV = {
   ],
   superAdmin: [
     { href: '/dashboard/super-admin', label: 'Dashboard', icon: 'LayoutDashboard' },
-    { href: '#', label: 'Users', icon: 'Users' },
-    { href: '#', label: 'Payments', icon: 'CreditCard' },
+    { href: '/dashboard/super-admin/users', label: 'Users', icon: 'Users' },
+    { href: '/dashboard/super-admin/payments', label: 'Payments', icon: 'CreditCard' },
     { href: '/dashboard/super-admin/events', label: 'Events', icon: 'Calendar' },
-    { href: '#', label: 'Logs', icon: 'FileText' },
-    { href: '#', label: 'Settings', icon: 'Settings' },
+    { href: '/dashboard/super-admin/logs', label: 'Logs', icon: 'FileText' },
+    { href: '/dashboard/super-admin/settings', label: 'Settings', icon: 'Settings' },
   ],
   cr: [
     { href: '/dashboard/cr', label: 'Dashboard', icon: 'LayoutDashboard' },
     { href: '/dashboard/cr/notice-board', label: 'Notice Board', icon: 'Megaphone' },
     { href: '/dashboard/cr/fee-management', label: 'Fee Management', icon: 'CreditCard' },
     { href: '/dashboard/cr/students', label: 'Student Directory', icon: 'Users' },
-    { href: '#', label: 'Settings', icon: 'Settings' },
+    { href: '/dashboard/cr/settings', label: 'Settings', icon: 'Settings' },
   ],
   moderator: [
     { href: '/dashboard/moderator', label: 'Dashboard', icon: 'LayoutDashboard' },
@@ -66,8 +80,8 @@ export const DASHBOARD_NAV = {
   member: [
     { href: '/dashboard/member', label: 'Dashboard', icon: 'LayoutDashboard' },
     { href: '/dashboard/member/events', label: 'Events', icon: 'Calendar' },
-    { href: '#', label: 'Payments', icon: 'CreditCard' },
-    { href: '#', label: 'Resources', icon: 'BookOpen' },
-    { href: '#', label: 'Profile', icon: 'User' },
+    { href: '/dashboard/member/payments', label: 'Payments', icon: 'CreditCard' },
+    { href: '/dashboard/member/resources', label: 'Resources', icon: 'BookOpen' },
+    { href: '/dashboard/member/profile', label: 'Profile', icon: 'User' },
   ],
 } as const;

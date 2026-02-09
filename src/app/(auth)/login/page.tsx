@@ -25,7 +25,7 @@ export default function LoginPage() {
             <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white">
               <Zap className="w-8 h-8" />
             </div>
-            <span className="text-white font-bold text-xl tracking-wide">EEE DEPT</span>
+            <span className="text-white font-bold text-xl tracking-wide">Department of EEE</span>
           </div>
           <h1 className="text-white text-4xl lg:text-5xl font-bold leading-tight mb-4 tracking-tight">
             Empowering EEE Innovation
@@ -43,13 +43,13 @@ export default function LoginPage() {
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-white">
             <Zap className="w-5 h-5" />
           </div>
-          <span className="text-[var(--text-main)] font-bold text-lg">EEE DEPT</span>
+          <span className="text-[var(--text-main)] font-bold text-lg">Department of EEE</span>
         </div>
 
         <div className="w-full max-w-[440px] flex flex-col">
           <div className="mb-8 text-center lg:text-left">
             <h2 className="text-[var(--text-main)] text-[28px] font-bold leading-tight tracking-tight mb-2">
-              EEE Dept. Login
+              Department of EEE Login
             </h2>
             <p className="text-[var(--text-sub)] dark:text-slate-400 text-base font-normal leading-normal">
               Please enter your details to access the dashboard.

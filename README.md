@@ -78,6 +78,7 @@ Layout and sidebar depend on the path: `/dashboard/admin/*`, `/dashboard/cr/*`, 
 | `/dashboard/admin/students` | Student Directory / Batch Management | Student list (name, reg, batch, year, contact); search, filters, export. |
 | `/dashboard/admin/fee-management` | Fee Tracking | Fee collection overview, batch-wise status, payment list. |
 | `/dashboard/admin/events` | Events | Department events list and management. |
+| `/dashboard/admin/settings` | Admin Settings | Batch & directory defaults, admin notifications, approval rules. |
 
 #### CR (Class Representative)
 
@@ -87,6 +88,7 @@ Layout and sidebar depend on the path: `/dashboard/admin/*`, `/dashboard/cr/*`, 
 | `/dashboard/cr/notice-board` | Notice Board | Notices for the batch; view and follow notices. |
 | `/dashboard/cr/students` | Student Directory | Batch students list and search. |
 | `/dashboard/cr/fee-management` | Fee Management | Fee status and pending list for the batch. |
+| `/dashboard/cr/settings` | CR Settings | Batch info, CR-specific notifications and task list preferences. |
 
 #### Member
 
@@ -94,12 +96,17 @@ Layout and sidebar depend on the path: `/dashboard/admin/*`, `/dashboard/cr/*`, 
 |-------|------|--------|
 | `/dashboard/member` | Member Dashboard | Status, contribution, points; upcoming events; quick links to Events. |
 | `/dashboard/member/events` | Events | Upcoming and past events; register / view details. |
+| `/dashboard/member/payments` | Payments | Personal membership / event payment history and upcoming dues. |
+| `/dashboard/member/resources` | Resources | Study materials, question banks and important documents. |
+| `/dashboard/member/profile` | Profile | General student profile (basic info for a single member). |
+| `/dashboard/member/settings` | Member Settings | Notifications, appearance and language/region preferences. |
 
 #### Moderator
 
 | Route | Page | Content |
 |-------|------|--------|
 | `/dashboard/moderator` | Moderator Dashboard | Overview and placeholders for Event Proposals, Resources, Forum, Users. |
+| `/dashboard/moderator/settings` | Moderator Settings | Preferences for event approvals, resources and forum moderation. |
 
 #### Super Admin
 
@@ -107,6 +114,10 @@ Layout and sidebar depend on the path: `/dashboard/admin/*`, `/dashboard/cr/*`, 
 |-------|------|--------|
 | `/dashboard/super-admin` | Super Admin Dashboard | System overview; Users, Payments, Events, Logs, Settings (sidebar). |
 | `/dashboard/super-admin/events` | Events | System-wide events management. |
+| `/dashboard/super-admin/users` | Users | Manage all roles (Super Admin, Admin, CR, Moderator, Member). |
+| `/dashboard/super-admin/payments` | Payments | Consolidated payment overview and recent transactions. |
+| `/dashboard/super-admin/logs` | Logs | Activity log for security, user and payment events. |
+| `/dashboard/super-admin/settings` | System Settings | Global platform, security and notifications configuration. |
 
 ---
 
@@ -121,19 +132,30 @@ Layout and sidebar depend on the path: `/dashboard/admin/*`, `/dashboard/cr/*`, 
 /dashboard/admin/students
 /dashboard/admin/fee-management
 /dashboard/admin/events
+/dashboard/admin/settings
 
 /dashboard/cr              → CR dashboard
 /dashboard/cr/notice-board
 /dashboard/cr/students
 /dashboard/cr/fee-management
+/dashboard/cr/settings
 
 /dashboard/member          → Member dashboard
 /dashboard/member/events
+/dashboard/member/payments
+/dashboard/member/resources
+/dashboard/member/profile
+/dashboard/member/settings
 
 /dashboard/moderator       → Moderator dashboard
+/dashboard/moderator/settings
 
 /dashboard/super-admin     → Super Admin dashboard
 /dashboard/super-admin/events
+/dashboard/super-admin/users
+/dashboard/super-admin/payments
+/dashboard/super-admin/logs
+/dashboard/super-admin/settings
 ```
 
 ---
