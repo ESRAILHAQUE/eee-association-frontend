@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
@@ -14,10 +15,9 @@ import {
   MessageSquare,
   User,
   LogOut,
-  School,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { DASHBOARD_NAV, ROUTES } from '@/lib/constants';
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { DASHBOARD_NAV, ROUTES } from "@/lib/constants";
 
 const iconMap = {
   LayoutDashboard,
@@ -33,7 +33,7 @@ const iconMap = {
 };
 
 type NavKey = keyof typeof DASHBOARD_NAV;
-type NavItem = { href: string; label: string; icon: keyof typeof iconMap };
+type NavItem = { href: string; label: string; icon: keyof typeof iconMap | "Logo" };
 
 export interface DashboardSidebarProps {
   variant: NavKey;
@@ -65,8 +65,15 @@ export default function DashboardSidebar({
     <aside className="w-64 h-full flex flex-col bg-surface dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex-shrink-0 hidden md:flex">
       <div className="p-6 flex flex-col gap-6 h-full">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
-            <School className="w-6 h-6" />
+          <div className="size-12 flex items-center justify-center shrink-0 overflow-hidden">
+            <Image
+              src="/images/SEC-Logo.png"
+              alt="Sylhet Engineering College logo"
+              width={40}
+              height={40}
+              className="object-contain"
+              unoptimized
+            />
           </div>
           <div className="flex flex-col min-w-0">
             <h1 className="text-slate-900 dark:text-white text-base font-bold leading-normal truncate">
@@ -80,7 +87,8 @@ export default function DashboardSidebar({
 
         <nav className="flex flex-col gap-2 flex-1">
           {navItems.map((item) => {
-            const Icon = iconMap[item.icon];
+            const isLogoIcon = item.icon === "Logo";
+            const Icon = !isLogoIcon ? iconMap[item.icon as keyof typeof iconMap] : null;
             // Role-base (e.g. /dashboard/cr) must match exactly so sub-routes don't highlight Dashboard
             const segmentCount = item.href.split('/').filter(Boolean).length;
             const isRoleBase = segmentCount === 2;
@@ -98,7 +106,20 @@ export default function DashboardSidebar({
                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                 )}
               >
-                {Icon && <Icon className="w-5 h-5 shrink-0" />}
+                {isLogoIcon ? (
+                  <div className="w-5 h-5 rounded-md bg-white/90 flex items-center justify-center shrink-0 overflow-hidden">
+                    <Image
+                      src="/images/SEC-Logo.png"
+                      alt="Reports"
+                      width={20}
+                      height={20}
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                ) : (
+                  Icon && <Icon className="w-5 h-5 shrink-0" />
+                )}
                 <span>{item.label}</span>
               </Link>
             );

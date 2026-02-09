@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "Department of EEE - SEC",
   description:
     "Department of Electrical and Electronic Engineering, Sylhet Engineering College — empowering future engineers through innovation, collaboration, and continuous learning.",
+  icons: {
+    icon: "/images/SEC-Logo.png",
+  },
 };
 
 export default function RootLayout({

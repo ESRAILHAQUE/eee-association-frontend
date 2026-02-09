@@ -53,7 +53,7 @@ export const DASHBOARD_NAV = {
     { href: '/dashboard/admin/students', label: 'Batch Management', icon: 'Users' },
     { href: '/dashboard/admin/fee-management', label: 'Fee Tracking', icon: 'CreditCard' },
     { href: '/dashboard/admin/notice-board', label: 'Notices', icon: 'Megaphone' },
-    { href: '#', label: 'Reports', icon: 'FileText' },
+    { href: '/dashboard/admin/reports', label: 'Reports', icon: 'FileText' },
   ],
   superAdmin: [
     { href: '/dashboard/super-admin', label: 'Dashboard', icon: 'LayoutDashboard' },

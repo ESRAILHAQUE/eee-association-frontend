@@ -80,7 +80,7 @@ export default function Footer() {
                 <div>
                   <p className="text-white text-sm font-medium">Address</p>
                   <p className="text-slate-400 text-sm">
-                    Sylhet Engineering College
+                    Tilagarh, Alurtol Road, Sylhet 3100
                   </p>
                 </div>
               </div>

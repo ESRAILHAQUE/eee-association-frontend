@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Search, Pin, Calendar, FileText, Edit3 } from 'lucide-react';
 
 const pinnedNotices = [
@@ -19,6 +20,19 @@ export default function CRNoticeBoardPage() {
   const [search, setSearch] = useState('');
   return (
     <div className="flex flex-1 flex-col p-4 md:p-8 overflow-x-hidden">
+      <nav className="flex flex-wrap gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <Link
+          href="/dashboard/cr"
+          className="hover:text-primary transition-colors font-medium"
+        >
+          Home
+        </Link>
+        <span>/</span>
+        <span className="text-slate-900 dark:text-white font-semibold">
+          Notice Board
+        </span>
+      </nav>
+
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">Notice Board</h1>
