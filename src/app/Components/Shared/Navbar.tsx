@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 
@@ -38,8 +39,8 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
             <a href="#events" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Events</a>
             <a href="#achievements" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Achievements</a>
             <a href="#contact" className="text-slate-700 hover:text-slate-900 transition-colors font-medium">Contact</a>
-            <button className="px-4 py-2 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">Login</button>
-            <button className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors">Register</button>
+            <Link href="/login" className="px-4 py-2 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">Login</Link>
+            <Link href="/login" className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors">Register</Link>
           </div>
           
           {/* Mobile menu button */}
@@ -59,8 +60,8 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
               <a href="#achievements" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">Achievements</a>
               <a href="#contact" className="text-slate-700 hover:text-slate-900 transition-colors px-2 py-1">Contact</a>
               <div className="flex space-x-4 pt-4">
-                <button className="flex-1 px-4 py-2 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">Login</button>
-                <button className="flex-1 px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors">Register</button>
+                <Link href="/login" className="flex-1 px-4 py-2 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-center">Login</Link>
+                <Link href="/login" className="flex-1 px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors text-center">Register</Link>
               </div>
             </div>
           </div>
