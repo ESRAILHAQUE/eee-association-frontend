@@ -6,36 +6,40 @@ import { Shield, ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-reac
 const heroSlides = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&h=1080&fit=crop&crop=center",
+    image: "/images/hero-section/hero-1.jpeg",
     title: "Advancing Electrical Engineering Excellence",
     subtitle: "Empowering Innovation Through Technology",
-    description: "Join a community of forward-thinking electrical engineers dedicated to shaping the future of technology and innovation.",
-    badge: "Innovation Hub"
+    description:
+      "Join a community of forward-thinking electrical engineers dedicated to shaping the future of technology and innovation.",
+    badge: "Innovation Hub",
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080&fit=crop&crop=center",
+    image: "/images/hero-section/hero-2.jpeg",
     title: "Smart Solutions for Modern Challenges",
     subtitle: "Research • Development • Implementation",
-    description: "Collaborate on cutting-edge research projects and develop intelligent systems that address real-world engineering challenges.",
-    badge: "Research Excellence"
+    description:
+      "Collaborate on cutting-edge research projects and develop intelligent systems that address real-world engineering challenges.",
+    badge: "Research Excellence",
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop&crop=center",
+    image: "/images/hero-section/hero-1.jpeg",
     title: "Building Tomorrow's Engineers Today",
     subtitle: "Education • Mentorship • Growth",
-    description: "Experience comprehensive learning through hands-on projects, expert mentorship, and collaborative problem-solving.",
-    badge: "Academic Excellence"
+    description:
+      "Experience comprehensive learning through hands-on projects, expert mentorship, and collaborative problem-solving.",
+    badge: "Academic Excellence",
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1920&h=1080&fit=crop&crop=center",
+    image: "/images/hero-section/hero-2.jpeg",
     title: "Connect. Create. Contribute.",
     subtitle: "Professional Network • Industry Partnerships",
-    description: "Build lasting professional relationships and contribute to groundbreaking innovations in electrical engineering.",
-    badge: "Professional Network"
-  }
+    description:
+      "Build lasting professional relationships and contribute to groundbreaking innovations in electrical engineering.",
+    badge: "Professional Network",
+  },
 ]
 
 interface HeroProps {
@@ -54,26 +58,28 @@ export default function Hero({
   return (
     <section id="home" className="relative h-screen overflow-hidden">
       {/* Background Image Slider */}
-      <div className="absolute inset-0">
-        {heroSlides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-              index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-            }`}
-            style={{ zIndex: index === currentSlide ? 1 : 0 }}
-          >
-            <Image
-              src={slide.image}
-              alt={slide.title}
-              fill
-              className="object-cover"
-              priority={index === 0}
-              unoptimized
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/50"></div>
-          </div>
-        ))}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="flex h-full w-full will-change-transform"
+          style={{
+            transform: `translateX(-${currentSlide * 100}%)`,
+            transition: 'transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1)',
+          }}
+        >
+          {heroSlides.map((slide, index) => (
+            <div key={slide.id} className="relative h-full w-full flex-shrink-0">
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                className="object-cover"
+                priority={index === 0}
+                unoptimized
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 via-slate-900/40 to-slate-900/20" />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Navigation Arrows */}
