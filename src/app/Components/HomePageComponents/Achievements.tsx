@@ -27,20 +27,20 @@ const achievements = [
 
 export default function Achievements() {
   return (
-    <section id="achievements" className="py-24 bg-white">
+    <section id="achievements" className="md:py-20 py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-4">
             Notable Achievements
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Celebrating outstanding accomplishments that demonstrate our commitment to excellence in education, research, and professional development.
           </p>
         </div>
         
         <div className="grid lg:grid-cols-3 gap-8">
           {achievements.map((achievement, index) => (
-            <div key={index} className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300">
+            <div key={index} className="bg-white rounded-sm overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300">
               <div className="relative h-48">
                 <Image src={achievement.image} alt={achievement.title} fill className="object-cover" unoptimized />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -51,7 +51,7 @@ export default function Achievements() {
                 </div>
               </div>
               <div className="p-6">
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-4">s
                   <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mr-3 shadow-md">
                     <Trophy className="w-5 h-5 text-white" />
                   </div>
