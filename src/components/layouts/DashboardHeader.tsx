@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Search, Bell, ChevronDown } from 'lucide-react';
-import { ROUTES } from '@/lib/constants';
+import { ROUTES, DASHBOARD_NAV } from '@/lib/constants';
 
 type RoleKey = 'admin' | 'superAdmin' | 'cr' | 'moderator' | 'member';
 
@@ -88,6 +88,12 @@ export default function DashboardHeader({
 
   const profileRoute = role === 'member' ? ROUTES.memberProfile : undefined;
 
+  // Sidebar-equivalent routes for mobile dropdown (exclude base dashboard + settings)
+  const mobileNavItems =
+    (DASHBOARD_NAV[role] as { href: string; label: string }[]).filter(
+      (item) => item.href !== dashboardHome && item.href !== settingsRoute
+    );
+
   return (
     <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 sticky top-0 z-10 shrink-0">
       <h2 className="text-slate-900 text-xl font-bold leading-tight">{title}</h2>
@@ -168,6 +174,22 @@ export default function DashboardHeader({
                   >
                     My dashboard
                   </Link>
+
+                  {/* Mobile-only: show main navigation routes when sidebar is hidden */}
+                  {mobileNavItems.length > 0 && (
+                    <div className="md:hidden border-t border-slate-200 mt-1 pt-1">
+                      {mobileNavItems.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+
                   {profileRoute && (
                     <Link
                       href={profileRoute}

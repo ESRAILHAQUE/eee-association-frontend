@@ -27,17 +27,17 @@ export default function AdminFeeManagementPage() {
       </div>
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-slate-900 text-3xl font-black tracking-tight">Fee Collection: Batch 2021-2025</h1>
+          <h1 className="text-slate-900 text-xl md:text-2xl font-bold ">Fee Collection: Batch 2021-2025</h1>
           <p className="text-slate-500 text-base">Track payments, manage records, and export financial reports for the current semester.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button type="button" className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"><Download className="w-5 h-5" />Export PDF</button>
-          <button type="button" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20"><Table className="w-5 h-5" />Export Excel</button>
+          <button type="button" className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-sm text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors cursor-pointer"><Download className="w-5 h-5" />Export PDF</button>
+          <button type="button" className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-sm text-sm font-bold cursor-pointer"><Table className="w-5 h-5" />Export Excel</button>
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="flex flex-col gap-1 p-5 rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div key={stat.label} className="flex flex-col gap-1 p-5 rounded-sm border border-slate-200 bg-white shadow-sm">
             <div className="flex justify-between items-start">
               <p className="text-slate-500 text-sm font-medium">{stat.label}</p>
               <div className={`p-1.5 rounded-md ${stat.iconBg}`}><stat.icon className="w-5 h-5" /></div>
@@ -47,7 +47,7 @@ export default function AdminFeeManagementPage() {
           </div>
         ))}
       </div>
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -56,7 +56,7 @@ export default function AdminFeeManagementPage() {
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
-            <thead className="bg-slate-50 text-slate-500 text-xs uppercase font-semibold">
+            <thead className="bg-slate-50 text-slate-800 text-xs uppercase font-semibold">
               <tr>
                 <th className="px-6 py-4">Roll No</th>
                 <th className="px-6 py-4">Student Name</th>
@@ -79,7 +79,7 @@ export default function AdminFeeManagementPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-slate-600">{row.date}</td>
-                  <td className="px-6 py-4 text-right"><button type="button" className="text-primary text-sm font-medium hover:underline">View</button></td>
+                  <td className="px-6 py-4 text-right"><button type="button" className="text-slate-700 text-sm font-medium hover:underline cursor-pointer">View</button></td>
                 </tr>
               ))}
             </tbody>

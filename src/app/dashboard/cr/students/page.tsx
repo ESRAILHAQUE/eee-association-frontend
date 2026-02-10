@@ -28,8 +28,8 @@ export default function CRStudentsPage() {
           <p className="text-slate-500 text-base">Manage and view all registered students in the EEE department. Search by ID, filter by batch, or export records.</p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
-          <button type="button" className="flex-1 md:flex-none h-10 px-4 rounded-lg border border-slate-200 bg-white text-slate-700 text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors"><Download className="w-5 h-5" />Export</button>
-          <button type="button" className="flex-1 md:flex-none h-10 px-4 rounded-lg bg-primary text-white text-sm font-bold shadow-lg shadow-primary/30 flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors"><UserPlus className="w-5 h-5" />Add Student</button>
+          <button type="button" className="flex-1 md:flex-none h-10 px-4 rounded-lg border border-slate-200 bg-white text-slate-700 text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors cursor-pointer"><Download className="w-5 h-5" />Export</button>
+          <button type="button" className="flex-1 md:flex-none h-10 px-4 rounded-lg  text-white text-sm font-bold  flex items-center justify-center gap-2 bg-slate-900 transition-colors"><UserPlus className="w-5 h-5 " />Add Student</button>
         </div>
       </div>
       <div className="flex flex-col xl:flex-row gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">

@@ -102,7 +102,7 @@ export default function DashboardSidebar({
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                   isActive
-                    ? 'bg-primary text-white'
+                    ? 'bg-[#0F172B] text-white'
                     : 'text-slate-700 hover:bg-slate-100'
                 )}
               >

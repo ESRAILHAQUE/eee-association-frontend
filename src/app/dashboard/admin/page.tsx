@@ -103,26 +103,26 @@ export default function AdminDashboardPage() {
   return (
     <div className="max-w-[1200px] mx-auto flex flex-col gap-8">
       <div>
-        <h3 className="text-2xl font-bold text-slate-900">Overview</h3>
+        <h3 className="text-xl md:text-2xl font-bold text-slate-900">Overview</h3>
         <p className="text-slate-500 mt-1">
           Here&apos;s what&apos;s happening in the EEE Department today.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="flex flex-col gap-1 p-6 rounded-xl bg-white border border-slate-200 shadow-sm"
+            className="flex flex-col gap-0.5 p-4 rounded-sm bg-white border border-slate-200 shadow-sm"
           >
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-1.5">
               <p className="text-slate-500 text-sm font-medium">{stat.label}</p>
-              <span className={`p-1.5 rounded-lg ${stat.iconBg}`}>
-                <stat.icon className="w-5 h-5" />
+              <span className={`p-1 rounded-lg ${stat.iconBg}`}>
+                <stat.icon className="w-4 h-4" />
               </span>
             </div>
-            <p className="text-slate-900 text-3xl font-bold">{stat.value}</p>
-            <div className="flex items-center gap-1 mt-2">
+            <p className="text-slate-900 text-2xl font-bold">{stat.value}</p>
+            <div className="flex items-center gap-1 mt-1.5">
               {stat.trendUp && (
                 <span className="text-emerald-500 text-xs font-medium flex items-center gap-0.5">
                   <span>↗</span> {stat.trend}
@@ -137,13 +137,13 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="flex flex-col gap-4">
-        <h2 className="text-slate-900 text-lg font-bold">Quick Actions</h2>
+        <h2 className="text-slate-900 text-xl md:text-2xl font-bold">Quick Actions</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickActions.map((action) => (
             <button
               key={action.label}
               type="button"
-              className="group relative overflow-hidden rounded-xl aspect-[4/3] flex flex-col justify-end p-5 transition-transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="group relative overflow-hidden rounded-sm aspect-[4/3] flex flex-col justify-end p-5 transition-transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105"
@@ -162,12 +162,12 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-6">
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col">
+        <div className="bg-white rounded-sm border border-slate-200 shadow-sm flex flex-col">
           <div className="p-5 border-b border-slate-100 flex justify-between items-center">
             <h3 className="text-lg font-bold text-slate-900">Recent Notices</h3>
             <Link
               href="/dashboard/admin/notice-board"
-              className="text-sm font-medium text-primary hover:text-blue-700"
+              className="text-sm font-medium  text-slate-600 hover:text-slate-800"
             >
               View All
             </Link>
@@ -186,9 +186,9 @@ export default function AdminDashboardPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start">
                       <h4 className="text-sm font-bold text-slate-900">{notice.title}</h4>
-                    <span className="text-xs text-slate-400 shrink-0">{notice.time}</span>
+                    <span className="text-xs text-slate-600 shrink-0">{notice.time}</span>
                   </div>
-                  <p className="text-sm text-slate-500 mt-1 line-clamp-1">
+                  <p className="text-sm text-slate-600 mt-1 line-clamp-1">
                     {notice.excerpt}
                   </p>
                   <div className="mt-2 flex gap-2 flex-wrap">
@@ -207,7 +207,7 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col">
+        <div className="bg-white rounded-sm border border-slate-200 shadow-sm flex flex-col">
           <div className="p-5 border-b border-slate-100 flex justify-between items-center">
             <h3 className="text-lg font-bold text-slate-900">Fee Collection Status</h3>
             <button type="button" className="text-slate-400 hover:text-slate-600">
@@ -239,7 +239,7 @@ export default function AdminDashboardPage() {
           </div>
           <div className="p-4 bg-slate-50 rounded-b-xl border-t border-slate-100">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-slate-500">Total Outstanding</span>
+              <span className="text-slate-600">Total Outstanding</span>
               <span className="font-bold text-red-500">$3,450.00</span>
             </div>
           </div>
