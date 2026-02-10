@@ -1,7 +1,13 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { Shield, ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from "next/image";
+import {
+  Shield,
+  ArrowRight,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 const heroSlides = [
   {
@@ -40,20 +46,20 @@ const heroSlides = [
       "Build lasting professional relationships and contribute to groundbreaking innovations in electrical engineering.",
     badge: "Professional Network",
   },
-]
+];
 
 interface HeroProps {
-  currentSlide: number
-  goToSlide: (index: number) => void
-  nextSlide: () => void
-  prevSlide: () => void
+  currentSlide: number;
+  goToSlide: (index: number) => void;
+  nextSlide: () => void;
+  prevSlide: () => void;
 }
 
-export default function Hero({ 
-  currentSlide, 
-  goToSlide, 
-  nextSlide, 
-  prevSlide 
+export default function Hero({
+  currentSlide,
+  goToSlide,
+  nextSlide,
+  prevSlide,
 }: HeroProps) {
   return (
     <section id="home" className="relative h-screen overflow-hidden">
@@ -63,11 +69,12 @@ export default function Hero({
           className="flex h-full w-full will-change-transform"
           style={{
             transform: `translateX(-${currentSlide * 100}%)`,
-            transition: 'transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1)',
-          }}
-        >
+            transition: "transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+          }}>
           {heroSlides.map((slide, index) => (
-            <div key={slide.id} className="relative h-full w-full flex-shrink-0">
+            <div
+              key={slide.id}
+              className="relative h-full w-full flex-shrink-0">
               <Image
                 src={slide.image}
                 alt={slide.title}
@@ -76,23 +83,20 @@ export default function Hero({
                 priority={index === 0}
                 unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 via-slate-900/40 to-slate-900/20" />
             </div>
           ))}
         </div>
       </div>
 
       {/* Navigation Arrows */}
-      <button 
+      <button
         onClick={prevSlide}
-        className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20 group"
-      >
+        className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20 group">
         <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
       </button>
-      <button 
+      <button
         onClick={nextSlide}
-        className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20 group"
-      >
+        className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20 group">
         <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
       </button>
 
@@ -103,7 +107,9 @@ export default function Hero({
             key={index}
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/75'
+              index === currentSlide
+                ? "bg-white scale-110"
+                : "bg-white/50 hover:bg-white/75"
             }`}
           />
         ))}
@@ -114,40 +120,29 @@ export default function Hero({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-4xl">
             {/* Dynamic Content */}
-            <div className="space-y-6">
-              <div className="inline-flex items-center px-4 py-2 bg-white/10 text-white rounded-full text-sm font-medium backdrop-blur-sm border border-white/20">
-                <Shield className="w-4 h-4 mr-2" />
-                {heroSlides[currentSlide].badge}
+            <div className="space-y-4 sm:space-y-6 text-slate-50">
+              <div className="inline-flex items-center px-4 py-2 text-white rounded-full text-sm font-medium border border-white/60 bg-transparent">
+                <Shield className="w-4 h-4 mr-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" />
+                <span className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                  {heroSlides[currentSlide].badge}
+                </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
                 {heroSlides[currentSlide].title}
               </h1>
 
-              <p className="text-xl sm:text-2xl text-slate-300 font-medium">
+              <p className="text-lg sm:text-xl text-slate-100 font-semibold drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)]">
                 {heroSlides[currentSlide].subtitle}
               </p>
 
-              <p className="text-lg text-slate-200 max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-100 max-w-2xl leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)]">
                 {heroSlides[currentSlide].description}
               </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button className="bg-white text-slate-900 hover:bg-slate-100 font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center group">
-                  Get Started Today
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="border-2 border-white/30 text-white hover:bg-white/10 font-semibold py-4 px-8 rounded-xl transition-all duration-300 backdrop-blur-sm flex items-center justify-center group">
-                  <Play className="w-5 h-5 mr-2" />
-                  Watch Overview
-                </button>
-              </div>
             </div>
           </div>
         </div>
       </div>
-
-
     </section>
-  )
+  );
 }
