@@ -10,8 +10,7 @@ type RoleKey = 'admin' | 'superAdmin' | 'cr' | 'moderator' | 'member';
 export interface DashboardHeaderProps {
   title: string;
   searchPlaceholder?: string;
-  user?: { name: string; role: string };
-  /** Which dashboard role is currently active – used for profile menu links */
+  user?: { name: string; role: string; email?: string };
   role?: RoleKey;
   onLogout?: () => void;
 }
@@ -64,6 +63,13 @@ export default function DashboardHeader({
   const handleToggleProfile = () => {
     setIsProfileOpen((open) => !open);
     setIsNotificationsOpen(false);
+  };
+
+  const closeProfile = () => setIsProfileOpen(false);
+
+  const handleLogout = () => {
+    closeProfile();
+    onLogout?.();
   };
 
   const dashboardHome =
@@ -153,36 +159,48 @@ export default function DashboardHeader({
             <button
               type="button"
               onClick={handleToggleProfile}
-              className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-lg hover:bg-slate-100 transition-colors"
+              className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-lg hover:bg-slate-100 transition-colors min-w-0"
+              aria-expanded={isProfileOpen}
+              aria-haspopup="true"
             >
-              <div className="size-9 rounded-full bg-slate-200 shrink-0" />
-              <div className="hidden lg:flex flex-col items-start mr-2">
-                <span className="text-sm font-semibold text-slate-900">{user.name}</span>
+              <div className="size-9 rounded-full bg-primary/10 text-primary shrink-0 flex items-center justify-center font-semibold text-sm">
+                {user.name ? user.name.charAt(0).toUpperCase() : "?"}
+              </div>
+              <div className="hidden lg:flex flex-col items-start mr-2 min-w-0">
+                <span className="text-sm font-semibold text-slate-900 truncate">{user.name}</span>
                 <span className="text-xs text-slate-500">{user.role}</span>
               </div>
-              <ChevronDown className="w-4 h-4 text-slate-400 hidden lg:block" />
+              <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 hidden lg:block transition-transform ${isProfileOpen ? "rotate-180" : ""}`} />
             </button>
             {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-52 rounded-xl border border-slate-200 bg-white shadow-lg shadow-slate-900/10 text-sm py-1">
+              <div className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200 bg-white shadow-lg shadow-slate-900/10 text-sm py-1 z-50">
                 <div className="px-3 py-2 border-b border-slate-200">
                   <p className="text-xs text-slate-500">Signed in as</p>
-                  <p className="text-sm font-medium text-slate-900 truncate">{user.name}</p>
+                  <p className="text-sm font-medium text-slate-900 truncate" title={user.name}>
+                    {user.name}
+                  </p>
+                  {user.email && (
+                    <p className="text-xs text-slate-500 truncate mt-0.5" title={user.email}>
+                      {user.email}
+                    </p>
+                  )}
                 </div>
                 <nav className="py-1">
                   <Link
                     href={dashboardHome}
+                    onClick={closeProfile}
                     className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
                   >
                     My dashboard
                   </Link>
 
-                  {/* Mobile-only: show main navigation routes when sidebar is hidden */}
                   {mobileNavItems.length > 0 && (
                     <div className="md:hidden border-t border-slate-200 mt-1 pt-1">
                       {mobileNavItems.map((item) => (
                         <Link
                           key={item.href}
                           href={item.href}
+                          onClick={closeProfile}
                           className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
                         >
                           {item.label}
@@ -194,6 +212,7 @@ export default function DashboardHeader({
                   {profileRoute && (
                     <Link
                       href={profileRoute}
+                      onClick={closeProfile}
                       className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
                     >
                       My profile
@@ -201,6 +220,7 @@ export default function DashboardHeader({
                   )}
                   <Link
                     href={settingsRoute}
+                    onClick={closeProfile}
                     className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
                   >
                     Settings
@@ -209,10 +229,8 @@ export default function DashboardHeader({
                 <div className="border-t border-slate-200 mt-1 pt-1">
                   <button
                     type="button"
-                    onClick={() => {
-                      onLogout?.();
-                    }}
-                    className="block w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                    onClick={handleLogout}
+                    className="block w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 font-medium"
                   >
                     Logout
                   </button>

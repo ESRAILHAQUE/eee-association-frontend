@@ -64,6 +64,7 @@ export default function DashboardLayout({ role, user: authUser, children }: Dash
   const user = {
     name: authUser?.fullName ?? (role === 'superAdmin' ? 'Super Admin' : role === 'admin' ? 'Admin' : role === 'cr' ? 'Class Rep' : role === 'moderator' ? 'Moderator' : 'Member'),
     role: ROLE_LABEL[authUser?.currentRole ?? 'student'] ?? 'Member',
+    email: authUser?.institutionalEmail,
   };
 
   return (
