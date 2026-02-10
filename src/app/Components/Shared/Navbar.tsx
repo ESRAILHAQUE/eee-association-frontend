@@ -57,7 +57,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
               <a href="#achievements" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Achievements</a>
               <a href="#contact" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Contact</a>
               <div className="flex space-x-4 pt-4">
-                <Link href="/login" className="flex-1 px-4 py-2 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-center">Login</Link>
+                <Link href="/login" className="flex-1 px-4 py-2 text-slate-700 border border-slate-300 rounded-lg  transition-colors text-center">Login</Link>
               </div>
             </div>
           </div>
