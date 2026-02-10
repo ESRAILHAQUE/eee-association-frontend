@@ -9,36 +9,22 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-[var(--background)]">
+    <div className="flex min-h-screen w-full overflow-hidden bg-[#CCD7E2]">
       {/* Left: Branding (Desktop) */}
       <div className="hidden lg:flex w-1/2 relative flex-col justify-end p-12 bg-slate-900">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 hover:scale-105"
           style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200")`,
+            backgroundImage: `url("https://i.ibb.co.com/5XQGqjGJ/sec-eee.jpg")`,
           }}
         />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-primary/90 via-primary/50 to-primary/20 mix-blend-multiply" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black/60" />
-        <div className="relative z-20 max-w-lg mb-8">
-          <div className="mb-6 flex items-center gap-3">
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white">
-              <Zap className="w-8 h-8" />
-            </div>
-            <span className="text-white font-bold text-xl tracking-wide">Department of EEE</span>
-          </div>
-          <h1 className="text-white text-4xl lg:text-5xl font-bold leading-tight mb-4 tracking-tight">
-            Empowering EEE Innovation
-          </h1>
-          <p className="text-white/90 text-lg font-light leading-relaxed max-w-md">
-            Departmental Management System for streamlined administration, resource allocation, and
-            student collaboration.
-          </p>
-        </div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-primary/60 via-primary/30 to-primary/20 mix-blend-multiply" />
+        <div className="absolute inset-0 z-10 " />
+
       </div>
 
       {/* Right: Login Form */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-12 relative bg-[var(--background)] overflow-y-auto">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-12 relative overflow-y-auto bg-[#F8FAFC]">
         <div className="lg:hidden mb-8 flex items-center gap-2">
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-white">
             <Zap className="w-5 h-5" />
@@ -47,39 +33,56 @@ export default function LoginPage() {
         </div>
 
         <div className="w-full max-w-[440px] flex flex-col">
-          <div className="mb-8 text-center lg:text-left">
-            <h2 className="text-[var(--text-main)] text-[28px] font-bold leading-tight tracking-tight mb-2">
+          <div className="mb-6 text-center lg:text-left">
+            <h2 className="text-[28px] text-slate-900 font-bold leading-tight tracking-tight mb-2">
               Department of EEE Login
             </h2>
-            <p className="text-[var(--text-sub)] dark:text-slate-400 text-base font-normal leading-normal">
+            <p className="text-slate-600 font-normal leading-normal">
               Please enter your details to access the dashboard.
             </p>
           </div>
 
-          <form className="flex flex-col gap-5 w-full" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex flex-col gap-4 w-full" onSubmit={(e) => e.preventDefault()}>
             <div className="flex flex-col gap-2">
-              <label className="text-[var(--text-main)] dark:text-slate-200 text-base font-medium leading-normal">
+              <label className="text-slate-900 font-medium leading-normal">
                 Username or Email
               </label>
-              <div className="flex w-full items-stretch rounded-lg group focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-1 transition-all">
-                <div className="flex items-center justify-center pl-4 bg-[var(--input-bg)] dark:bg-slate-800 border border-[var(--input-border)] dark:border-slate-700 border-r-0 rounded-l-lg text-[var(--text-sub)]">
+              <div className="flex w-full items-stretch rounded-lg border border-slate-300 bg-white focus-within:ring-1 focus-within:ring-slate-900 transition-all overflow-hidden">
+                <div className="flex items-center justify-center px-4 bg-white text-slate-500 border-r border-slate-200">
                   <User className="w-5 h-5" />
                 </div>
                 <input
                   type="email"
                   placeholder="student@university.edu"
                   required
-                  className="flex-1 w-full h-14 bg-[var(--input-bg)] dark:bg-slate-800 text-[var(--text-main)] dark:text-white placeholder-[var(--text-sub)] border border-[var(--input-border)] dark:border-slate-700 border-l-0 rounded-r-lg px-4 focus:outline-none focus:border-[var(--input-border)] text-base"
+                  className="flex-1 w-full h-14 bg-white text-slate-900 placeholder-slate-400 px-4 focus:outline-none text-base"
                 />
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-[var(--text-main)] dark:text-slate-200 text-base font-medium leading-normal">
+              <label className="text-slate-900 font-medium leading-normal">
+                Registration Number
+              </label>
+              <div className="flex w-full items-stretch rounded-lg border border-slate-300 bg-white focus-within:ring-1 focus-within:ring-slate-900 transition-all overflow-hidden">
+                <div className="flex items-center justify-center px-4 bg-white text-slate-500 border-r border-slate-200">
+                  <User className="w-5 h-5" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="2023-EEE-001"
+                  required
+                  className="flex-1 w-full h-14 bg-white text-slate-900 px-4 focus:outline-none text-base"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-slate-900 font-medium leading-normal">
                 Password
               </label>
-              <div className="flex w-full items-stretch rounded-lg group focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-1 transition-all relative">
-                <div className="flex items-center justify-center pl-4 bg-[var(--input-bg)] dark:bg-slate-800 border border-[var(--input-border)] dark:border-slate-700 border-r-0 rounded-l-lg text-[var(--text-sub)]">
+              <div className="flex w-full items-stretch rounded-lg border border-slate-300 bg-white focus-within:ring-1 focus-within:ring-slate-900 transition-all overflow-hidden relative">
+                <div className="flex items-center justify-center px-4 bg-white text-slate-500 border-r border-slate-200">
                   <Lock className="w-5 h-5" />
                 </div>
                 <input
@@ -87,12 +90,12 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Enter your password"
                   required
-                  className="flex-1 w-full h-14 bg-[var(--input-bg)] dark:bg-slate-800 text-[var(--text-main)] dark:text-white placeholder-[var(--text-sub)] border border-[var(--input-border)] dark:border-slate-700 border-l-0 border-r-0 px-4 focus:outline-none text-base"
+                  className="flex-1 w-full h-14 bg-white text-slate-900  px-4 focus:outline-none text-base"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="flex items-center justify-center pr-4 bg-[var(--input-bg)] dark:bg-slate-800 border border-[var(--input-border)] dark:border-slate-700 border-l-0 rounded-r-lg text-[var(--text-sub)] hover:text-primary transition-colors"
+                  className="flex items-center justify-center px-4 bg-white text-slate-500 border-l border-slate-200 hover:text-slate-900 transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -103,37 +106,37 @@ export default function LoginPage() {
               <label className="flex items-center gap-2 cursor-pointer group">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 rounded border-[var(--input-border)] text-primary focus:ring-primary bg-[var(--input-bg)] dark:bg-slate-800"
+                  className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900 bg-white"
                 />
-                <span className="text-sm font-normal text-[var(--text-sub)] group-hover:text-[var(--text-main)] transition-colors">
+                <span className="text-sm font-normal text-slate-600 group-hover:text-slate-900 transition-colors">
                   Remember me
                 </span>
               </label>
               <Link
                 href="#"
-                className="text-sm font-medium text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                className="text-sm font-medium text-slate-800 hover:underline transition-colors"
               >
                 Forgot Password?
               </Link>
             </div>
 
-            <Button type="submit" className="w-full h-12 mt-2">
+            <Button type="submit" className="w-full h-12 mt-2 bg-slate-900 text-white hover:bg-slate-800 transition-colors cursor-pointer">
               Sign In
             </Button>
 
             <div className="mt-4 text-center">
-              <p className="text-[var(--text-sub)] dark:text-slate-400 text-sm">
+            <p className="text-slate-700 text-sm">
                 Don&apos;t have an account?{' '}
-                <Link href="#" className="font-medium text-primary hover:underline ml-1">
+              <Link href="#" className="font-medium text-slate-800 hover:underline ml-1">
                   Contact Admin
                 </Link>
               </p>
             </div>
           </form>
 
-          <div className="mt-12 text-center lg:text-left border-t border-slate-200 dark:border-slate-800 pt-6">
-            <p className="text-xs text-[var(--text-sub)]/70 dark:text-slate-600">
-              Copyright © 2023 EEE Department. All rights reserved.
+          <div className="mt-12 text-center lg:text-left border-t border-slate-200 pt-6">
+            <p className="text-xs text-slate-700 text-center">
+              Copyright © EEE Department. All rights reserved.
             </p>
           </div>
         </div>
