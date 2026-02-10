@@ -33,7 +33,7 @@ export default function AdminReportsPage() {
 
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="flex flex-col gap-2">
-          <h1 className="text-slate-900 text-3xl md:text-4xl font-black leading-tight tracking-tight">
+          <h1 className="text-slate-900 text-xl md:text-2xl font-bold">
             Analytics & Reports
           </h1>
           <p className="text-slate-500 text-base max-w-2xl">
@@ -44,14 +44,14 @@ export default function AdminReportsPage() {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-sm text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors cursor-pointer"
           >
             <Download className="w-5 h-5" />
             Export All
           </button>
           <button
             type="button"
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20"
+            className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-bold cursor-pointer hover:bg-slate-800 transition-colors"
           >
             <FileText className="w-5 h-5" />
             Create Custom Report
@@ -63,20 +63,20 @@ export default function AdminReportsPage() {
         {kpiCards.map((card) => (
           <div
             key={card.label}
-            className="flex flex-col gap-2 p-5 rounded-xl border border-slate-200 bg-white shadow-sm"
+            className="flex flex-col gap-2 p-5 rounded-sm border border-slate-200 bg-white shadow-sm"
           >
             <div className="flex items-center justify-between">
-              <p className="text-slate-500 text-sm font-medium">
+              <p className="text-slate-700 text-sm font-medium">
                 {card.label}
               </p>
-              <span className="p-1.5 rounded-md bg-primary/10 text-primary">
+              <span className="p-1.5 rounded-md bg-primary/10 text-slate-800">
                 <card.icon className="w-4 h-4" />
               </span>
             </div>
             <p className="text-slate-900 text-2xl font-bold">
               {card.value}
             </p>
-            <p className="text-xs text-slate-400">{card.sub}</p>
+            <p className="text-xs text-slate-600">{card.sub}</p>
           </div>
         ))}
       </section>
@@ -84,7 +84,7 @@ export default function AdminReportsPage() {
       <section className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+            <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-slate-800">
               <Calendar className="w-4 h-4" />
             </div>
             <div>
@@ -98,7 +98,7 @@ export default function AdminReportsPage() {
           </div>
           <button
             type="button"
-            className="text-xs font-medium text-primary hover:text-blue-700"
+            className="text-xs font-medium text-slate-700 hover:text-slate-800 cursor-pointer"
           >
             Manage templates
           </button>
@@ -106,7 +106,7 @@ export default function AdminReportsPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
-            <thead className="bg-slate-50 text-xs font-semibold text-slate-500 uppercase">
+            <thead className="bg-slate-50 text-xs font-semibold text-slate-800 uppercase">
               <tr>
                 <th className="px-6 py-3">Report Name</th>
                 <th className="px-6 py-3">Scope</th>
@@ -121,25 +121,25 @@ export default function AdminReportsPage() {
                   <td className="px-6 py-4 font-medium text-slate-900">
                     {row.name}
                   </td>
-                  <td className="px-6 py-4 text-slate-600">
+                  <td className="px-6 py-4 text-slate-800">
                     {row.scope}
                   </td>
-                  <td className="px-6 py-4 text-slate-600">
+                  <td className="px-6 py-4 text-slate-800">
                     {row.lastRun}
                   </td>
-                  <td className="px-6 py-4 text-slate-600">
+                  <td className="px-6 py-4 text-slate-800">
                     {row.format}
                   </td>
                   <td className="px-6 py-4 text-right">
                     <button
                       type="button"
-                      className="text-primary text-xs font-semibold hover:underline mr-3"
+                      className="text-slate-700 text-xs font-semibold hover:underline mr-3 cursor-pointer"
                     >
                       Run now
                     </button>
                     <button
                       type="button"
-                      className="text-slate-500 text-xs hover:text-primary"
+                      className="text-slate-700 text-xs cursor-pointer"
                     >
                       Edit
                     </button>
