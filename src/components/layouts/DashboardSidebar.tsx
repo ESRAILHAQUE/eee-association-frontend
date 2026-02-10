@@ -41,6 +41,7 @@ export interface DashboardSidebarProps {
   subtitle: string;
   user?: { name: string; role: string; avatar?: string };
   showFooter?: boolean;
+  onLogout?: () => void;
 }
 
 export default function DashboardSidebar({
@@ -49,6 +50,7 @@ export default function DashboardSidebar({
   subtitle,
   user,
   showFooter = true,
+  onLogout,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const navItems = DASHBOARD_NAV[variant] as unknown as NavItem[];
@@ -135,13 +137,14 @@ export default function DashboardSidebar({
               <Settings className="w-5 h-5" />
               <span className="text-sm font-medium">Settings</span>
             </Link>
-            <Link
-              href="/login"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+            <button
+              type="button"
+              onClick={() => onLogout?.()}
+              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors text-left"
             >
               <LogOut className="w-5 h-5" />
               <span className="text-sm font-medium">Logout</span>
-            </Link>
+            </button>
           </div>
         )}
 

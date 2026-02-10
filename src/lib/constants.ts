@@ -14,6 +14,15 @@ export const THEME = {
   textSub: '#4c669a',
 } as const;
 
+/** Backend CurrentRole -> dashboard base path */
+export const ROLE_TO_DASHBOARD: Record<string, string> = {
+  super_admin: '/dashboard/super-admin',
+  admin: '/dashboard/admin',
+  cr: '/dashboard/cr',
+  moderator: '/dashboard/moderator',
+  student: '/dashboard/member',
+};
+
 export const ROUTES = {
   home: '/',
   login: '/login',

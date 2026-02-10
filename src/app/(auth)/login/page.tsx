@@ -5,16 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { User, Lock, Eye, EyeOff, Zap } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { ROUTES } from "@/lib/constants";
+import { ROUTES, ROLE_TO_DASHBOARD } from "@/lib/constants";
 import { login, setStoredToken, setStoredUser } from "@/lib/api";
-
-const ROLE_DASHBOARD: Record<string, string> = {
-  super_admin: ROUTES.superAdmin,
-  admin: ROUTES.admin,
-  cr: ROUTES.cr,
-  moderator: ROUTES.moderator,
-  student: ROUTES.member,
-};
 
 export default function LoginPage() {
   const router = useRouter();
@@ -35,12 +27,10 @@ export default function LoginPage() {
       const { accessToken, user } = res.data;
       setStoredToken(accessToken);
       setStoredUser(user);
-      if (user?.currentRole) {
-        const redirect = ROLE_DASHBOARD[user.currentRole] ?? ROUTES.member;
-        router.push(redirect);
-      } else {
-        router.push(ROUTES.member);
-      }
+      const redirect = user?.currentRole
+        ? (ROLE_TO_DASHBOARD[user.currentRole] ?? ROUTES.member)
+        : ROUTES.member;
+      router.push(redirect);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign in failed");
     } finally {

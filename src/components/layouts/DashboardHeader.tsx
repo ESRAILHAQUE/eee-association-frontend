@@ -13,6 +13,7 @@ export interface DashboardHeaderProps {
   user?: { name: string; role: string };
   /** Which dashboard role is currently active – used for profile menu links */
   role?: RoleKey;
+  onLogout?: () => void;
 }
 
 const demoNotifications = [
@@ -26,6 +27,7 @@ export default function DashboardHeader({
   searchPlaceholder = 'Search...',
   user = { name: 'Admin User', role: 'Super Admin' },
   role = 'superAdmin',
+  onLogout,
 }: DashboardHeaderProps) {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -205,12 +207,15 @@ export default function DashboardHeader({
                   </Link>
                 </nav>
                 <div className="border-t border-slate-200 mt-1 pt-1">
-                  <Link
-                    href="/login"
-                    className="block px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onLogout?.();
+                    }}
+                    className="block w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50"
                   >
                     Logout
-                  </Link>
+                  </button>
                 </div>
               </div>
             )}

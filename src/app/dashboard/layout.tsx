@@ -1,8 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import { getStoredUser } from "@/lib/api";
+import { getStoredToken, getStoredUser } from "@/lib/api";
+import { ROUTES, ROLE_TO_DASHBOARD } from "@/lib/constants";
 
 type Role = "admin" | "superAdmin" | "cr" | "moderator" | "member";
 
@@ -14,15 +16,54 @@ function getRoleFromPath(pathname: string): Role {
   return "admin";
 }
 
+/** User's currentRole from backend -> layout role key */
+function pathRoleMatchesUser(pathRole: Role, userRole: string | undefined): boolean {
+  if (!userRole) return false;
+  const map: Record<Role, string> = {
+    superAdmin: "super_admin",
+    admin: "admin",
+    cr: "cr",
+    moderator: "moderator",
+    member: "student",
+  };
+  return map[pathRole] === userRole;
+}
+
 export default function DashboardRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const role = getRoleFromPath(pathname);
+  const router = useRouter();
+  const [ready, setReady] = useState(false);
+  const pathRole = getRoleFromPath(pathname);
+  const token = getStoredToken();
   const user = getStoredUser();
-  const isPending = role === "member" && user?.isVerified === false;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!token || !user) {
+      router.replace(ROUTES.login);
+      return;
+    }
+    if (!pathRoleMatchesUser(pathRole, user.currentRole)) {
+      const dashboardPath = ROLE_TO_DASHBOARD[user.currentRole ?? "student"] ?? ROUTES.member;
+      router.replace(dashboardPath);
+      return;
+    }
+    setReady(true);
+  }, [pathname, pathRole, token, user, router]);
+
+  if (!ready || !token || !user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[var(--background)]">
+        <div className="text-slate-500">Loading...</div>
+      </div>
+    );
+  }
+
+  const isPending = pathRole === "member" && user?.isVerified === false;
 
   if (isPending) {
     return (
@@ -44,5 +85,5 @@ export default function DashboardRootLayout({
     );
   }
 
-  return <DashboardLayout role={role}>{children}</DashboardLayout>;
+  return <DashboardLayout role={pathRole} user={user}>{children}</DashboardLayout>;
 }

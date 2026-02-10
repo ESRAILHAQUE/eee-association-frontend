@@ -1,8 +1,55 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { User, Mail, Phone, School, Calendar } from 'lucide-react';
+import { fetchProfile } from '@/lib/api';
 
 export default function MemberProfilePage() {
+  const [data, setData] = useState<Awaited<ReturnType<typeof fetchProfile>> | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchProfile()
+      .then((res) => {
+        if (!cancelled) setData(res);
+      })
+      .catch((e) => {
+        if (!cancelled) setError(e instanceof Error ? e.message : 'Failed to load profile');
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-6 w-full max-w-3xl">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">Profile</h1>
+        <div className="rounded-xl border border-slate-200 bg-surface p-8 text-center text-slate-500">
+          Loading profile...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col gap-6 w-full max-w-3xl">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">Profile</h1>
+        <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-red-800">
+          {error}
+        </div>
+      </div>
+    );
+  }
+
+  const user = data?.user;
+  const profile = data?.profile as Record<string, unknown> | null | undefined;
+  const pending = data?.pending ?? false;
+
   return (
     <div className="flex flex-col gap-6 w-full max-w-3xl">
       <header className="space-y-2">
@@ -10,7 +57,9 @@ export default function MemberProfilePage() {
           Profile
         </h1>
         <p className="text-slate-500">
-          Basic student profile for a general association member. Later this can be connected to the university SSO.
+          {pending
+            ? 'Your account is pending verification. Full profile will be available after admin approval.'
+            : 'Your profile information from the association database.'}
         </p>
       </header>
 
@@ -20,24 +69,58 @@ export default function MemberProfilePage() {
             <User className="w-8 h-8" />
           </div>
           <div className="space-y-1">
-            <h2 className="text-xl font-semibold text-slate-900">General Student</h2>
-            <p className="text-sm text-slate-500">Department of EEE · Batch 2024</p>
+            <h2 className="text-xl font-semibold text-slate-900">
+              {user?.fullName ?? '—'}
+            </h2>
+            <p className="text-sm text-slate-500">
+              {user?.registrationNumber
+                ? `Reg. ${user.registrationNumber}`
+                : ''}
+              {profile?.department ? ` · ${String(profile.department)}` : ''}
+              {profile?.batch ? ` · Batch ${String(profile.batch)}` : ''}
+            </p>
           </div>
         </div>
 
         <dl className="grid gap-4 md:grid-cols-2 text-sm">
-          <InfoRow icon={Mail} label="Email" value="student@example.com" />
-          <InfoRow icon={Phone} label="Phone" value="+880 1700-000000" />
-          <InfoRow icon={School} label="Student ID" value="2024-EEE-021" />
-          <InfoRow icon={Calendar} label="Joined association" value="Jan 2024" />
+          <InfoRow
+            icon={Mail}
+            label="Institutional Email"
+            value={user?.institutionalEmail ?? '—'}
+          />
+          <InfoRow
+            icon={Mail}
+            label="Personal Email"
+            value={profile?.personalEmail ? String(profile.personalEmail) : '—'}
+          />
+          <InfoRow
+            icon={Phone}
+            label="Phone"
+            value={profile?.phoneNumber ? String(profile.phoneNumber) : '—'}
+          />
+          <InfoRow
+            icon={School}
+            label="Registration / Student ID"
+            value={user?.registrationNumber ?? (profile?.rollNumber ? String(profile.rollNumber) : '—')}
+          />
+          <InfoRow
+            icon={School}
+            label="Batch"
+            value={profile?.batch ? String(profile.batch) : '—'}
+          />
+          <InfoRow
+            icon={Calendar}
+            label="Joined / Updated"
+            value={profile?.createdAt ? new Date(String(profile.createdAt)).toLocaleDateString() : '—'}
+          />
         </dl>
 
-        <div className="border-t border-dashed border-slate-200 pt-4">
-          <p className="text-xs text-slate-500">
-            This screen is only a **frontend reference**. Actual profile data (photo, contact, academic details) can later
-            come from your authentication system or university database.
-          </p>
-        </div>
+        {profile?.address && (
+          <div className="border-t border-dashed border-slate-200 pt-4">
+            <span className="text-xs text-slate-500">Address</span>
+            <p className="text-sm text-slate-900 mt-1">{String(profile.address)}</p>
+          </div>
+        )}
       </section>
     </div>
   );
@@ -62,4 +145,3 @@ function InfoRow({ icon: Icon, label, value }: InfoRowProps) {
     </div>
   );
 }
-

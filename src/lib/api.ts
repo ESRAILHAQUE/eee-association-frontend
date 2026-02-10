@@ -98,3 +98,41 @@ export function clearStoredAuth(): void {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("user");
 }
+
+/** Profile + user from backend (when verified, profile may contain UserProfile fields) */
+export interface ProfileResponse {
+  success: boolean;
+  data: {
+    user: AuthUser;
+    profile?: UserProfile | null;
+    pending: boolean;
+  };
+}
+
+export interface UserProfile {
+  id?: string;
+  registrationNumber?: string;
+  rollNumber?: string | null;
+  batch?: string | null;
+  session?: string | null;
+  department?: string | null;
+  program?: string | null;
+  enrollmentYear?: number | null;
+  personalEmail?: string | null;
+  phoneNumber?: string | null;
+  address?: string | null;
+  createdAt?: string;
+  [key: string]: unknown;
+}
+
+export async function fetchProfile(): Promise<ProfileResponse["data"]> {
+  const token = getStoredToken();
+  if (!token) throw new Error("Not authenticated");
+  const res = await fetch(`${API_BASE}/auth/me`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data?.message ?? data?.error ?? "Failed to load profile");
+  if (!data.success || !data.data) throw new Error("Invalid profile response");
+  return data.data;
+}
