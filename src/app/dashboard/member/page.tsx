@@ -28,7 +28,7 @@ const upcomingEvents = [
     date: 'OCT 24',
     time: '2:00 PM',
     type: 'Workshop',
-    typeColor: 'bg-blue-100 dark:bg-blue-900/30 text-primary',
+    typeColor: 'bg-blue-100 text-primary',
     excerpt: 'Learn the basics of microcontrollers and sensor integration in this hands-on session.',
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400',
     cta: 'Register Now',
@@ -39,7 +39,7 @@ const upcomingEvents = [
     date: 'NOV 02',
     time: '10:00 AM',
     type: 'Seminar',
-    typeColor: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
+    typeColor: 'bg-purple-100 text-purple-600',
     excerpt: 'Guest lecture by Dr. Sarah Chen on renewable energy integration in modern grids.',
     image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400',
     cta: 'View Details',
@@ -98,7 +98,7 @@ export default function MemberDashboardPage() {
 
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Upcoming Events</h3>
+              <h3 className="text-lg font-bold text-slate-900">Upcoming Events</h3>
               <Link href="/dashboard/member/events" className="text-sm text-primary font-medium hover:underline">
                 View all
               </Link>
@@ -107,10 +107,10 @@ export default function MemberDashboardPage() {
               {upcomingEvents.map((event) => (
                 <div
                   key={event.title}
-                  className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden group hover:shadow-md transition-all"
+                  className="bg-white rounded-xl border border-slate-200 overflow-hidden group hover:shadow-md transition-all"
                 >
                   <div className="h-32 w-full bg-cover bg-center relative" style={{ backgroundImage: `url(${event.image})` }}>
-                    <div className="absolute top-3 right-3 bg-white/90 dark:bg-black/80 backdrop-blur text-xs font-bold px-2 py-1 rounded text-slate-900 dark:text-white shadow-sm">
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-slate-900 shadow-sm">
                       {event.date}
                     </div>
                   </div>
@@ -119,15 +119,15 @@ export default function MemberDashboardPage() {
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wide ${event.typeColor}`}>
                         {event.type}
                       </span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      <span className="text-xs text-slate-500 flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" />
                         {event.time}
                       </span>
                     </div>
-                    <h4 className="font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">
+                    <h4 className="font-bold text-slate-900 mb-1 group-hover:text-primary transition-colors">
                       {event.title}
                     </h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">
+                    <p className="text-sm text-slate-500 mb-4 line-clamp-2">
                       {event.excerpt}
                     </p>
                     <button
@@ -135,7 +135,7 @@ export default function MemberDashboardPage() {
                       className={`w-full py-2 rounded-lg text-sm font-medium transition-colors ${
                         event.primary
                           ? 'bg-primary text-white hover:bg-blue-700'
-                          : 'border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          : 'border border-slate-200 text-slate-700 hover:bg-slate-50'
                       }`}
                     >
                       {event.cta}
@@ -147,18 +147,18 @@ export default function MemberDashboardPage() {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Quick Resources</h3>
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Quick Resources</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {quickResources.map((r) => (
                 <Link
                   key={r.label}
                   href="#"
-                  className="flex flex-col items-center justify-center p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-primary/50 hover:shadow-md transition-all group"
+                  className="flex flex-col items-center justify-center p-4 bg-white border border-slate-200 rounded-xl hover:border-primary/50 hover:shadow-md transition-all group"
                 >
-                  <div className="h-12 w-12 rounded-full bg-blue-50 dark:bg-blue-900/20 text-primary flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <div className="h-12 w-12 rounded-full bg-blue-50 text-primary flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                     <r.icon className="w-6 h-6" />
                   </div>
-                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <span className="text-sm font-medium text-slate-700">
                     {r.label}
                   </span>
                 </Link>
@@ -168,10 +168,10 @@ export default function MemberDashboardPage() {
         </div>
 
         <div className="flex flex-col gap-6">
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+          <div className="bg-white rounded-xl border border-slate-200 p-6">
             <div className="flex items-center gap-2 mb-4">
               <Megaphone className="w-5 h-5 text-primary" />
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Latest Notices</h3>
+              <h3 className="text-lg font-bold text-slate-900">Latest Notices</h3>
             </div>
             <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2">
               {latestNotices.map((notice) => (
@@ -179,19 +179,19 @@ export default function MemberDashboardPage() {
                   key={notice.title}
                   className={`p-3 rounded-lg border-l-4 ${
                     notice.urgent
-                      ? 'bg-red-50 dark:bg-red-900/10 border-red-500'
-                      : 'bg-slate-50 dark:bg-slate-800/50 border-slate-300 dark:border-slate-600'
+                      ? 'bg-red-50 border-red-500'
+                      : 'bg-slate-50 border-slate-300'
                   }`}
                 >
                   <div className="flex justify-between items-start mb-1">
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">{notice.title}</h4>
+                    <h4 className="text-sm font-bold text-slate-900">{notice.title}</h4>
                     {notice.badge && (
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                      <span className="text-[10px] text-slate-500 bg-white px-1.5 py-0.5 rounded">
                         New
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-600 leading-relaxed">
                     {notice.body}
                   </p>
                 </div>
@@ -205,14 +205,14 @@ export default function MemberDashboardPage() {
             </button>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+          <div className="bg-white rounded-xl border border-slate-200 p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">October 2023</h3>
+              <h3 className="text-lg font-bold text-slate-900">October 2023</h3>
               <div className="flex gap-1">
-                <button type="button" className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500">
+                <button type="button" className="p-1 hover:bg-slate-100 rounded text-slate-500">
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <button type="button" className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500">
+                <button type="button" className="p-1 hover:bg-slate-100 rounded text-slate-500">
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
@@ -228,7 +228,7 @@ export default function MemberDashboardPage() {
             </div>
             <div className="grid grid-cols-7 gap-1 text-center text-sm">
               {[28, 29, 30].map((d) => (
-                <div key={d} className="p-1.5 text-slate-300 dark:text-slate-600">
+                <div key={d} className="p-1.5 text-slate-300">
                   {d}
                 </div>
               ))}
@@ -238,7 +238,7 @@ export default function MemberDashboardPage() {
                   className={`p-1.5 rounded cursor-pointer ${
                     d === 24
                       ? 'bg-primary text-white font-bold shadow-md shadow-primary/30'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+                      : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   {d}

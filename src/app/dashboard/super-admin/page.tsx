@@ -19,7 +19,7 @@ const statCards = [
     value: '1,240',
     sub: '+5.2% vs last month',
     icon: Users,
-    iconBg: 'bg-blue-50 dark:bg-blue-900/20 text-primary',
+    iconBg: 'bg-blue-50 text-primary',
     trendUp: true,
   },
   {
@@ -27,7 +27,7 @@ const statCards = [
     value: '$12,500',
     sub: '+12% vs last month',
     icon: DollarSign,
-    iconBg: 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-500',
+    iconBg: 'bg-green-50 text-green-600',
     trendUp: true,
   },
   {
@@ -35,7 +35,7 @@ const statCards = [
     value: '3',
     sub: 'Next: Spring Hackathon (4d)',
     icon: Calendar,
-    iconBg: 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-500',
+    iconBg: 'bg-purple-50 text-purple-600',
     trendUp: false,
   },
   {
@@ -43,7 +43,7 @@ const statCards = [
     value: '0',
     sub: 'System Healthy',
     icon: AlertTriangle,
-    iconBg: 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-500',
+    iconBg: 'bg-orange-50 text-orange-600',
     trendUp: false,
   },
 ];
@@ -78,12 +78,12 @@ export default function SuperAdminDashboardPage() {
         {statCards.map((card) => (
           <div
             key={card.label}
-            className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32"
+            className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between h-32"
           >
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{card.label}</p>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-1">{card.value}</h3>
+                <p className="text-sm font-medium text-slate-500">{card.label}</p>
+                <h3 className="text-2xl font-bold text-slate-900 mt-1">{card.value}</h3>
               </div>
               <div className={`p-2 rounded-lg ${card.iconBg}`}>
                 <card.icon className="w-5 h-5" />
@@ -92,13 +92,13 @@ export default function SuperAdminDashboardPage() {
             <div className="flex items-center gap-1 text-sm font-medium">
               {card.trendUp ? (
                 <>
-                  <TrendingUp className="w-4 h-4 text-green-600 dark:text-green-400" />
-                  <span className="text-green-600 dark:text-green-400">{card.sub}</span>
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                  <span className="text-green-600">{card.sub}</span>
                 </>
               ) : card.label === 'System Alerts' ? (
                 <>
-                  <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
-                  <span className="text-green-600 dark:text-green-400">{card.sub}</span>
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span className="text-green-600">{card.sub}</span>
                 </>
               ) : (
                 <span className="text-slate-400">{card.sub}</span>
@@ -109,15 +109,15 @@ export default function SuperAdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Financial Overview</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <h3 className="text-lg font-bold text-slate-900">Financial Overview</h3>
+              <p className="text-sm text-slate-500">
                 Revenue collection over the current academic year
               </p>
             </div>
-            <button type="button" className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500">
+            <button type="button" className="p-2 hover:bg-slate-100 rounded-lg text-slate-500">
               <MoreHorizontal className="w-5 h-5" />
             </button>
           </div>
@@ -132,7 +132,7 @@ export default function SuperAdminDashboardPage() {
                     className={`w-full max-w-[40px] rounded-t-sm transition-all relative ${
                       bar.active
                         ? 'bg-primary shadow-lg shadow-primary/20'
-                        : 'bg-primary/20 dark:bg-primary/30 group-hover:bg-primary/40'
+                        : 'bg-primary/20 group-hover:bg-primary/40'
                     }`}
                     style={{ height: `${bar.value}%` }}
                   >
@@ -141,7 +141,7 @@ export default function SuperAdminDashboardPage() {
                     </div>
                   </div>
                   <span
-                    className={`text-xs font-medium ${bar.active ? 'text-slate-900 dark:text-white font-bold' : 'text-slate-500'}`}
+                    className={`text-xs font-medium ${bar.active ? 'text-slate-900 font-bold' : 'text-slate-500'}`}
                   >
                     {bar.month}
                   </span>
@@ -152,22 +152,22 @@ export default function SuperAdminDashboardPage() {
         </div>
 
         <div className="flex flex-col gap-6">
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Quick Actions</h3>
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Quick Actions</h3>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
-                className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 transition-all"
+                className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-100 transition-all"
               >
                 <UserPlus className="w-7 h-7 text-primary" />
-                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Add Admin</span>
+                <span className="text-xs font-semibold text-slate-700">Add Admin</span>
               </button>
               <button
                 type="button"
-                className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 transition-all"
+                className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-100 transition-all"
               >
                 <Download className="w-7 h-7 text-primary" />
-                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Export Report</span>
+                <span className="text-xs font-semibold text-slate-700">Export Report</span>
               </button>
               <button
                 type="button"
@@ -179,10 +179,10 @@ export default function SuperAdminDashboardPage() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 flex-1">
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex-1">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Pending Approval</h3>
-              <span className="bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-400 text-xs font-bold px-2 py-0.5 rounded-full">
+              <h3 className="text-lg font-bold text-slate-900">Pending Approval</h3>
+              <span className="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-0.5 rounded-full">
                 3 New
               </span>
             </div>
@@ -191,13 +191,13 @@ export default function SuperAdminDashboardPage() {
                 <button
                   key={item.name}
                   type="button"
-                  className="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg transition-colors cursor-pointer w-full text-left"
+                  className="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer w-full text-left"
                 >
-                  <div className="bg-slate-200 dark:bg-slate-700 h-10 w-10 rounded-full flex items-center justify-center text-slate-500 font-bold text-sm shrink-0">
+                  <div className="bg-slate-200 h-10 w-10 rounded-full flex items-center justify-center text-slate-500 font-bold text-sm shrink-0">
                     {item.initials}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">
+                    <p className="text-sm font-semibold text-slate-900 truncate">
                       {item.name}
                     </p>
                     <p className="text-xs text-slate-500 truncate">{item.detail}</p>
@@ -210,16 +210,16 @@ export default function SuperAdminDashboardPage() {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white">Recent Activity Logs</h3>
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="text-lg font-bold text-slate-900">Recent Activity Logs</h3>
           <button type="button" className="text-sm text-primary font-medium hover:underline">
             View All
           </button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-800/50">
+            <thead className="text-xs text-slate-500 uppercase bg-slate-50">
               <tr>
                 <th className="px-6 py-3 font-semibold">Timestamp</th>
                 <th className="px-6 py-3 font-semibold">User</th>
@@ -228,24 +228,24 @@ export default function SuperAdminDashboardPage() {
                 <th className="px-6 py-3 font-semibold">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-200">
               {activityLogs.map((log) => (
                 <tr
                   key={log.time + log.user}
-                  className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                  className="bg-white hover:bg-slate-50 transition-colors"
                 >
-                  <td className="px-6 py-4 whitespace-nowrap text-slate-500 dark:text-slate-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-slate-500">
                     {log.time}
                   </td>
-                  <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">{log.user}</td>
-                  <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{log.action}</td>
+                  <td className="px-6 py-4 font-medium text-slate-900">{log.user}</td>
+                  <td className="px-6 py-4 text-slate-600">{log.action}</td>
                   <td className="px-6 py-4 text-slate-500 font-mono text-xs">{log.ip}</td>
                   <td className="px-6 py-4">
                     <span
                       className={`text-xs font-medium px-2.5 py-0.5 rounded border ${
                         log.status === 'Success'
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800'
-                          : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border-red-200 dark:border-red-800'
+                          ? 'bg-green-100 text-green-800 border-green-200'
+                          : 'bg-red-100 text-red-800 border-red-200'
                       }`}
                     >
                       {log.status}

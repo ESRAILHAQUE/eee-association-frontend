@@ -14,10 +14,10 @@ export default function SuperAdminUsersPage() {
     <div className="flex flex-col gap-6 w-full max-w-6xl">
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
             User Management
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
+          <p className="text-slate-500 max-w-2xl">
             Manage all association users across roles. Control access for Super Admins, Admins, CRs, Moderators and Members
             from a single place.
           </p>
@@ -25,7 +25,7 @@ export default function SuperAdminUsersPage() {
         <div className="flex gap-3 w-full md:w-auto">
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
           >
             <Filter className="w-4 h-4" />
             Filters
@@ -41,24 +41,24 @@ export default function SuperAdminUsersPage() {
       </header>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex-1 flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-3 py-2">
+        <div className="flex-1 flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
           <Search className="w-4 h-4 text-slate-400" />
           <input
             type="text"
             placeholder="Search by name, email or role..."
-            className="w-full bg-transparent border-0 text-sm outline-none placeholder:text-slate-400 text-slate-900 dark:text-slate-100"
+            className="w-full bg-transparent border-0 text-sm outline-none placeholder:text-slate-400 text-slate-900"
           />
         </div>
-        <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 text-emerald-700 dark:text-emerald-300">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500">
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-emerald-700">
             <ShieldCheck className="w-3 h-3" />
             Role-based access enforced
           </span>
         </div>
       </div>
 
-      <section className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-slate-900">
-        <div className="grid grid-cols-12 gap-4 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+      <section className="overflow-hidden rounded-xl border border-slate-200 bg-surface">
+        <div className="grid grid-cols-12 gap-4 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 border-b border-slate-200">
           <div className="col-span-4 flex items-center gap-2">
             <User className="w-4 h-4" />
             User
@@ -68,26 +68,26 @@ export default function SuperAdminUsersPage() {
           <div className="col-span-3">Last active</div>
           <div className="col-span-1 text-right">Actions</div>
         </div>
-        <div className="divide-y divide-slate-200 dark:divide-slate-800">
+        <div className="divide-y divide-slate-200">
           {users.map((user) => (
             <div
               key={user.email}
-              className="grid grid-cols-12 gap-4 px-4 py-3 text-sm items-center hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+              className="grid grid-cols-12 gap-4 px-4 py-3 text-sm items-center hover:bg-slate-50 transition-colors"
             >
               <div className="col-span-4 flex items-center gap-3">
-                <div className="size-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-200">
+                <div className="size-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600">
                   {user.name.charAt(0)}
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-slate-900 dark:text-slate-50">{user.name}</span>
-                  <span className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                  <span className="font-medium text-slate-900">{user.name}</span>
+                  <span className="flex items-center gap-1 text-xs text-slate-500">
                     <Mail className="w-3 h-3" />
                     {user.email}
                   </span>
                 </div>
               </div>
               <div className="col-span-2">
-                <span className="inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-200">
+                <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
                   {user.role}
                 </span>
               </div>
@@ -95,18 +95,18 @@ export default function SuperAdminUsersPage() {
                 <span
                   className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
                     user.status === 'Active'
-                      ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
-                      : 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+                      ? 'bg-emerald-50 text-emerald-700'
+                      : 'bg-amber-50 text-amber-700'
                   }`}
                 >
                   {user.status}
                 </span>
               </div>
-              <div className="col-span-3 text-slate-500 dark:text-slate-400">{user.lastActive}</div>
+              <div className="col-span-3 text-slate-500">{user.lastActive}</div>
               <div className="col-span-1 flex justify-end">
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 p-1.5 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-200 p-1.5 text-slate-500 hover:bg-slate-100"
                 >
                   <MoreHorizontal className="w-4 h-4" />
                 </button>

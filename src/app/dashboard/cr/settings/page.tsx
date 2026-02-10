@@ -6,49 +6,49 @@ export default function CrSettingsPage() {
   return (
     <div className="flex flex-col gap-6 w-full max-w-3xl">
       <header className="space-y-2">
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
           CR Settings
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
+        <p className="text-slate-500 max-w-2xl">
           Personal preferences for the Class Representative dashboard for Batch 2024.
         </p>
       </header>
 
       <section className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-slate-900 p-5 flex flex-col gap-4">
+        <div className="rounded-xl border border-slate-200 bg-surface p-5 flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <div className="mt-1 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-primary p-2">
+            <div className="mt-1 rounded-lg bg-blue-50 text-primary p-2">
               <Users className="w-4 h-4" />
             </div>
             <div className="space-y-1">
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">Batch</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <h2 className="text-sm font-semibold text-slate-900">Batch</h2>
+              <p className="text-xs text-slate-500">
                 Basic information for the batch you manage. Actual data can be synced from the backend later.
               </p>
             </div>
           </div>
           <div className="space-y-3 text-sm">
             <div className="flex items-center justify-between gap-4">
-              <span className="text-slate-700 dark:text-slate-200">Current batch</span>
-              <span className="inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-200">
+              <span className="text-slate-700">Current batch</span>
+              <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
                 EEE Batch 2024
               </span>
             </div>
             <div className="flex items-center justify-between gap-4">
-              <span className="text-slate-700 dark:text-slate-200">Total students (display only)</span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">60</span>
+              <span className="text-slate-700">Total students (display only)</span>
+              <span className="text-xs text-slate-500">60</span>
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-slate-900 p-5 flex flex-col gap-4">
+        <div className="rounded-xl border border-slate-200 bg-surface p-5 flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <div className="mt-1 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-300 p-2">
+            <div className="mt-1 rounded-lg bg-emerald-50 text-emerald-600 p-2">
               <Bell className="w-4 h-4" />
             </div>
             <div className="space-y-1">
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">Notifications</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <h2 className="text-sm font-semibold text-slate-900">Notifications</h2>
+              <p className="text-xs text-slate-500">
                 When should the CR receive alerts for their batch.
               </p>
             </div>
@@ -60,14 +60,14 @@ export default function CrSettingsPage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-slate-900 p-5 flex flex-col gap-4 md:col-span-2">
+        <div className="rounded-xl border border-slate-200 bg-surface p-5 flex flex-col gap-4 md:col-span-2">
           <div className="flex items-start gap-3">
-            <div className="mt-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-2">
+            <div className="mt-1 rounded-lg bg-slate-100 text-slate-700 p-2">
               <ClipboardList className="w-4 h-4" />
             </div>
             <div className="space-y-1">
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">Task list</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <h2 className="text-sm font-semibold text-slate-900">Task list</h2>
+              <p className="text-xs text-slate-500">
                 How the to-do items on your dashboard should be ordered.
               </p>
             </div>
@@ -90,7 +90,7 @@ interface SettingToggleProps {
 function SettingToggle({ label, defaultChecked }: SettingToggleProps) {
   return (
     <label className="flex items-center justify-between gap-4">
-      <span className="text-slate-700 dark:text-slate-200 text-sm">{label}</span>
+      <span className="text-slate-700 text-sm">{label}</span>
       <input
         type="checkbox"
         defaultChecked={defaultChecked}
