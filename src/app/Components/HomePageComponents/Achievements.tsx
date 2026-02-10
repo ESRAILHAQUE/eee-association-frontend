@@ -51,7 +51,7 @@ export default function Achievements() {
                 </div>
               </div>
               <div className="p-6">
-                <div className="flex items-center mb-4">s
+                <div className="flex items-center mb-4">
                   <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mr-3 shadow-md">
                     <Trophy className="w-5 h-5 text-white" />
                   </div>

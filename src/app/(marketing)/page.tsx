@@ -40,7 +40,7 @@ export default function Home() {
       <Achievements />
       <Clubs />
       <Events />
-      <Newsletter />
+   
     </div>
   );
 }
