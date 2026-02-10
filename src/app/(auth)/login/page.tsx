@@ -70,7 +70,7 @@ export default function LoginPage() {
                 </div>
                 <input
                   type="text"
-                  placeholder="2023-EEE-001"
+                  placeholder="2020338501"
                   required
                   className="flex-1 w-full h-14 bg-white text-slate-900 px-4 focus:outline-none text-base"
                 />
