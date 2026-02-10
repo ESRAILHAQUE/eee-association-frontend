@@ -33,7 +33,11 @@ const iconMap = {
 };
 
 type NavKey = keyof typeof DASHBOARD_NAV;
-type NavItem = { href: string; label: string; icon: keyof typeof iconMap | "Logo" };
+type NavItem = {
+  href: string;
+  label: string;
+  icon: keyof typeof iconMap | "Logo";
+};
 
 export interface DashboardSidebarProps {
   variant: NavKey;
@@ -90,24 +94,27 @@ export default function DashboardSidebar({
         <nav className="flex flex-col gap-2 flex-1">
           {navItems.map((item) => {
             const isLogoIcon = item.icon === "Logo";
-            const Icon = !isLogoIcon ? iconMap[item.icon as keyof typeof iconMap] : null;
+            const Icon = !isLogoIcon
+              ? iconMap[item.icon as keyof typeof iconMap]
+              : null;
             // Role-base (e.g. /dashboard/cr) must match exactly so sub-routes don't highlight Dashboard
-            const segmentCount = item.href.split('/').filter(Boolean).length;
+            const segmentCount = item.href.split("/").filter(Boolean).length;
             const isRoleBase = segmentCount === 2;
             const isActive =
               pathname === item.href ||
-              (item.href !== '#' && !isRoleBase && pathname.startsWith(item.href + '/'));
+              (item.href !== "#" &&
+                !isRoleBase &&
+                pathname.startsWith(item.href + "/"));
             return (
               <Link
                 key={item.href + item.label}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                   isActive
-                    ? 'bg-[#0F172B] text-white'
-                    : 'text-slate-700 hover:bg-slate-100'
-                )}
-              >
+                    ? "bg-[#0F172B] text-white"
+                    : "text-slate-700 hover:bg-slate-100",
+                )}>
                 {isLogoIcon ? (
                   <div className="w-5 h-5 rounded-md bg-white/90 flex items-center justify-center shrink-0 overflow-hidden">
                     <Image
@@ -132,16 +139,14 @@ export default function DashboardSidebar({
           <div className="flex flex-col gap-2 border-t border-slate-200 pt-4">
             <Link
               href={settingsHref}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
-            >
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors">
               <Settings className="w-5 h-5" />
               <span className="text-sm font-medium">Settings</span>
             </Link>
             <button
               type="button"
               onClick={() => onLogout?.()}
-              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors text-left"
-            >
+              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors text-left">
               <LogOut className="w-5 h-5" />
               <span className="text-sm font-medium">Logout</span>
             </button>
@@ -152,7 +157,9 @@ export default function DashboardSidebar({
           <div className="flex items-center gap-3 px-3 py-2 border-t border-slate-200 pt-4 mt-auto">
             <div className="size-9 rounded-full bg-slate-200 bg-cover bg-center shrink-0" />
             <div className="flex flex-col min-w-0">
-              <p className="text-sm font-medium text-slate-900 truncate">{user.name}</p>
+              <p className="text-sm font-medium text-slate-900 truncate">
+                {user.name}
+              </p>
               <p className="text-xs text-slate-500 truncate">{user.role}</p>
             </div>
           </div>

@@ -115,12 +115,12 @@ export default function MemberProfilePage() {
           />
         </dl>
 
-        {profile?.address && (
+        {profile?.address != null && profile.address !== '' ? (
           <div className="border-t border-dashed border-slate-200 pt-4">
             <span className="text-xs text-slate-500">Address</span>
             <p className="text-sm text-slate-900 mt-1">{String(profile.address)}</p>
           </div>
-        )}
+        ) : null}
       </section>
     </div>
   );

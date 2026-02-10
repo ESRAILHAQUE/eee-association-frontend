@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import { Search, Bell, ChevronDown } from 'lucide-react';
-import { ROUTES, DASHBOARD_NAV } from '@/lib/constants';
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { Search, Bell, ChevronDown } from "lucide-react";
+import { ROUTES, DASHBOARD_NAV } from "@/lib/constants";
 
-type RoleKey = 'admin' | 'superAdmin' | 'cr' | 'moderator' | 'member';
+type RoleKey = "admin" | "superAdmin" | "cr" | "moderator" | "member";
 
 export interface DashboardHeaderProps {
   title: string;
@@ -16,16 +16,31 @@ export interface DashboardHeaderProps {
 }
 
 const demoNotifications = [
-  { id: 1, title: 'New notice posted', body: 'Mid-term exam schedule has been published.', time: '5 min ago' },
-  { id: 2, title: 'Upcoming event', body: 'Workshop on Embedded Systems starts tomorrow.', time: '1 day ago' },
-  { id: 3, title: 'Payment reminder', body: 'Membership fee due next week.', time: '3 days ago' },
+  {
+    id: 1,
+    title: "New notice posted",
+    body: "Mid-term exam schedule has been published.",
+    time: "5 min ago",
+  },
+  {
+    id: 2,
+    title: "Upcoming event",
+    body: "Workshop on Embedded Systems starts tomorrow.",
+    time: "1 day ago",
+  },
+  {
+    id: 3,
+    title: "Payment reminder",
+    body: "Membership fee due next week.",
+    time: "3 days ago",
+  },
 ];
 
 export default function DashboardHeader({
   title,
-  searchPlaceholder = 'Search...',
-  user = { name: 'Admin User', role: 'Super Admin' },
-  role = 'superAdmin',
+  searchPlaceholder = "Search...",
+  user = { name: "Admin User", role: "Super Admin" },
+  role = "superAdmin",
   onLogout,
 }: DashboardHeaderProps) {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -48,8 +63,8 @@ export default function DashboardHeader({
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleToggleNotifications = () => {
@@ -73,37 +88,41 @@ export default function DashboardHeader({
   };
 
   const dashboardHome =
-    role === 'admin'
+    role === "admin"
       ? ROUTES.admin
-      : role === 'superAdmin'
+      : role === "superAdmin"
         ? ROUTES.superAdmin
-        : role === 'cr'
+        : role === "cr"
           ? ROUTES.cr
-          : role === 'moderator'
+          : role === "moderator"
             ? ROUTES.moderator
             : ROUTES.member;
 
   const settingsRoute =
-    role === 'admin'
+    role === "admin"
       ? ROUTES.adminSettings
-      : role === 'superAdmin'
+      : role === "superAdmin"
         ? ROUTES.superAdminSettings
-        : role === 'cr'
+        : role === "cr"
           ? ROUTES.crSettings
-          : role === 'moderator'
+          : role === "moderator"
             ? ROUTES.moderatorSettings
             : ROUTES.memberSettings;
 
-  const profileRoute = role === 'member' ? ROUTES.memberProfile : undefined;
+  const profileRoute = role === "member" ? ROUTES.memberProfile : undefined;
 
   // Sidebar-equivalent routes for mobile dropdown (exclude base dashboard + settings)
   const mobileNavItems = [...DASHBOARD_NAV[role]]
-    .filter((item) => item.href !== dashboardHome && item.href !== settingsRoute)
+    .filter(
+      (item) => item.href !== dashboardHome && item.href !== settingsRoute,
+    )
     .map((item) => ({ href: item.href, label: item.label }));
 
   return (
     <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 sticky top-0 z-10 shrink-0">
-      <h2 className="text-slate-900 text-xl font-bold leading-tight">{title}</h2>
+      <h2 className="text-slate-900 text-xl font-bold leading-tight">
+        {title}
+      </h2>
       <div className="flex items-center gap-6">
         <div className="hidden md:flex relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-900" />
@@ -119,8 +138,7 @@ export default function DashboardHeader({
             <button
               type="button"
               onClick={handleToggleNotifications}
-              className="relative p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
-            >
+              className="relative p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
               <Bell className="w-5 h-5" />
               {hasUnread && (
                 <span className="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white" />
@@ -129,12 +147,13 @@ export default function DashboardHeader({
             {isNotificationsOpen && (
               <div className="absolute right-0 mt-2 w-80 rounded-xl border border-slate-200 bg-white shadow-lg shadow-slate-900/10 text-sm">
                 <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
-                  <span className="font-semibold text-slate-900">Notifications</span>
+                  <span className="font-semibold text-slate-900">
+                    Notifications
+                  </span>
                   <button
                     type="button"
                     className="text-xs font-medium text-primary hover:underline"
-                    onClick={() => setHasUnread(false)}
-                  >
+                    onClick={() => setHasUnread(false)}>
                     Mark all as read
                   </button>
                 </div>
@@ -142,10 +161,11 @@ export default function DashboardHeader({
                   {demoNotifications.map((item) => (
                     <div
                       key={item.id}
-                      className="px-4 py-3 border-b last:border-b-0 border-slate-100 hover:bg-slate-50 cursor-pointer"
-                    >
+                      className="px-4 py-3 border-b last:border-b-0 border-slate-100 hover:bg-slate-50 cursor-pointer">
                       <p className="text-xs text-slate-500">{item.time}</p>
-                      <p className="text-sm font-medium text-slate-900">{item.title}</p>
+                      <p className="text-sm font-medium text-slate-900">
+                        {item.title}
+                      </p>
                       <p className="text-xs text-slate-500">{item.body}</p>
                     </div>
                   ))}
@@ -161,26 +181,33 @@ export default function DashboardHeader({
               onClick={handleToggleProfile}
               className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-lg hover:bg-slate-100 transition-colors min-w-0"
               aria-expanded={isProfileOpen}
-              aria-haspopup="true"
-            >
+              aria-haspopup="true">
               <div className="size-9 rounded-full bg-primary/10 text-primary shrink-0 flex items-center justify-center font-semibold text-sm">
                 {user.name ? user.name.charAt(0).toUpperCase() : "?"}
               </div>
               <div className="hidden lg:flex flex-col items-start mr-2 min-w-0">
-                <span className="text-sm font-semibold text-slate-900 truncate">{user.name}</span>
+                <span className="text-sm font-semibold text-slate-900 truncate">
+                  {user.name}
+                </span>
                 <span className="text-xs text-slate-500">{user.role}</span>
               </div>
-              <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 hidden lg:block transition-transform ${isProfileOpen ? "rotate-180" : ""}`} />
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 shrink-0 hidden lg:block transition-transform ${isProfileOpen ? "rotate-180" : ""}`}
+              />
             </button>
             {isProfileOpen && (
               <div className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200 bg-white shadow-lg shadow-slate-900/10 text-sm py-1 z-50">
                 <div className="px-3 py-2 border-b border-slate-200">
                   <p className="text-xs text-slate-500">Signed in as</p>
-                  <p className="text-sm font-medium text-slate-900 truncate" title={user.name}>
+                  <p
+                    className="text-sm font-medium text-slate-900 truncate"
+                    title={user.name}>
                     {user.name}
                   </p>
                   {user.email && (
-                    <p className="text-xs text-slate-500 truncate mt-0.5" title={user.email}>
+                    <p
+                      className="text-xs text-slate-500 truncate mt-0.5"
+                      title={user.email}>
                       {user.email}
                     </p>
                   )}
@@ -189,8 +216,7 @@ export default function DashboardHeader({
                   <Link
                     href={dashboardHome}
                     onClick={closeProfile}
-                    className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
-                  >
+                    className="block px-3 py-2 text-slate-700 hover:bg-slate-100">
                     My dashboard
                   </Link>
 
@@ -201,8 +227,7 @@ export default function DashboardHeader({
                           key={item.href}
                           href={item.href}
                           onClick={closeProfile}
-                          className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
-                        >
+                          className="block px-3 py-2 text-slate-700 hover:bg-slate-100">
                           {item.label}
                         </Link>
                       ))}
@@ -213,16 +238,14 @@ export default function DashboardHeader({
                     <Link
                       href={profileRoute}
                       onClick={closeProfile}
-                      className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
-                    >
+                      className="block px-3 py-2 text-slate-700 hover:bg-slate-100">
                       My profile
                     </Link>
                   )}
                   <Link
                     href={settingsRoute}
                     onClick={closeProfile}
-                    className="block px-3 py-2 text-slate-700 hover:bg-slate-100"
-                  >
+                    className="block px-3 py-2 text-slate-700 hover:bg-slate-100">
                     Settings
                   </Link>
                 </nav>
@@ -230,8 +253,7 @@ export default function DashboardHeader({
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="block w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 font-medium"
-                  >
+                    className="block w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 font-medium">
                     Logout
                   </button>
                 </div>
