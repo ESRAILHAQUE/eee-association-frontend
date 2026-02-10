@@ -46,20 +46,20 @@ const upcomingEvents = [
 
 export default function Events() {
   return (
-    <section id="events" className="py-24 bg-white">
+    <section id="events" className="md:py-20 py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-4">
             Events & Workshops
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Stay engaged with our comprehensive calendar of technical events, workshops, and professional development opportunities.
           </p>
         </div>
         
         <div className="grid lg:grid-cols-2 gap-8">
           {upcomingEvents.map((event, index) => (
-            <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200">
+            <div key={index} className="bg-white rounded-sm overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200">
               <div className="relative">
                 <Image src={event.image} alt={event.title} width={600} height={400} className="w-full h-48 sm:h-56 object-cover" unoptimized />
                 <div className="absolute top-4 left-4 flex gap-2">
@@ -97,7 +97,7 @@ export default function Events() {
                     {event.attendees} attendees
                   </div>
                 </div>
-                <button className="w-full bg-slate-900 text-white py-3 rounded-lg hover:bg-slate-800 transition-colors font-medium flex items-center justify-center">
+                <button className="w-full bg-slate-900 text-white py-3 rounded-sm cursor-pointer hover:bg-slate-800 transition-colors font-medium flex items-center justify-center">
                   Register Now
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </button>
