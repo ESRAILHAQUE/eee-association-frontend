@@ -93,10 +93,24 @@ export function getStoredUser(): AuthUser | null {
   }
 }
 
+const AUTH_COOKIE_NAME = "eee_auth";
+const AUTH_COOKIE_MAX_AGE_DAYS = 7;
+
+export function setAuthCookie(): void {
+  if (typeof document === "undefined") return;
+  document.cookie = `${AUTH_COOKIE_NAME}=1; path=/; max-age=${AUTH_COOKIE_MAX_AGE_DAYS * 86400}; samesite=lax`;
+}
+
+export function clearAuthCookie(): void {
+  if (typeof document === "undefined") return;
+  document.cookie = `${AUTH_COOKIE_NAME}=; path=/; max-age=0`;
+}
+
 export function clearStoredAuth(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem("accessToken");
   localStorage.removeItem("user");
+  clearAuthCookie();
 }
 
 /** Profile + user from backend (when verified, profile may contain UserProfile fields) */

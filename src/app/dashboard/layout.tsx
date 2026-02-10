@@ -43,6 +43,7 @@ export default function DashboardRootLayout({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    setReady(false);
     if (!token || !user) {
       router.replace(ROUTES.login);
       return;
