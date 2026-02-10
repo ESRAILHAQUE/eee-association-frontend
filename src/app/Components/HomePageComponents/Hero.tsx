@@ -40,7 +40,7 @@ const heroSlides = [
   {
     id: 4,
     image: "/images/hero-section/hero-2.jpeg",
-    title: "Connect. Create. Contribute.",
+    title: "Connect, Create, Contribute.",
     subtitle: "Professional Network • Industry Partnerships",
     description:
       "Build lasting professional relationships and contribute to groundbreaking innovations in electrical engineering.",
@@ -74,7 +74,7 @@ export default function Hero({
           {heroSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className="relative h-full w-full flex-shrink-0">
+              className="relative h-full w-full flex-shrink-0 ">
               <Image
                 src={slide.image}
                 alt={slide.title}
@@ -121,12 +121,7 @@ export default function Hero({
           <div className="max-w-4xl">
             {/* Dynamic Content */}
             <div className="space-y-4 sm:space-y-6 text-slate-50">
-              <div className="inline-flex items-center px-4 py-2 text-white rounded-full text-sm font-medium border border-white/60 bg-transparent">
-                <Shield className="w-4 h-4 mr-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" />
-                <span className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-                  {heroSlides[currentSlide].badge}
-                </span>
-              </div>
+
 
               <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
                 {heroSlides[currentSlide].title}
