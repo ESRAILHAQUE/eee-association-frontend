@@ -89,10 +89,9 @@ export default function DashboardHeader({
   const profileRoute = role === 'member' ? ROUTES.memberProfile : undefined;
 
   // Sidebar-equivalent routes for mobile dropdown (exclude base dashboard + settings)
-  const mobileNavItems =
-    (DASHBOARD_NAV[role] as { href: string; label: string }[]).filter(
-      (item) => item.href !== dashboardHome && item.href !== settingsRoute
-    );
+  const mobileNavItems = [...DASHBOARD_NAV[role]]
+    .filter((item) => item.href !== dashboardHome && item.href !== settingsRoute)
+    .map((item) => ({ href: item.href, label: item.label }));
 
   return (
     <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 sticky top-0 z-10 shrink-0">
