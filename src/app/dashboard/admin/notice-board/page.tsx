@@ -19,7 +19,7 @@ const latestNotices = [
 export default function AdminNoticeBoardPage() {
   const [search, setSearch] = useState('');
   return (
-    <div className="flex flex-1 flex-col p-4 md:p-8 overflow-x-hidden">
+    <div className="flex flex-1 flex-col  overflow-x-hidden">
       <nav className="flex flex-wrap gap-2 text-sm text-slate-500 mb-4">
         <Link
           href="/dashboard/admin"
@@ -35,17 +35,17 @@ export default function AdminNoticeBoardPage() {
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">Notice Board</h1>
-          <p className="text-slate-500 max-w-2xl">Stay updated with the latest announcements, exam schedules, and events from the EEE Department.</p>
+          <h1 className="text-slate-900 text-xl md:text-2xl font-bold">Notice Board</h1>
+          <p className="text-slate-500 max-w-2xl mt-2">Stay updated with the latest announcements, exam schedules, and events from the EEE Department.</p>
         </div>
-        <button type="button" className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-lg shadow-primary/30 transition-all shrink-0">
+        <button type="button" className="flex items-center gap-2 bg-slate-800 text-white px-5 py-2.5 rounded-lg font-bold cursor-pointer w-fit">
           <Edit3 className="w-5 h-5" /> Post Notice
         </button>
       </div>
       <div className="mb-10">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-          <input type="text" placeholder="Search notices by keyword, date, or author..." value={search} onChange={(e) => setSearch(e.target.value)} className="block w-full pl-11 pr-4 py-3.5 rounded-xl border-none bg-white text-slate-900 shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-primary placeholder:text-slate-400 transition-all text-base" />
+          <input type="text" placeholder="Search notices by keyword, date, or author..." value={search} onChange={(e) => setSearch(e.target.value)} className="block w-lg md:w-lg pl-11 pr-4 py-3.5 rounded-sm border-none bg-white text-slate-900 shadow-sm ring-1 ring-slate-200 focus:ring-2  placeholder:text-slate-400 transition-all text-base" />
         </div>
       </div>
       <section className="mb-10">
@@ -55,18 +55,18 @@ export default function AdminNoticeBoardPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {pinnedNotices.map((notice) => (
-            <div key={notice.title} className="group relative flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-slate-100 ring-1 ring-amber-500/20">
+            <div key={notice.title} className="group relative flex flex-col bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-all border border-slate-100 ">
               <div className="absolute top-3 right-3 z-10">
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${notice.tagColor}`}>{notice.tag}</span>
               </div>
-              <div className="h-40 w-full bg-cover bg-center" style={{ backgroundImage: `url(${notice.image})` }}><div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /></div>
+              <div className="h-40 w-full bg-cover bg-center" style={{ backgroundImage: `url(${notice.image})` }}><div className="absolute inset-0 " /></div>
               <div className="p-5 flex flex-col flex-1">
-                <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                <div className="flex items-center gap-2 text-xs text-slate-600 mb-2">
                   <Calendar className="w-4 h-4" /><span>{notice.date}</span><span className="w-1 h-1 rounded-full bg-slate-300" /><span>{notice.author}</span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors line-clamp-2">{notice.title}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 transition-colors line-clamp-2">{notice.title}</h3>
                 <p className="text-sm text-slate-600 line-clamp-2 mb-4 flex-1">{notice.excerpt}</p>
-                <button type="button" className="mt-auto text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all">{notice.cta} <span>→</span></button>
+                <button type="button" className="mt-auto text-sm font-bold text-slate-700 flex items-center gap-1 hover:gap-2 transition-all">{notice.cta} <span>→</span></button>
               </div>
             </div>
           ))}
@@ -75,7 +75,7 @@ export default function AdminNoticeBoardPage() {
       <section>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-slate-900">Latest Announcements</h2>
-          <div className="flex items-center gap-2 text-sm text-slate-500">
+          <div className="flex items-center gap-2 text-sm text-slate-600">
             <span className="hidden sm:inline">Sort by:</span>
             <select className="bg-transparent border-none py-0 pl-2 pr-8 text-sm font-medium focus:ring-0 cursor-pointer">
               <option>Newest First</option>
@@ -85,13 +85,13 @@ export default function AdminNoticeBoardPage() {
         </div>
         <div className="flex flex-col gap-4">
           {latestNotices.map((notice) => (
-            <div key={notice.title} className="flex flex-col sm:flex-row bg-white p-5 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+            <div key={notice.title} className="flex flex-col sm:flex-row bg-white p-5 rounded-sm border border-slate-100 shadow-sm hover:shadow-md transition-all group">
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-3 mb-2">
                   <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600">{notice.meta}</span>
                   <span className="text-xs text-slate-400 flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{notice.time}</span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-primary transition-colors">{notice.title}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-1  transition-colors">{notice.title}</h3>
                 <p className="text-slate-600 text-sm mb-3">{notice.body}</p>
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
@@ -99,21 +99,19 @@ export default function AdminNoticeBoardPage() {
                     {notice.author}
                   </div>
                   {notice.attachment && (
-                    <span className="text-xs text-primary flex items-center gap-1 font-medium bg-primary/5 px-2 py-0.5 rounded">
+                    <span className="text-xs text-slate-700 flex items-center gap-1 font-medium bg-primary/5 px-2 py-0.5 rounded cursor-pointer">
                       <FileText className="w-3.5 h-3.5" />{notice.attachment}
                     </span>
                   )}
                 </div>
               </div>
               <div className="mt-4 sm:mt-0 sm:ml-4 flex items-center sm:self-center">
-                <button type="button" className="w-full sm:w-auto px-4 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 text-sm font-medium transition-colors flex items-center justify-center gap-2 border border-slate-200">View</button>
+                <button type="button" className="w-full sm:w-auto px-4 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 text-sm font-medium transition-colors flex items-center justify-center gap-2 border border-slate-200 cursor-pointer">View</button>
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-8 flex justify-center">
-          <button type="button" className="text-sm font-bold text-slate-500 hover:text-primary transition-colors flex items-center gap-1">Load more notices <span>▼</span></button>
-        </div>
+
       </section>
     </div>
   );
