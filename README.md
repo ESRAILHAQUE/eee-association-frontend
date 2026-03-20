@@ -1,17 +1,19 @@
 # EEE Association — Frontend
 
-Frontend for the **EEE Department Batch 2024** association: role-based dashboards (Admin, Super Admin, CR, Moderator, Member), notice board, fee management, student directory, and events. Built with **Next.js 16**, **React 19**, and **Tailwind CSS 4**.
+Next.js frontend for the **EEE Department Association Management System** at Sylhet Engineering College. Role-based dashboards for Super Admin, Admin, CR, Moderator, and Member — connected to the Express/Prisma backend API.
 
 ---
 
 ## Tech Stack
 
-| Category   | Stack                    |
-|-----------|---------------------------|
-| Framework | Next.js 16 (App Router)   |
-| UI        | React 19, Tailwind CSS 4 |
-| Icons     | Lucide React              |
-| Tooling   | TypeScript, Turbopack     |
+| Category  | Stack                         |
+|-----------|-------------------------------|
+| Framework | Next.js 16 (App Router)       |
+| Runtime   | React 19                      |
+| Language  | TypeScript                    |
+| Styling   | Tailwind CSS v4               |
+| Icons     | Lucide React                  |
+| Tooling   | Turbopack (dev), ESLint       |
 
 ---
 
@@ -19,28 +21,21 @@ Frontend for the **EEE Department Batch 2024** association: role-based dashboard
 
 ### Prerequisites
 
-- **Node.js** 18+  
-- **npm** (or yarn/pnpm)
+- Node.js 18+
+- Backend API running at `http://localhost:4000`
 
-### Install & run
+### Install & Run
 
 ```bash
-# Install dependencies
+cd eee-association-frontend
 npm install
-
-# Development (with Turbopack)
-npm run dev
+npm run dev        # Turbopack dev server → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-### Build & production
+### Build & Production
 
 ```bash
-# Production build
 npm run build
-
-# Start production server
 npm start
 ```
 
@@ -50,150 +45,257 @@ npm start
 npm run lint
 ```
 
----
+### Environment Variables
 
-## Routes Reference
+Create a `.env.local` file:
 
-All routes and what each page shows.
-
-### Public & auth
-
-| Route       | Description |
-|------------|-------------|
-| `/`        | **Home** — Marketing landing: hero, achievements, clubs, events, newsletter. |
-| `/login`   | **Login** — Full-page login screen (email/password). |
-
----
-
-### Dashboard (role-based)
-
-Layout and sidebar depend on the path: `/dashboard/admin/*`, `/dashboard/cr/*`, etc. So from CR dashboard, “Notice Board” goes to `/dashboard/cr/notice-board` (CR sidebar), not admin.
-
-#### Admin
-
-| Route | Page | Content |
-|-------|------|--------|
-| `/dashboard/admin` | Admin Dashboard | Overview: total students, fees collected, active batches, recent notices; quick links to Notice Board, Batch Management, Fee Tracking. |
-| `/dashboard/admin/notice-board` | Notice Board | Pinned and latest notices; search; “Post Notice” CTA. |
-| `/dashboard/admin/students` | Student Directory / Batch Management | Student list (name, reg, batch, year, contact); search, filters, export. |
-| `/dashboard/admin/fee-management` | Fee Tracking | Fee collection overview, batch-wise status, payment list. |
-| `/dashboard/admin/events` | Events | Department events list and management. |
-| `/dashboard/admin/settings` | Admin Settings | Batch & directory defaults, admin notifications, approval rules. |
-
-#### CR (Class Representative)
-
-| Route | Page | Content |
-|-------|------|--------|
-| `/dashboard/cr` | CR Dashboard | Stats: total students, fees pending, active notices; fee table; batch notices; quick links to Notice Board, Fee Management. |
-| `/dashboard/cr/notice-board` | Notice Board | Notices for the batch; view and follow notices. |
-| `/dashboard/cr/students` | Student Directory | Batch students list and search. |
-| `/dashboard/cr/fee-management` | Fee Management | Fee status and pending list for the batch. |
-| `/dashboard/cr/settings` | CR Settings | Batch info, CR-specific notifications and task list preferences. |
-
-#### Member
-
-| Route | Page | Content |
-|-------|------|--------|
-| `/dashboard/member` | Member Dashboard | Status, contribution, points; upcoming events; quick links to Events. |
-| `/dashboard/member/events` | Events | Upcoming and past events; register / view details. |
-| `/dashboard/member/payments` | Payments | Personal membership / event payment history and upcoming dues. |
-| `/dashboard/member/resources` | Resources | Study materials, question banks and important documents. |
-| `/dashboard/member/profile` | Profile | General student profile (basic info for a single member). |
-| `/dashboard/member/settings` | Member Settings | Notifications, appearance and language/region preferences. |
-
-#### Moderator
-
-| Route | Page | Content |
-|-------|------|--------|
-| `/dashboard/moderator` | Moderator Dashboard | Overview and placeholders for Event Proposals, Resources, Forum, Users. |
-| `/dashboard/moderator/settings` | Moderator Settings | Preferences for event approvals, resources and forum moderation. |
-
-#### Super Admin
-
-| Route | Page | Content |
-|-------|------|--------|
-| `/dashboard/super-admin` | Super Admin Dashboard | System overview; Users, Payments, Events, Logs, Settings (sidebar). |
-| `/dashboard/super-admin/events` | Events | System-wide events management. |
-| `/dashboard/super-admin/users` | Users | Manage all roles (Super Admin, Admin, CR, Moderator, Member). |
-| `/dashboard/super-admin/payments` | Payments | Consolidated payment overview and recent transactions. |
-| `/dashboard/super-admin/logs` | Logs | Activity log for security, user and payment events. |
-| `/dashboard/super-admin/settings` | System Settings | Global platform, security and notifications configuration. |
-
----
-
-## Route summary (quick list)
-
-```
-/                          → Home (marketing)
-/login                     → Login
-
-/dashboard/admin           → Admin dashboard
-/dashboard/admin/notice-board
-/dashboard/admin/students
-/dashboard/admin/fee-management
-/dashboard/admin/events
-/dashboard/admin/settings
-
-/dashboard/cr              → CR dashboard
-/dashboard/cr/notice-board
-/dashboard/cr/students
-/dashboard/cr/fee-management
-/dashboard/cr/settings
-
-/dashboard/member          → Member dashboard
-/dashboard/member/events
-/dashboard/member/payments
-/dashboard/member/resources
-/dashboard/member/profile
-/dashboard/member/settings
-
-/dashboard/moderator       → Moderator dashboard
-/dashboard/moderator/settings
-
-/dashboard/super-admin     → Super Admin dashboard
-/dashboard/super-admin/events
-/dashboard/super-admin/users
-/dashboard/super-admin/payments
-/dashboard/super-admin/logs
-/dashboard/super-admin/settings
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000/api
 ```
 
 ---
 
-## Project structure (main)
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── (auth)/login/          # Login page
-│   ├── (marketing)/           # Home layout + landing page
-│   ├── dashboard/             # Role-prefixed dashboard routes
-│   │   ├── admin/
-│   │   ├── cr/
-│   │   ├── member/
-│   │   ├── moderator/
-│   │   ├── super-admin/
-│   │   └── layout.tsx         # Role from path → DashboardLayout
+│   ├── (auth)/
+│   │   └── login/              # Login page
+│   ├── (marketing)/
+│   │   └── page.tsx            # Landing page (home)
+│   ├── dashboard/
+│   │   ├── layout.tsx          # Shared dashboard layout (sidebar + header)
+│   │   ├── admin/              # Admin role pages
+│   │   ├── cr/                 # CR (Class Representative) pages
+│   │   ├── member/             # Student/member pages
+│   │   ├── moderator/          # Moderator pages
+│   │   └── super-admin/        # Super admin pages
 │   ├── globals.css
-│   └── layout.tsx
+│   └── layout.tsx              # Root layout
 ├── components/
-│   ├── layouts/               # DashboardLayout, Sidebar, Header
-│   └── ui/                    # Button, etc.
+│   ├── layouts/                # DashboardLayout, Sidebar, Header
+│   └── ui/                     # Shared UI primitives
 └── lib/
-    ├── constants.ts           # ROUTES, DASHBOARD_NAV, THEME
+    ├── api.ts                  # All API functions + TypeScript types
+    ├── constants.ts            # API_BASE, DASHBOARD_NAV, ROUTES
     └── utils.ts
 ```
 
 ---
 
-## Design & routing notes
+## Routes Reference
 
-- **Role from URL:** Dashboard layout uses the first segment after `/dashboard/` (e.g. `admin`, `cr`, `member`) to pick the sidebar and title. So always use role-prefixed URLs (e.g. `/dashboard/cr/notice-board`) so the correct panel stays active.
-- **Theme:** CSS variables in `globals.css`; primary `#135bec`, light/dark surfaces and text.
-- **Placeholder links:** Some sidebar items use `#` (Reports, Settings, etc.) and are not implemented yet.
+### Public & Auth
+
+| Route      | Description                                             |
+|------------|---------------------------------------------------------|
+| `/`        | Marketing landing page — hero, achievements, clubs, events |
+| `/login`   | Login with email + password → stores JWT in localStorage |
+
+---
+
+### Admin Dashboard (`/dashboard/admin/*`)
+
+| Route                              | Page                  | API Connected |
+|------------------------------------|-----------------------|:---:|
+| `/dashboard/admin`                 | Overview dashboard    | ✓   |
+| `/dashboard/admin/notice-board`    | Notice board          | ✓   |
+| `/dashboard/admin/students`        | Student directory     | ✓   |
+| `/dashboard/admin/fee-management`  | Fee tracking          | ✓   |
+| `/dashboard/admin/events`          | Events management     | ✓   |
+| `/dashboard/admin/attendance`      | Attendance records    | ✓   |
+| `/dashboard/admin/certificates`    | Certificate issuance  | ✓   |
+| `/dashboard/admin/clubs`           | Club management       | ✓   |
+| `/dashboard/admin/documents`       | Document repository   | ✓   |
+| `/dashboard/admin/feedback`        | Feedback inbox        | ✓   |
+| `/dashboard/admin/leave-requests`  | Leave request review  | ✓   |
+| `/dashboard/admin/notifications`   | Send notifications    | ✓   |
+| `/dashboard/admin/reports`         | Reports & analytics   | ✓   |
+| `/dashboard/admin/settings`        | Admin settings        | —   |
+
+---
+
+### CR Dashboard (`/dashboard/cr/*`)
+
+CR pages are automatically batch-scoped — the backend reads the CR's `UserProfile.batch` and filters all queries to that batch only.
+
+| Route                           | Page                  | API Connected |
+|---------------------------------|-----------------------|:---:|
+| `/dashboard/cr`                 | CR overview dashboard | ✓   |
+| `/dashboard/cr/notice-board`    | Batch notice board    | ✓   |
+| `/dashboard/cr/students`        | Batch student list    | ✓   |
+| `/dashboard/cr/fee-management`  | Batch fee tracking    | ✓   |
+| `/dashboard/cr/events`          | Events (batch view)   | ✓   |
+| `/dashboard/cr/attendance`      | Attendance (QR scan)  | ✓   |
+| `/dashboard/cr/certificates`    | Issue certificates    | ✓   |
+| `/dashboard/cr/feedback`        | Batch feedback        | ✓   |
+| `/dashboard/cr/leave-requests`  | Leave approvals       | ✓   |
+| `/dashboard/cr/notifications`   | Send notifications    | ✓   |
+| `/dashboard/cr/resources`       | Approve resources     | ✓   |
+| `/dashboard/cr/settings`        | CR settings           | —   |
+
+---
+
+### Member Dashboard (`/dashboard/member/*`)
+
+| Route                          | Page                     | API Connected |
+|--------------------------------|--------------------------|:---:|
+| `/dashboard/member`            | Member overview          | ✓   |
+| `/dashboard/member/notices`    | Notice board (read-only) | ✓   |
+| `/dashboard/member/events`     | Events + RSVP            | ✓   |
+| `/dashboard/member/payments`   | My fee history           | ✓   |
+| `/dashboard/member/attendance` | My attendance records    | ✓   |
+| `/dashboard/member/resources`  | Study resources          | ✓   |
+| `/dashboard/member/clubs`      | Clubs (join/leave)       | ✓   |
+| `/dashboard/member/projects`   | Project showcase         | ✓   |
+| `/dashboard/member/forum`      | Discussion forum         | ✓   |
+| `/dashboard/member/feedback`   | Submit feedback          | ✓   |
+| `/dashboard/member/leave`      | Leave requests           | ✓   |
+| `/dashboard/member/mentorship` | Mentorship sessions      | ✓   |
+| `/dashboard/member/certificates` | My certificates        | ✓   |
+| `/dashboard/member/profile`    | Edit profile             | ✓   |
+| `/dashboard/member/settings`   | Member settings          | —   |
+
+---
+
+### Moderator Dashboard (`/dashboard/moderator/*`)
+
+| Route                              | Page                    | API Connected |
+|------------------------------------|-------------------------|:---:|
+| `/dashboard/moderator`             | Moderator overview      | ✓   |
+| `/dashboard/moderator/events`      | Moderate events         | ✓   |
+| `/dashboard/moderator/resources`   | Approve/reject resources| ✓   |
+| `/dashboard/moderator/forum`       | Moderate forum posts    | ✓   |
+| `/dashboard/moderator/clubs`       | Manage clubs            | ✓   |
+| `/dashboard/moderator/notifications` | Send notifications    | ✓   |
+| `/dashboard/moderator/settings`    | Moderator settings      | —   |
+
+---
+
+### Super Admin Dashboard (`/dashboard/super-admin/*`)
+
+| Route                                | Page                     | API Connected |
+|--------------------------------------|--------------------------|:---:|
+| `/dashboard/super-admin`             | System overview          | ✓   |
+| `/dashboard/super-admin/users`       | User & role management   | ✓   |
+| `/dashboard/super-admin/events`      | All events management    | ✓   |
+| `/dashboard/super-admin/payments`    | All fee records          | ✓   |
+| `/dashboard/super-admin/analytics`   | System analytics         | ✓   |
+| `/dashboard/super-admin/logs`        | Login & audit logs       | ✓   |
+| `/dashboard/super-admin/newsletter`  | Newsletter compose/send  | ✓   |
+| `/dashboard/super-admin/documents`   | Official documents       | ✓   |
+| `/dashboard/super-admin/roles`       | Role assignments         | ✓   |
+| `/dashboard/super-admin/backup`      | DB backup tools          | —   |
+| `/dashboard/super-admin/settings`    | System settings          | —   |
+
+---
+
+## Route Quick List
+
+```
+/                                     → Landing page
+/login                                → Login
+
+/dashboard/admin                      → Admin home
+/dashboard/admin/notice-board
+/dashboard/admin/students
+/dashboard/admin/fee-management
+/dashboard/admin/events
+/dashboard/admin/attendance
+/dashboard/admin/certificates
+/dashboard/admin/clubs
+/dashboard/admin/documents
+/dashboard/admin/feedback
+/dashboard/admin/leave-requests
+/dashboard/admin/notifications
+/dashboard/admin/reports
+/dashboard/admin/settings
+
+/dashboard/cr                         → CR home
+/dashboard/cr/notice-board
+/dashboard/cr/students
+/dashboard/cr/fee-management
+/dashboard/cr/events
+/dashboard/cr/attendance
+/dashboard/cr/certificates
+/dashboard/cr/feedback
+/dashboard/cr/leave-requests
+/dashboard/cr/notifications
+/dashboard/cr/resources
+/dashboard/cr/settings
+
+/dashboard/member                     → Member home
+/dashboard/member/notices
+/dashboard/member/events
+/dashboard/member/payments
+/dashboard/member/attendance
+/dashboard/member/resources
+/dashboard/member/clubs
+/dashboard/member/projects
+/dashboard/member/forum
+/dashboard/member/feedback
+/dashboard/member/leave
+/dashboard/member/mentorship
+/dashboard/member/certificates
+/dashboard/member/profile
+/dashboard/member/settings
+
+/dashboard/moderator                  → Moderator home
+/dashboard/moderator/events
+/dashboard/moderator/resources
+/dashboard/moderator/forum
+/dashboard/moderator/clubs
+/dashboard/moderator/notifications
+/dashboard/moderator/settings
+
+/dashboard/super-admin                → Super Admin home
+/dashboard/super-admin/users
+/dashboard/super-admin/events
+/dashboard/super-admin/payments
+/dashboard/super-admin/analytics
+/dashboard/super-admin/logs
+/dashboard/super-admin/newsletter
+/dashboard/super-admin/documents
+/dashboard/super-admin/roles
+/dashboard/super-admin/backup
+/dashboard/super-admin/settings
+```
+
+---
+
+## Authentication Flow
+
+1. User submits email/password at `/login`
+2. Backend returns JWT — stored in `localStorage` as `accessToken`
+3. All API calls inject `Authorization: Bearer <token>` via the shared `apiRequest()` helper in `src/lib/api.ts`
+4. Dashboard layout reads role from token and renders the correct sidebar
+5. On logout, token is cleared and user is redirected to `/login`
+
+---
+
+## Role System
+
+| Role          | Dashboard Prefix       | Access                                             |
+|---------------|------------------------|----------------------------------------------------|
+| `student`     | `/dashboard/member`    | Read notices/events, submit feedback/leave/projects |
+| `cr`          | `/dashboard/cr`        | Batch-scoped: attendance, fees, leave review, notices |
+| `moderator`   | `/dashboard/moderator` | Moderate events, resources, forum, clubs           |
+| `admin`       | `/dashboard/admin`     | Full department management                         |
+| `super_admin` | `/dashboard/super-admin` | System-wide: users, analytics, logs, newsletter  |
+
+---
+
+## Design Notes
+
+- **Primary color:** `#135bec` (CSS variable `--color-primary`)
+- **Theme:** CSS variables in `globals.css` — light mode surfaces and text
+- **Role from URL:** Dashboard layout derives sidebar from the first path segment after `/dashboard/` (e.g. `cr`, `admin`)
+- **CR batch scoping:** Handled entirely server-side — CR pages call the same endpoints as admin pages but the backend auto-filters by the CR's batch
+- **CSV export:** Fee, event, and user pages have client-side CSV export using `Blob` + anchor click
 
 ---
 
 ## License
 
-Private — EEE Association project.
+Private — EEE Association, Sylhet Engineering College. All rights reserved.
