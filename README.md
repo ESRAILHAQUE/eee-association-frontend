@@ -264,6 +264,18 @@ CR pages are automatically batch-scoped — the backend reads the CR's `UserProf
 
 ---
 
+## Test Credentials
+
+| Role | Email | Password |
+|---|---|---|
+| **Student** | `anas@gmail.com` | `2020338530` |
+| **CR** | `cr@gmail.com` | `2020338501` |
+| **Admin** | `admin@gmail.com` | `2020338500` |
+| **Moderator** | `moderator@gmail.com` | `moderator` |
+| **Super Admin** | `superadmin@gmail.com` | `superadmin` |
+
+---
+
 ## Authentication Flow
 
 1. User submits email/password at `/login`
