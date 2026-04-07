@@ -30,7 +30,7 @@ const heroSlides = [
   },
   {
     id: 3,
-    image: "/images/hero-section/hero-1.jpeg",
+    image: "/images/hero-section/hero-3.jpeg",
     title: "Building Tomorrow's Engineers Today",
     subtitle: "Education • Mentorship • Growth",
     description:
@@ -39,7 +39,7 @@ const heroSlides = [
   },
   {
     id: 4,
-    image: "/images/hero-section/hero-2.jpeg",
+    image: "/images/hero-section/hero-4.jpeg",
     title: "Connect, Create, Contribute.",
     subtitle: "Professional Network • Industry Partnerships",
     description:
