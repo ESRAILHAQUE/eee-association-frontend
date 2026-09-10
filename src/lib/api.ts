@@ -373,7 +373,8 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
 // ─── Notifications ────────────────────────────────────────────────────────────
 export interface AppNotification { id: string; title: string; message: string; status: "unread" | "read"; createdAt: string; }
 export async function fetchMyNotifications(): Promise<AppNotification[]> { return apiRequest<AppNotification[]>("/notifications/my"); }
-export async function sendNotification(payload: { title: string; message: string; targetType: "all" | "batch"; batch?: string; }): Promise<void> { await apiRequest("/notifications/send", { method: "POST", body: JSON.stringify(payload) }); }
+export async function fetchSentNotifications(): Promise<AppNotification[]> { return apiRequest<AppNotification[]>("/notifications/sent"); }
+export async function sendNotification(payload: { title: string; message: string; targetType: "all" | "batch"; userIds?: string[]; batch?: string; }): Promise<void> { await apiRequest("/notifications/send", { method: "POST", body: JSON.stringify(payload) }); }
 export async function markAllNotificationsRead(): Promise<void> { await apiRequest("/notifications/read-all", { method: "PATCH" }); }
 
 // ─── Attendance ───────────────────────────────────────────────────────────────
@@ -458,6 +459,12 @@ export async function fetchUsers(params?: { role?: string; batch?: string; searc
 export async function updateUserRole(userId: string, role: string): Promise<void> { await apiRequest(`/users/${userId}/role`, { method: "PATCH", body: JSON.stringify({ role }) }); }
 export async function toggleUserBlock(userId: string, isBlock: boolean): Promise<void> { await apiRequest(`/users/${userId}/block`, { method: "PATCH", body: JSON.stringify({ isBlock }) }); }
 export async function verifyUser(userId: string): Promise<void> { await apiRequest(`/users/${userId}/verify`, { method: "PATCH" }); }
+
+// ─── Batches ──────────────────────────────────────────────────────────────────
+export interface BatchItem { id: string; name: string; createdAt: string; crId: string | null; cr: { id: string; fullName: string; registrationNumber: string; } | null; }
+export async function fetchBatches(): Promise<BatchItem[]> { return apiRequest<BatchItem[]>("/batches"); }
+export async function createBatch(name: string): Promise<BatchItem> { return apiRequest<BatchItem>("/batches", { method: "POST", body: JSON.stringify({ name }) }); }
+export async function assignBatchCR(batchId: string, crId: string | null): Promise<BatchItem> { return apiRequest<BatchItem>(`/batches/${batchId}/cr`, { method: "PATCH", body: JSON.stringify({ crId }) }); }
 
 // ─── Fees / Payments ──────────────────────────────────────────────────────────
 export interface FeeRecord { id: string; semesterNumber: number; feeAmount: string; paidAmount: string; dueAmount: string; paymentStatus: "paid" | "partial" | "unpaid"; paymentMethod: string | null; transactionReference: string | null; paymentDate: string | null; user?: { id: string; fullName: string; registrationNumber: string; profile?: { batch: string | null; rollNumber: string | null; } | null; }; }

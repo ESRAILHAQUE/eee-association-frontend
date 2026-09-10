@@ -33,6 +33,7 @@ export const ROUTES = {
   member: '/dashboard/member',
   // Admin
   adminNoticeBoard: '/dashboard/admin/notice-board',
+  adminBatches: '/dashboard/admin/batches',
   adminStudents: '/dashboard/admin/students',
   adminFeeManagement: '/dashboard/admin/fee-management',
   adminEvents: '/dashboard/admin/events',
@@ -95,6 +96,7 @@ export const ROUTES = {
 export const DASHBOARD_NAV = {
   admin: [
     { href: '/dashboard/admin', label: 'Dashboard', icon: 'LayoutDashboard' },
+    { href: '/dashboard/admin/batches', label: 'Batches', icon: 'FolderOpen' },
     { href: '/dashboard/admin/students', label: 'Students', icon: 'Users' },
     { href: '/dashboard/admin/fee-management', label: 'Fee Tracking', icon: 'CreditCard' },
     { href: '/dashboard/admin/events', label: 'Events', icon: 'Calendar' },

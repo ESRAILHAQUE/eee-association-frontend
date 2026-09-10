@@ -6,9 +6,7 @@ import {
   Search, Pin, Calendar, Edit3, X, Loader2,
   AlertTriangle, Plus, Trash2, Megaphone, Filter,
 } from 'lucide-react';
-import { fetchNotices, createNotice, deleteNotice, type Notice, type NoticeTarget } from '@/lib/api';
-
-const BATCHES = ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25'];
+import { fetchNotices, createNotice, deleteNotice, fetchBatches, type Notice, type NoticeTarget, type BatchItem } from '@/lib/api';
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -21,6 +19,7 @@ function timeAgo(dateStr: string) {
 
 export default function AdminNoticeBoardPage() {
   const [notices, setNotices] = useState<Notice[]>([]);
+  const [batchesList, setBatchesList] = useState<BatchItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -41,14 +40,18 @@ export default function AdminNoticeBoardPage() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchNotices(
-        filterTarget !== 'all_filter'
-          ? { targetType: filterTarget as NoticeTarget }
-          : undefined,
-      );
-      setNotices(data);
+      const [noticesData, batchesData] = await Promise.all([
+        fetchNotices(
+          filterTarget !== 'all_filter'
+            ? { targetType: filterTarget as NoticeTarget }
+            : undefined,
+        ),
+        fetchBatches()
+      ]);
+      setNotices(noticesData);
+      setBatchesList(batchesData);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Failed to load notices');
+      setError(e instanceof Error ? e.message : 'Failed to load data');
     } finally {
       setLoading(false);
     }
@@ -274,9 +277,9 @@ export default function AdminNoticeBoardPage() {
                     onChange={(e) => setForm((f) => ({ ...f, batch: e.target.value }))}
                     className="w-full px-3 py-2.5 rounded-lg ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
                   >
-                    <option value="">— Select batch —</option>
-                    {BATCHES.map((b) => (
-                      <option key={b} value={b}>{b}</option>
+                    <option value="">Select a batch…</option>
+                    {batchesList.map((b) => (
+                      <option key={b.id} value={b.name}>{b.name}</option>
                     ))}
                   </select>
                 </div>

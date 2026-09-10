@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import {
   sendNotification,
-  fetchMyNotifications,
+  fetchSentNotifications,
   type AppNotification,
 } from '@/lib/api';
 
@@ -35,7 +35,7 @@ export default function CRNotificationsPage() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchMyNotifications();
+      const data = await fetchSentNotifications();
       setNotifications(data);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load notifications');

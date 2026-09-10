@@ -6,7 +6,7 @@ import {
   Search, Mail, Download, Phone, Eye, Loader2, AlertTriangle,
   CheckCircle2, XCircle, Shield, ShieldOff,
 } from 'lucide-react';
-import { fetchUsers, verifyUser, toggleUserBlock, type UserListItem } from '@/lib/api';
+import { fetchUsers, fetchBatches, verifyUser, toggleUserBlock, type UserListItem } from '@/lib/api';
 
 const ROLE_LABELS: Record<string, string> = {
   student: 'Student',
@@ -23,17 +23,22 @@ export default function AdminStudentsPage() {
   const [search, setSearch] = useState('');
   const [batchFilter, setBatchFilter] = useState('');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [allBatches, setAllBatches] = useState<string[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchUsers({
-        search: search || undefined,
-        batch: batchFilter || undefined,
-        role: 'student',
-      });
+      const [data, batchData] = await Promise.all([
+        fetchUsers({
+          search: search || undefined,
+          batch: batchFilter || undefined,
+          role: 'student',
+        }),
+        fetchBatches()
+      ]);
       setUsers(data);
+      setAllBatches(batchData.map(b => b.name));
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load students');
     } finally {
@@ -67,8 +72,6 @@ export default function AdminStudentsPage() {
     } catch { /* ignore */ }
     setActionLoading(null);
   };
-
-  const batches = Array.from(new Set(users.map((u) => u.profile?.batch).filter(Boolean))) as string[];
 
   return (
     <div className="flex flex-col w-full max-w-[1280px] gap-6">
@@ -123,7 +126,7 @@ export default function AdminStudentsPage() {
           className="h-10 px-3 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/50"
         >
           <option value="">All Batches</option>
-          {batches.map((b) => (
+          {allBatches.map((b) => (
             <option key={b} value={b}>{b}</option>
           ))}
         </select>

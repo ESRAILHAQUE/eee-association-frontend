@@ -1,66 +1,118 @@
 'use client';
 
-import { Users, AlertCircle, Megaphone, Search, Filter, Plus, FileText } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Users, AlertCircle, Megaphone, Search, Filter, FileText, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-
-const stats = [
-  {
-    label: 'Total Students',
-    value: '60',
-    badge: '+2 New',
-    badgeColor: 'bg-green-50 text-green-700',
-    icon: Users,
-    iconBg: 'bg-blue-50 text-primary',
-  },
-  {
-    label: 'Fees Pending',
-    value: '12',
-    suffix: 'students',
-    badge: 'Action Req',
-    badgeColor: 'bg-red-50 text-red-700',
-    icon: AlertCircle,
-    iconBg: 'bg-orange-50 text-orange-600',
-  },
-  {
-    label: 'Active Notices',
-    value: '5',
-    icon: Megaphone,
-    iconBg: 'bg-purple-50 text-purple-600',
-  },
-];
-
-const feeRows = [
-  { rollNo: '2024-EEE-001', name: 'Sarah Miller', amount: '$4,500', status: 'Paid' },
-  { rollNo: '2024-EEE-015', name: 'Alex Johnson', amount: '$4,500', status: 'Pending' },
-  { rollNo: '2024-EEE-023', name: 'Michael Kim', amount: '$4,500', status: 'Paid' },
-  { rollNo: '2024-EEE-045', name: 'Emily Davis', amount: '$4,500', status: 'Pending' },
-];
-
-const batchNotices = [
-  { title: 'Exam Schedule Out', time: '2h ago', body: 'The mid-semester exam schedule has been released. Check the department board.', link: 'View Attachment', icon: 'article', iconBg: 'bg-blue-100 text-primary' },
-  { title: 'Lab Submission Deadline', time: 'Yesterday', body: "Don't forget to submit your Control Systems lab records by Friday, 5 PM.", icon: 'warning', iconBg: 'bg-orange-100 text-orange-600' },
-  { title: 'Workshop Registration', time: '2 days ago', body: 'Registration for the IoT workshop closes this weekend.', icon: 'event', iconBg: 'bg-green-100 text-green-600' },
-];
+import {
+  fetchUsers,
+  fetchFeeStats,
+  fetchNotices,
+  fetchFees,
+  createNotice,
+  getStoredUser,
+  type AuthUser,
+  type Notice,
+  type FeeRecord,
+  type FeeStats
+} from '@/lib/api';
 
 export default function CRDashboardPage() {
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [stats, setStats] = useState<FeeStats | null>(null);
+  const [studentCount, setStudentCount] = useState(0);
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const [feeRows, setFeeRows] = useState<FeeRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const [noticeTitle, setNoticeTitle] = useState('');
+  const [noticeBody, setNoticeBody] = useState('');
+  const [postingNotice, setPostingNotice] = useState(false);
+
+  const loadData = async () => {
+    try {
+      const [statsData, usersData, noticesData, feesData] = await Promise.all([
+        fetchFeeStats().catch(() => null),
+        fetchUsers({ role: 'student' }).catch(() => []),
+        fetchNotices().catch(() => []),
+        fetchFees().catch(() => [])
+      ]);
+      if (statsData) setStats(statsData);
+      setStudentCount(usersData.length);
+      setNotices(noticesData.slice(0, 5));
+      setFeeRows(feesData.slice(0, 5));
+    } catch (e) {
+      console.error("Failed to load dashboard data", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setUser(getStoredUser());
+    loadData();
+  }, []);
+
+  const handlePostNotice = async () => {
+    if (!noticeTitle.trim() || !noticeBody.trim()) return;
+    setPostingNotice(true);
+    try {
+      await createNotice({
+        title: noticeTitle,
+        content: noticeBody,
+        targetType: 'batch_specific',
+      });
+      setNoticeTitle('');
+      setNoticeBody('');
+      loadData();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setPostingNotice(false);
+    }
+  };
+
+  const statCards = [
+    {
+      label: 'Total Students',
+      value: loading ? '...' : studentCount.toString(),
+      icon: Users,
+      iconBg: 'bg-blue-50 text-primary',
+    },
+    {
+      label: 'Fees Pending',
+      value: loading ? '...' : (stats?.pending || 0).toString(),
+      suffix: 'students',
+      badge: stats?.pending && stats.pending > 0 ? 'Action Req' : undefined,
+      badgeColor: 'bg-red-50 text-red-700',
+      icon: AlertCircle,
+      iconBg: 'bg-orange-50 text-orange-600',
+    },
+    {
+      label: 'Active Notices',
+      value: loading ? '...' : notices.length.toString(),
+      icon: Megaphone,
+      iconBg: 'bg-purple-50 text-purple-600',
+    },
+  ];
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap justify-between items-end gap-4">
         <div className="flex flex-col gap-1">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-            Welcome back, John
+            Welcome back, {user?.fullName || 'John'}
           </h1>
           <p className="text-slate-500 text-base">
-            Here&apos;s what&apos;s happening in Batch 2024 today.
+            Here&apos;s what&apos;s happening in your Batch today.
           </p>
         </div>
         <div className="text-sm text-slate-500 font-medium bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm">
-          Academic Year 2024-2025
+          Your Batch Overview
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {stats.map((stat) => (
+        {statCards.map((stat) => (
           <div
             key={stat.label}
             className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:border-primary/30 transition-colors group"
@@ -115,7 +167,7 @@ export default function CRDashboardPage() {
               <table className="w-full text-left border-collapse">
                 <thead className="bg-slate-50 text-slate-500 text-xs uppercase font-semibold">
                   <tr>
-                    <th className="px-6 py-4">Roll No</th>
+                    <th className="px-6 py-4">Reg No</th>
                     <th className="px-6 py-4">Student Name</th>
                     <th className="px-6 py-4">Semester Fee</th>
                     <th className="px-6 py-4">Status</th>
@@ -123,27 +175,42 @@ export default function CRDashboardPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 text-sm">
-                  {feeRows.map((row) => (
-                    <tr key={row.rollNo} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-6 py-4 font-medium text-slate-900">{row.rollNo}</td>
-                      <td className="px-6 py-4 text-slate-700">{row.name}</td>
-                      <td className="px-6 py-4 text-slate-600">{row.amount}</td>
+                  {loading ? (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-8 text-center text-slate-500">
+                        <Loader2 className="w-5 h-5 animate-spin mx-auto mb-2" />
+                        Loading...
+                      </td>
+                    </tr>
+                  ) : feeRows.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-8 text-center text-slate-500">
+                        No fee records found.
+                      </td>
+                    </tr>
+                  ) : feeRows.map((row) => (
+                    <tr key={row.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4 font-medium text-slate-900">{row.user?.registrationNumber || 'N/A'}</td>
+                      <td className="px-6 py-4 text-slate-700">{row.user?.fullName || 'N/A'}</td>
+                      <td className="px-6 py-4 text-slate-600">৳{Number(row.feeAmount).toLocaleString()}</td>
                       <td className="px-6 py-4">
                         <span
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
-                            row.status === 'Paid'
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium capitalize ${
+                            row.paymentStatus === 'paid'
                               ? 'bg-green-100 text-green-700'
+                              : row.paymentStatus === 'partial'
+                              ? 'bg-amber-100 text-amber-700'
                               : 'bg-red-100 text-red-700'
                           }`}
                         >
-                          <span className={`size-1.5 rounded-full ${row.status === 'Paid' ? 'bg-green-500' : 'bg-red-500'}`} />
-                          {row.status}
+                          <span className={`size-1.5 rounded-full ${row.paymentStatus === 'paid' ? 'bg-green-500' : row.paymentStatus === 'partial' ? 'bg-amber-500' : 'bg-red-500'}`} />
+                          {row.paymentStatus}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <button type="button" className="text-slate-400 hover:text-primary transition-colors p-1">
+                        <Link href="/dashboard/cr/fee-management" className="text-slate-400 hover:text-primary transition-colors p-1">
                           ✎
-                        </button>
+                        </Link>
                       </td>
                     </tr>
                   ))}
@@ -151,9 +218,9 @@ export default function CRDashboardPage() {
               </table>
             </div>
             <div className="p-3 bg-slate-50 border-t border-slate-200 flex justify-center">
-              <button type="button" className="text-xs text-slate-500 hover:text-primary font-medium flex items-center gap-1">
+              <Link href="/dashboard/cr/fee-management" className="text-xs text-slate-500 hover:text-primary font-medium flex items-center gap-1">
                 Show more students <span>▼</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -166,48 +233,70 @@ export default function CRDashboardPage() {
               <input
                 type="text"
                 placeholder="Title"
+                value={noticeTitle}
+                onChange={(e) => setNoticeTitle(e.target.value)}
                 className="w-full px-3 py-2 text-sm bg-slate-50 border border-transparent focus:border-primary/50 rounded-lg outline-none transition-colors text-slate-900"
               />
               <textarea
                 placeholder="What's happening?"
                 rows={3}
+                value={noticeBody}
+                onChange={(e) => setNoticeBody(e.target.value)}
                 className="w-full px-3 py-2 text-sm bg-slate-50 border border-transparent focus:border-primary/50 rounded-lg outline-none transition-colors text-slate-900 resize-none"
               />
               <div className="flex justify-between items-center mt-1">
                 <button type="button" className="text-slate-400 hover:text-primary transition-colors p-1 rounded hover:bg-slate-100">
                   <FileText className="w-5 h-5" />
                 </button>
-                <button type="button" className="bg-primary hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors shadow-sm">
+                <button
+                  type="button"
+                  onClick={handlePostNotice}
+                  disabled={postingNotice}
+                  className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors shadow-sm disabled:opacity-70"
+                >
+                  {postingNotice && <Loader2 className="w-4 h-4 animate-spin" />}
                   Post
                 </button>
               </div>
             </div>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex flex-col gap-4 max-h-[400px] overflow-y-auto">
-            {batchNotices.map((notice) => (
-              <div
-                key={notice.title}
-                className="flex gap-3 pb-4 border-b border-slate-200 last:border-0 last:pb-0"
-              >
-                <div className="flex-shrink-0 mt-1">
-                  <div className={`size-8 rounded-full flex items-center justify-center ${notice.iconBg}`}>
-                    <Megaphone className="w-4 h-4" />
-                  </div>
-                </div>
-                <div className="min-w-0">
-                  <div className="flex justify-between items-start w-full">
-                    <h4 className="text-sm font-semibold text-slate-800">{notice.title}</h4>
-                    <span className="text-[10px] text-slate-400 shrink-0">{notice.time}</span>
-                  </div>
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">{notice.body}</p>
-                  {notice.link && (
-                    <Link href="#" className="text-xs font-medium text-primary mt-2 inline-block hover:underline">
-                      {notice.link}
-                    </Link>
-                  )}
-                </div>
+            {loading ? (
+              <div className="text-center text-slate-500 py-4 text-sm flex items-center justify-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin" /> Loading notices...
               </div>
-            ))}
+            ) : notices.length === 0 ? (
+              <div className="text-center text-slate-500 py-4 text-sm">
+                No notices found.
+              </div>
+            ) : (
+              notices.map((notice) => (
+                <div
+                  key={notice.id}
+                  className="flex gap-3 pb-4 border-b border-slate-200 last:border-0 last:pb-0"
+                >
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="size-8 rounded-full flex items-center justify-center bg-blue-100 text-primary">
+                      <Megaphone className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex justify-between items-start w-full">
+                      <h4 className="text-sm font-semibold text-slate-800">{notice.title}</h4>
+                      <span className="text-[10px] text-slate-400 shrink-0">
+                        {new Date(notice.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">{notice.content}</p>
+                  </div>
+                </div>
+              ))
+            )}
+            {!loading && notices.length > 0 && (
+              <Link href="/dashboard/cr/notice-board" className="text-xs text-center text-primary font-medium hover:underline mt-2">
+                View all notices
+              </Link>
+            )}
           </div>
         </div>
       </div>

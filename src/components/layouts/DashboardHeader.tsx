@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
-import { Search, Bell, ChevronDown } from "lucide-react";
+import { Search, Bell, ChevronDown, Loader2 } from "lucide-react";
 import { ROUTES, DASHBOARD_NAV } from "@/lib/constants";
+import { fetchMyNotifications, markAllNotificationsRead, type AppNotification } from "@/lib/api";
 
 type RoleKey = "admin" | "superAdmin" | "cr" | "moderator" | "member";
 
@@ -15,27 +16,6 @@ export interface DashboardHeaderProps {
   onLogout?: () => void;
 }
 
-const demoNotifications = [
-  {
-    id: 1,
-    title: "New notice posted",
-    body: "Mid-term exam schedule has been published.",
-    time: "5 min ago",
-  },
-  {
-    id: 2,
-    title: "Upcoming event",
-    body: "Workshop on Embedded Systems starts tomorrow.",
-    time: "1 day ago",
-  },
-  {
-    id: 3,
-    title: "Payment reminder",
-    body: "Membership fee due next week.",
-    time: "3 days ago",
-  },
-];
-
 export default function DashboardHeader({
   title,
   searchPlaceholder = "Search...",
@@ -45,10 +25,32 @@ export default function DashboardHeader({
 }: DashboardHeaderProps) {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [hasUnread, setHasUnread] = useState(true);
+  const [notifications, setNotifications] = useState<AppNotification[]>([]);
+  const [loadingNotifications, setLoadingNotifications] = useState(false);
 
   const notificationsRef = useRef<HTMLDivElement | null>(null);
   const profileRef = useRef<HTMLDivElement | null>(null);
+
+  const hasUnread = notifications.some((n) => n.status === "unread");
+
+  const loadNotifications = useCallback(async () => {
+    try {
+      setLoadingNotifications(true);
+      const data = await fetchMyNotifications();
+      setNotifications(data);
+    } catch (e) {
+      console.error("Failed to load notifications:", e);
+    } finally {
+      setLoadingNotifications(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadNotifications();
+    // Refresh notifications every 2 minutes
+    const interval = setInterval(loadNotifications, 120000);
+    return () => clearInterval(interval);
+  }, [loadNotifications]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -70,8 +72,14 @@ export default function DashboardHeader({
   const handleToggleNotifications = () => {
     setIsNotificationsOpen((open) => !open);
     setIsProfileOpen(false);
-    if (hasUnread) {
-      setHasUnread(false);
+  };
+
+  const handleMarkAllAsRead = async () => {
+    try {
+      await markAllNotificationsRead();
+      setNotifications((prev) => prev.map((n) => ({ ...n, status: "read" })));
+    } catch (e) {
+      console.error("Failed to mark notifications as read:", e);
     }
   };
 
@@ -152,23 +160,40 @@ export default function DashboardHeader({
                   </span>
                   <button
                     type="button"
-                    className="text-xs font-medium text-primary hover:underline"
-                    onClick={() => setHasUnread(false)}>
+                    className="text-xs font-medium text-primary hover:underline disabled:opacity-50"
+                    disabled={!hasUnread || notifications.length === 0}
+                    onClick={handleMarkAllAsRead}>
                     Mark all as read
                   </button>
                 </div>
                 <div className="max-h-72 overflow-y-auto">
-                  {demoNotifications.map((item) => (
-                    <div
-                      key={item.id}
-                      className="px-4 py-3 border-b last:border-b-0 border-slate-100 hover:bg-slate-50 cursor-pointer">
-                      <p className="text-xs text-slate-500">{item.time}</p>
-                      <p className="text-sm font-medium text-slate-900">
-                        {item.title}
-                      </p>
-                      <p className="text-xs text-slate-500">{item.body}</p>
+                  {loadingNotifications ? (
+                    <div className="flex justify-center items-center py-6 text-slate-500">
+                      <Loader2 className="w-5 h-5 animate-spin" />
                     </div>
-                  ))}
+                  ) : notifications.length === 0 ? (
+                    <div className="px-4 py-6 text-center text-sm text-slate-500">
+                      No notifications
+                    </div>
+                  ) : (
+                    notifications.map((item) => (
+                      <div
+                        key={item.id}
+                        className={`px-4 py-3 border-b last:border-b-0 border-slate-100 hover:bg-slate-50 cursor-pointer ${
+                          item.status === "unread" ? "bg-slate-50" : ""
+                        }`}>
+                        <div className="flex items-center gap-2 mb-1">
+                          {item.status === "unread" && (
+                            <span className="size-2 rounded-full bg-primary shrink-0" />
+                          )}
+                          <p className="text-sm font-medium text-slate-900 line-clamp-1">
+                            {item.title}
+                          </p>
+                        </div>
+                        <p className="text-xs text-slate-500 line-clamp-2 pl-4">{item.message}</p>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             )}

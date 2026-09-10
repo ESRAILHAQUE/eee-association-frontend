@@ -5,7 +5,11 @@ import Link from 'next/link';
 import {
   Loader2, AlertTriangle, Bell, Send, Megaphone, Clock, Users,
 } from 'lucide-react';
-import { sendNotification, fetchMyNotifications, type AppNotification } from '@/lib/api';
+import {
+  sendNotification,
+  fetchSentNotifications,
+  type AppNotification,
+} from '@/lib/api';
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -30,7 +34,7 @@ export default function ModeratorNotificationsPage() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchMyNotifications();
+      const data = await fetchSentNotifications();
       setNotifications(data);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load notifications');

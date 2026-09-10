@@ -81,6 +81,60 @@ export default function MemberCertificatesPage() {
 }
 
 function CertificateCard({ cert }: { cert: CertificateItem }) {
+  function handlePrint() {
+    const win = window.open('', '_blank', 'width=900,height=650');
+    if (!win) return;
+    win.document.write(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Certificate — ${cert.event.title}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fffdf5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+    .cert { width: 800px; min-height: 560px; border: 8px double #d97706; padding: 48px 64px; text-align: center; background: #fffdf5; position: relative; }
+    .cert::before { content: ''; position: absolute; inset: 12px; border: 1.5px solid #fbbf24; pointer-events: none; }
+    .logo { font-size: 13px; font-weight: 600; color: #b45309; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 4px; }
+    .subtitle { font-size: 11px; color: #92400e; letter-spacing: 0.1em; margin-bottom: 32px; }
+    .presents { font-size: 13px; color: #78716c; margin-bottom: 8px; }
+    .cert-title { font-family: 'Playfair Display', serif; font-size: 38px; color: #1c1917; margin-bottom: 24px; }
+    .awarded-to { font-size: 12px; color: #78716c; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .event { font-family: 'Playfair Display', serif; font-size: 26px; color: #d97706; margin-bottom: 32px; }
+    .divider { display: flex; align-items: center; gap: 16px; margin: 0 auto 28px; max-width: 400px; }
+    .divider-line { flex: 1; height: 1px; background: #fbbf24; }
+    .divider-dot { width: 6px; height: 6px; border-radius: 50%; background: #f59e0b; }
+    .meta { display: flex; justify-content: space-around; margin-top: 32px; }
+    .meta-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .meta-label { font-size: 10px; color: #a8a29e; text-transform: uppercase; letter-spacing: 0.1em; }
+    .meta-value { font-size: 13px; font-weight: 600; color: #44403c; }
+    .seal { width: 64px; height: 64px; border-radius: 50%; background: #fef3c7; border: 3px solid #f59e0b; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 28px; }
+    @media print { body { background: white; } .cert { border: 8px double #d97706 !important; } }
+  </style>
+</head>
+<body>
+  <div class="cert">
+    <div class="logo">EEE Association</div>
+    <div class="subtitle">Sylhet Engineering College — EEE Department</div>
+    <div class="seal">🏆</div>
+    <div class="presents">This is to certify that the recipient has participated in</div>
+    <div class="cert-title">Certificate of Participation</div>
+    <div class="awarded-to">For the event</div>
+    <div class="event">${cert.event.title}</div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <div class="meta">
+      <div class="meta-item"><div class="meta-label">Date of Event</div><div class="meta-value">${new Date(cert.event.startAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div></div>
+      <div class="meta-item"><div class="meta-label">Issued On</div><div class="meta-value">${new Date(cert.issuedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div></div>
+      <div class="meta-item"><div class="meta-label">Issued By</div><div class="meta-value">${cert.issuedBy.fullName}</div></div>
+    </div>
+  </div>
+  <script>setTimeout(() => { window.print(); }, 400);<\/script>
+</body>
+</html>`);
+    win.document.close();
+  }
+
   return (
     <div className="relative bg-white rounded-2xl shadow-md overflow-hidden border border-amber-100 hover:shadow-lg transition-shadow">
       {/* Gold header strip */}
@@ -119,7 +173,7 @@ function CertificateCard({ cert }: { cert: CertificateItem }) {
 
         <button
           type="button"
-          onClick={() => alert('Download feature coming soon!')}
+          onClick={handlePrint}
           className="mt-2 flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-gradient-to-r from-amber-400 to-yellow-500 text-white rounded-lg text-sm font-semibold hover:opacity-90 transition shadow-sm"
         >
           <Download className="w-4 h-4" />

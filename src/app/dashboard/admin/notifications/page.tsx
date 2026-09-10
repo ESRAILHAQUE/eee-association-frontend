@@ -7,8 +7,10 @@ import {
 } from 'lucide-react';
 import {
   sendNotification,
-  fetchMyNotifications,
+  fetchSentNotifications,
+  fetchBatches,
   type AppNotification,
+  type BatchItem,
 } from '@/lib/api';
 
 function timeAgo(dateStr: string) {
@@ -20,10 +22,9 @@ function timeAgo(dateStr: string) {
   return `${Math.floor(hrs / 24)}d ago`;
 }
 
-const BATCH_OPTIONS = ['2021', '2022', '2023', '2024', '2025'];
-
 export default function AdminNotificationsPage() {
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
+  const [batchesList, setBatchesList] = useState<BatchItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,10 +40,14 @@ export default function AdminNotificationsPage() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchMyNotifications();
-      setNotifications(data);
+      const [notifsData, batchesData] = await Promise.all([
+        fetchSentNotifications(),
+        fetchBatches()
+      ]);
+      setNotifications(notifsData);
+      setBatchesList(batchesData);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Failed to load notifications');
+      setError(e instanceof Error ? e.message : 'Failed to load data');
     } finally {
       setLoading(false);
     }
@@ -169,8 +174,8 @@ export default function AdminNotificationsPage() {
                     className="w-full appearance-none px-3 py-2.5 rounded-lg ring-1 ring-slate-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm bg-white"
                   >
                     <option value="">Select batch…</option>
-                    {BATCH_OPTIONS.map((b) => (
-                      <option key={b} value={b}>{b}</option>
+                    {batchesList.map((b) => (
+                      <option key={b.id} value={b.name}>{b.name}</option>
                     ))}
                   </select>
                 </div>
