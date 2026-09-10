@@ -75,7 +75,7 @@ export default function MemberDashboardPage() {
 
   const welcomeStats = [
     { label: 'Status', value: user?.isVerified ? 'Active Member' : 'Pending', icon: CheckCircle },
-    { label: 'Contribution', value: `$${totalPaid.toFixed(2)}`, icon: Wallet },
+    { label: 'Contribution', value: `৳${totalPaid.toFixed(2)}`, icon: Wallet },
     { label: 'Role', value: user?.currentRole?.toUpperCase() || 'STUDENT', icon: Trophy },
   ];
 
@@ -197,11 +197,11 @@ export default function MemberDashboardPage() {
               {latestFee ? `Semester ${latestFee.semesterNumber} Due` : 'Annual Due'}
             </h3>
             <p className="text-slate-400 text-sm mb-4">
-              {latestFee ? `Fee Amount: $${latestFee.feeAmount}` : 'No active fees'}
+              {latestFee ? `Fee Amount: ৳${latestFee.feeAmount}` : 'No active fees'}
             </p>
             <div className="flex items-center gap-2 mb-4">
               <span className="text-3xl font-bold">
-                ${latestFee?.dueAmount ?? '0.00'}
+                ৳{latestFee?.dueAmount ?? '0.00'}
               </span>
               {latestFee && (
                 <span className={`text-xs font-bold px-2 py-1 rounded ${

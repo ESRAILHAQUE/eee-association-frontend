@@ -24,7 +24,7 @@ const statCards = [
   },
   {
     label: 'Funds Collected',
-    value: '$12,500',
+    value: '৳12,500',
     sub: '+12% vs last month',
     icon: DollarSign,
     iconBg: 'bg-green-50 text-green-600',
@@ -49,13 +49,13 @@ const statCards = [
 ];
 
 const barData = [
-  { month: 'Jan', value: 40, amount: '$4.2k' },
-  { month: 'Feb', value: 65, amount: '$6.8k' },
-  { month: 'Mar', value: 35, amount: '$3.5k' },
-  { month: 'Apr', value: 85, amount: '$8.9k', active: true },
-  { month: 'May', value: 55, amount: '$5.5k' },
-  { month: 'Jun', value: 25, amount: '$2.5k' },
-  { month: 'Jul', value: 15, amount: '$1.5k' },
+  { month: 'Jan', value: 40, amount: '৳4.2k' },
+  { month: 'Feb', value: 65, amount: '৳6.8k' },
+  { month: 'Mar', value: 35, amount: '৳3.5k' },
+  { month: 'Apr', value: 85, amount: '৳8.9k', active: true },
+  { month: 'May', value: 55, amount: '৳5.5k' },
+  { month: 'Jun', value: 25, amount: '৳2.5k' },
+  { month: 'Jul', value: 15, amount: '৳1.5k' },
 ];
 
 const pendingApprovals = [
