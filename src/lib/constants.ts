@@ -109,7 +109,6 @@ export const DASHBOARD_NAV = {
     { href: '/dashboard/admin/clubs', label: 'Clubs', icon: 'Star' },
     { href: '/dashboard/admin/documents', label: 'Documents', icon: 'FolderOpen' },
     { href: '/dashboard/admin/reports', label: 'Reports', icon: 'BarChart2' },
-    { href: '/dashboard/admin/settings', label: 'Settings', icon: 'Settings' },
   ],
   superAdmin: [
     { href: '/dashboard/super-admin', label: 'Dashboard', icon: 'LayoutDashboard' },
@@ -122,7 +121,6 @@ export const DASHBOARD_NAV = {
     { href: '/dashboard/super-admin/newsletter', label: 'Newsletter', icon: 'Mail' },
     { href: '/dashboard/super-admin/logs', label: 'Logs', icon: 'FileText' },
     { href: '/dashboard/super-admin/backup', label: 'Backup', icon: 'Database' },
-    { href: '/dashboard/super-admin/settings', label: 'Settings', icon: 'Settings' },
   ],
   cr: [
     { href: '/dashboard/cr', label: 'Dashboard', icon: 'LayoutDashboard' },
@@ -136,7 +134,6 @@ export const DASHBOARD_NAV = {
     { href: '/dashboard/cr/leave-requests', label: 'Leave Requests', icon: 'ClipboardList' },
     { href: '/dashboard/cr/feedback', label: 'Feedback', icon: 'MessageCircle' },
     { href: '/dashboard/cr/resources', label: 'Resources', icon: 'BookOpen' },
-    { href: '/dashboard/cr/settings', label: 'Settings', icon: 'Settings' },
   ],
   moderator: [
     { href: '/dashboard/moderator', label: 'Dashboard', icon: 'LayoutDashboard' },
@@ -145,7 +142,6 @@ export const DASHBOARD_NAV = {
     { href: '/dashboard/moderator/forum', label: 'Forum', icon: 'MessageSquare' },
     { href: '/dashboard/moderator/clubs', label: 'Clubs', icon: 'Star' },
     { href: '/dashboard/moderator/notifications', label: 'Notifications', icon: 'Bell' },
-    { href: '/dashboard/moderator/settings', label: 'Settings', icon: 'Settings' },
   ],
   member: [
     { href: '/dashboard/member', label: 'Dashboard', icon: 'LayoutDashboard' },
