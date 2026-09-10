@@ -49,11 +49,6 @@ export default function AdminStudentsPage() {
     }
   }, [search, batchFilter]);
 
-  useEffect(() => {
-    const handleClickOutside = () => setOpenDropdown(null);
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
 
   useEffect(() => {
     const t = setTimeout(load, 300);
@@ -72,7 +67,10 @@ export default function AdminStudentsPage() {
         },
         body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error('Failed to update student');
+      if (!res.ok) {
+        const errData = await res.json().catch(() => null);
+        throw new Error(errData?.message || `Failed to update student: ${res.status} ${res.statusText}`);
+      }
       setEditingStudent(null);
       load();
     } catch (err: any) {
@@ -173,8 +171,8 @@ export default function AdminStudentsPage() {
       )}
 
       {!loading && !error && (
-        <div className="w-full overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-white">
-          <div className="overflow-x-auto">
+        <div className="w-full overflow-visible rounded-xl border border-slate-200 shadow-sm bg-white">
+          <div className="overflow-visible">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-600 uppercase tracking-wide">
@@ -234,14 +232,16 @@ export default function AdminStudentsPage() {
                     <td className="px-6 py-4 text-right relative">
                       <div className="flex justify-end">
                         <button
-                          onClick={(e) => { e.stopPropagation(); setOpenDropdown(openDropdown === u.id ? null : u.id); }}
+                          onClick={() => setOpenDropdown(openDropdown === u.id ? null : u.id)}
                           className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition"
                         >
                           <MoreVertical className="w-5 h-5" />
                         </button>
                       </div>
                       {openDropdown === u.id && (
-                        <div className="absolute right-6 top-14 z-10 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 overflow-hidden">
+                        <>
+                          <div className="fixed inset-0 z-40" onClick={() => setOpenDropdown(null)} />
+                          <div className="absolute right-6 top-10 z-50 w-48 bg-white rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 py-1 overflow-hidden">
                           <button
                             onClick={() => { setEditingStudent(u); setOpenDropdown(null); }}
                             className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 hover:text-primary flex items-center gap-2"
@@ -266,6 +266,7 @@ export default function AdminStudentsPage() {
                             {u.isBlock ? 'Unblock Student' : 'Block Student'}
                           </button>
                         </div>
+                        </>
                       )}
                     </td>
                   </tr>
