@@ -119,11 +119,9 @@ export default function DashboardHeader({
 
   const profileRoute = role === "member" ? ROUTES.memberProfile : undefined;
 
-  // Sidebar-equivalent routes for mobile dropdown (exclude base dashboard + settings)
-  const mobileNavItems = [...DASHBOARD_NAV[role]]
-    .filter(
-      (item) => item.href !== dashboardHome && item.href !== settingsRoute,
-    )
+    // Sidebar-equivalent routes for mobile dropdown (exclude base dashboard)
+    const mobileNavItems = [...DASHBOARD_NAV[role]]
+      .filter((item) => item.href !== dashboardHome)
     .map((item) => ({ href: item.href, label: item.label }));
 
   return (
