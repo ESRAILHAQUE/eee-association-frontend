@@ -4,9 +4,10 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   Search, Mail, Download, Phone, Eye, Loader2, AlertTriangle,
-  CheckCircle2, XCircle, Shield, ShieldOff,
+  CheckCircle2, XCircle, Shield, ShieldOff, MoreVertical, Edit
 } from 'lucide-react';
-import { fetchUsers, fetchBatches, verifyUser, toggleUserBlock, type UserListItem } from '@/lib/api';
+import { fetchUsers, fetchBatches, verifyUser, toggleUserBlock, type UserListItem, getStoredToken } from '@/lib/api';
+import EditStudentModal from './EditStudentModal';
 
 const ROLE_LABELS: Record<string, string> = {
   student: 'Student',
@@ -23,6 +24,8 @@ export default function AdminStudentsPage() {
   const [search, setSearch] = useState('');
   const [batchFilter, setBatchFilter] = useState('');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [editingStudent, setEditingStudent] = useState<any | null>(null);
   const [allBatches, setAllBatches] = useState<string[]>([]);
 
   const load = useCallback(async () => {
@@ -47,9 +50,35 @@ export default function AdminStudentsPage() {
   }, [search, batchFilter]);
 
   useEffect(() => {
+    const handleClickOutside = () => setOpenDropdown(null);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
     const t = setTimeout(load, 300);
     return () => clearTimeout(t);
   }, [load]);
+
+  const handleEditSave = async (payload: any) => {
+    if(!editingStudent) return;
+    try {
+      const token = getStoredToken();
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/users/${editingStudent.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Failed to update student');
+      setEditingStudent(null);
+      load();
+    } catch (err: any) {
+      throw err;
+    }
+  };
 
   const handleVerify = async (userId: string) => {
     setActionLoading(userId);
@@ -202,36 +231,42 @@ export default function AdminStudentsPage() {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        {!u.isVerified && (
-                          <button
-                            type="button"
-                            disabled={actionLoading === u.id}
-                            onClick={() => handleVerify(u.id)}
-                            className="p-2 rounded-lg text-green-600 hover:bg-green-50 transition disabled:opacity-50"
-                            title="Verify"
-                          >
-                            <CheckCircle2 className="w-4 h-4" />
-                          </button>
-                        )}
+                    <td className="px-6 py-4 text-right relative">
+                      <div className="flex justify-end">
                         <button
-                          type="button"
-                          disabled={actionLoading === u.id}
-                          onClick={() => handleBlock(u.id, !u.isBlock)}
-                          className={`p-2 rounded-lg transition disabled:opacity-50 ${u.isBlock ? 'text-slate-600 hover:bg-slate-100' : 'text-red-500 hover:bg-red-50'}`}
-                          title={u.isBlock ? 'Unblock' : 'Block'}
+                          onClick={(e) => { e.stopPropagation(); setOpenDropdown(openDropdown === u.id ? null : u.id); }}
+                          className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition"
                         >
-                          {u.isBlock ? <Shield className="w-4 h-4" /> : <ShieldOff className="w-4 h-4" />}
-                        </button>
-                        <button
-                          type="button"
-                          className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition"
-                          title="View Profile"
-                        >
-                          <Eye className="w-4 h-4" />
+                          <MoreVertical className="w-5 h-5" />
                         </button>
                       </div>
+                      {openDropdown === u.id && (
+                        <div className="absolute right-6 top-14 z-10 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 overflow-hidden">
+                          <button
+                            onClick={() => { setEditingStudent(u); setOpenDropdown(null); }}
+                            className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 hover:text-primary flex items-center gap-2"
+                          >
+                            <Edit className="w-4 h-4" /> Edit Info
+                          </button>
+                          {!u.isVerified && (
+                            <button
+                              disabled={actionLoading === u.id}
+                              onClick={() => { handleVerify(u.id); setOpenDropdown(null); }}
+                              className="w-full px-4 py-2 text-left text-sm text-green-600 hover:bg-green-50 flex items-center gap-2 disabled:opacity-50"
+                            >
+                              <CheckCircle2 className="w-4 h-4" /> Verify Student
+                            </button>
+                          )}
+                          <button
+                            disabled={actionLoading === u.id}
+                            onClick={() => { handleBlock(u.id, !u.isBlock); setOpenDropdown(null); }}
+                            className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 disabled:opacity-50 ${u.isBlock ? 'text-slate-600 hover:bg-slate-50' : 'text-red-600 hover:bg-red-50'}`}
+                          >
+                            {u.isBlock ? <Shield className="w-4 h-4" /> : <ShieldOff className="w-4 h-4" />}
+                            {u.isBlock ? 'Unblock Student' : 'Block Student'}
+                          </button>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -244,6 +279,14 @@ export default function AdminStudentsPage() {
             </div>
           )}
         </div>
+      )}
+
+      {editingStudent && (
+        <EditStudentModal
+          student={editingStudent}
+          onClose={() => setEditingStudent(null)}
+          onSave={handleEditSave}
+        />
       )}
     </div>
   );
