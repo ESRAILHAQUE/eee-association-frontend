@@ -91,7 +91,7 @@ export default function MemberResourcesPage() {
             Curated study materials, question banks, important links and official documents shared by the association.
           </p>
         </div>
-        {(user?.currentRole === 'admin' || user?.currentRole === 'super_admin') && (
+        {(user?.currentRole === 'admin' || user?.currentRole === 'super_admin' || user?.currentRole === 'cr') && (
           <button
             onClick={() => setShowForm((v) => !v)}
             className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary/90 transition-colors"
