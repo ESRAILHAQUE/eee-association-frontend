@@ -145,19 +145,12 @@ export default function AdminDashboardPage() {
             <Link
               href={action.href}
               key={action.label}
-              className="group relative overflow-hidden rounded-sm aspect-[4/3] flex flex-col justify-end p-5 transition-transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary text-left"
+              className="group flex flex-col items-center justify-center gap-3 p-6 bg-white border border-slate-200 rounded-sm hover:border-primary hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary text-center"
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105"
-                style={{ backgroundImage: `url(${action.image})` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-              <div className="relative z-10 flex flex-col items-start gap-2">
-                <div className="bg-white/20 backdrop-blur-md p-2 rounded-lg text-white">
-                  <action.icon className="w-5 h-5" />
-                </div>
-                <p className="text-white text-lg font-bold leading-tight">{action.label}</p>
+              <div className="p-3 bg-primary/10 text-primary rounded-lg group-hover:scale-110 transition-transform">
+                <action.icon className="w-6 h-6" />
               </div>
+              <p className="text-slate-900 font-semibold">{action.label}</p>
             </Link>
           ))}
         </div>

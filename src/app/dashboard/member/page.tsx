@@ -83,7 +83,7 @@ export default function MemberDashboardPage() {
     <div className="max-w-7xl mx-auto space-y-8">
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 flex flex-col gap-6">
-          <div className="bg-primary rounded-xl p-8 relative overflow-hidden text-white shadow-lg shadow-primary/20">
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-8 relative overflow-hidden text-white shadow-lg shadow-slate-900/20">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full -ml-8 -mb-8 blur-xl" />
             <div className="relative z-10">
@@ -154,7 +154,7 @@ export default function MemberDashboardPage() {
                         href="/dashboard/member/events"
                         className={`block text-center w-full py-2 rounded-lg text-sm font-medium transition-colors ${
                           idx === 0
-                            ? 'bg-primary text-white hover:bg-blue-700'
+                            ? 'bg-[#0F172B] text-white hover:bg-[#1a233a]'
                             : 'border border-slate-200 text-slate-700 hover:bg-slate-50'
                         }`}
                       >

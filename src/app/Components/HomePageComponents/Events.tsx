@@ -68,7 +68,7 @@ export default function Events({ events = [] }: { events?: any[] }) {
                     {event.attendees} attendees
                   </div>
                 </div>
-                <button className="w-full bg-slate-900 text-white py-3 rounded-sm cursor-pointer hover:bg-slate-800 transition-colors font-medium flex items-center justify-center">
+                <button className="w-full bg-[#0F172B] text-white py-3 rounded-sm cursor-pointer hover:bg-[#1a233a] transition-colors font-medium flex items-center justify-center">
                   Register Now
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </button>

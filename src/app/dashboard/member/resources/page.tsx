@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { BookOpen, FileText, Link as LinkIcon, Download, Upload, X, AlertCircle, Loader2 } from 'lucide-react';
-import { fetchResources, uploadResource } from '@/lib/api';
-import type { ResourceItem } from '@/lib/api';
+import { fetchResources, uploadResource, getStoredUser } from '@/lib/api';
+import type { ResourceItem, AuthUser } from '@/lib/api';
 
 function ResourceCard({ res }: { res: ResourceItem }) {
   const icon =
@@ -47,9 +47,11 @@ export default function MemberResourcesPage() {
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ title: '', subject: '', fileUrl: '', fileType: 'pdf', semester: '', description: '' });
+  const [form, setForm] = useState({ title: '', subject: '', fileUrl: '', fileType: 'pdf', semester: '', description: '', batch: '' });
+  const [user, setUser] = useState<AuthUser | null>(null);
 
   useEffect(() => {
+    setUser(getStoredUser());
     fetchResources()
       .then(setResources)
       .catch((e) => setError(e.message))
@@ -68,10 +70,11 @@ export default function MemberResourcesPage() {
         fileType: form.fileType,
         description: form.description || undefined,
         semester: form.semester ? parseInt(form.semester, 10) : undefined,
+        batch: form.batch || undefined,
       });
       setResources((prev) => [created, ...prev]);
       setShowForm(false);
-      setForm({ title: '', subject: '', fileUrl: '', fileType: 'pdf', semester: '', description: '' });
+      setForm({ title: '', subject: '', fileUrl: '', fileType: 'pdf', semester: '', description: '', batch: '' });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to upload resource');
     } finally {
@@ -88,13 +91,15 @@ export default function MemberResourcesPage() {
             Curated study materials, question banks, important links and official documents shared by the association.
           </p>
         </div>
-        <button
-          onClick={() => setShowForm((v) => !v)}
-          className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary/90 transition-colors"
-        >
-          <Upload className="w-4 h-4" />
-          Submit Resource
-        </button>
+        {(user?.currentRole === 'admin' || user?.currentRole === 'super_admin') && (
+          <button
+            onClick={() => setShowForm((v) => !v)}
+            className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary/90 transition-colors"
+          >
+            <Upload className="w-4 h-4" />
+            Submit Resource
+          </button>
+        )}
       </header>
 
       {/* Upload Form */}
@@ -117,6 +122,7 @@ export default function MemberResourcesPage() {
               <option value="other">Other</option>
             </select>
             <input type="number" min="1" max="8" placeholder="Semester (1–8)" value={form.semester} onChange={(e) => setForm({ ...form, semester: e.target.value })} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white" />
+            <input type="text" placeholder="Target Batch (e.g. 2020-21) - Optional" value={form.batch} onChange={(e) => setForm({ ...form, batch: e.target.value })} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white" />
             <textarea placeholder="Description (optional)" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white resize-none col-span-full" />
           </div>
           <div className="flex gap-3">

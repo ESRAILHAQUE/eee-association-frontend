@@ -409,7 +409,7 @@ export async function reviewLeaveRequest(id: string, data: { status: "approved" 
 export interface ResourceItem { id: string; title: string; description: string | null; subject: string; semester: number | null; fileUrl: string; fileType: string; status: string; downloads: number; batch: string | null; createdAt: string; uploadedBy: { id: string; fullName: string; }; }
 export async function fetchResources(params?: { subject?: string; semester?: number; }): Promise<ResourceItem[]> { const qs = new URLSearchParams(); if (params?.subject) qs.set("subject", params.subject); if (params?.semester) qs.set("semester", String(params.semester)); return apiRequest<ResourceItem[]>(`/resources?${qs}`); }
 export async function fetchPendingResources(): Promise<ResourceItem[]> { return apiRequest<ResourceItem[]>("/resources/pending"); }
-export async function uploadResource(payload: { title: string; subject: string; fileUrl: string; fileType: string; description?: string; semester?: number; }): Promise<ResourceItem> { return apiRequest<ResourceItem>("/resources", { method: "POST", body: JSON.stringify(payload) }); }
+export async function uploadResource(payload: { title: string; subject: string; fileUrl: string; fileType: string; description?: string; semester?: number; batch?: string }): Promise<ResourceItem> { return apiRequest<ResourceItem>("/resources", { method: "POST", body: JSON.stringify(payload) }); }
 export async function updateResourceStatus(id: string, status: "approved" | "rejected"): Promise<ResourceItem> { return apiRequest<ResourceItem>(`/resources/${id}/status`, { method: "PATCH", body: JSON.stringify({ status }) }); }
 
 // ─── Clubs ────────────────────────────────────────────────────────────────────
@@ -491,3 +491,5 @@ export async function sendNewsletter(payload: { subject: string; body: string })
 // ─── Homepage Settings ────────────────────────────────────────────────────────
 export async function fetchHomepageSettings(): Promise<any> { return apiRequest<any>("/homepage"); }
 export async function updateHomepageSettings(payload: any): Promise<any> { return apiRequest<any>("/homepage", { method: "PUT", body: JSON.stringify(payload) }); }
+
+export async function updateMyProfile(payload: { personalEmail?: string; phoneNumber?: string }): Promise<void> { return apiRequest("/users/me", { method: "PATCH", body: JSON.stringify(payload) }); }

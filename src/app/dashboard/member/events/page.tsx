@@ -119,7 +119,7 @@ export default function MemberEventsPage() {
             type="button"
             onClick={() => setTypeFilter('all')}
             className={`px-3 py-2 rounded-lg text-xs font-medium transition ${
-              typeFilter === 'all' ? 'bg-primary text-white' : 'bg-white ring-1 ring-slate-200 text-slate-600 hover:bg-slate-50'
+              typeFilter === 'all' ? 'bg-[#0F172B] text-white' : 'bg-white ring-1 ring-slate-200 text-slate-600 hover:bg-slate-50'
             }`}
           >
             All Types
@@ -130,7 +130,7 @@ export default function MemberEventsPage() {
               type="button"
               onClick={() => setTypeFilter(t)}
               className={`px-3 py-2 rounded-lg text-xs font-medium capitalize transition ${
-                typeFilter === t ? 'bg-primary text-white' : 'bg-white ring-1 ring-slate-200 text-slate-600 hover:bg-slate-50'
+                typeFilter === t ? 'bg-[#0F172B] text-white' : 'bg-white ring-1 ring-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
             >
               {t}
@@ -215,7 +215,7 @@ export default function MemberEventsPage() {
                               ? 'bg-green-50 text-green-700 border border-green-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200'
                               : isFull
                               ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                              : 'bg-primary text-white hover:bg-blue-700 shadow-sm shadow-primary/30'
+                              : 'bg-[#0F172B] text-white hover:bg-[#1a233a] shadow-sm shadow-[#0F172B]/30'
                           }`}
                         >
                           {isBusy ? (
