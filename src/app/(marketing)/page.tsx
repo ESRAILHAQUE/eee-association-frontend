@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { fetchHomepageSettings } from '@/lib/api';
-import Hero from '../Components/HomePageComponents/Hero';
+import Hero, { defaultHeroSlides } from '../Components/HomePageComponents/Hero';
 import Achievements from '../Components/HomePageComponents/Achievements';
 import Clubs from '../Components/HomePageComponents/Clubs';
 import Events from '../Components/HomePageComponents/Events';
@@ -17,7 +17,7 @@ export default function Home() {
     }).catch(console.error);
   }, []);
 
-  const slideCount = data?.hero?.length || 4;
+  const slideCount = data?.hero?.length > 0 ? data.hero.length : defaultHeroSlides.length;
 
   useEffect(() => {
     if (slideCount === 0) return;

@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Footer() {
   const socialIcons = [Facebook, Twitter, Instagram, Linkedin]
-  const quickLinks = ['Home', 'About', 'Features', 'Events', 'Projects', 'Contact']
+  const quickLinks = ['Home', 'Features', 'Events']
 
   return (
     <footer id="contact" className="bg-slate-900 text-white relative overflow-hidden">

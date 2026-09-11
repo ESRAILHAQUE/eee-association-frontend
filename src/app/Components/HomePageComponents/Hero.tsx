@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 // hardcoded fallback
-const defaultHeroSlides = [
+export const defaultHeroSlides = [
   {
     id: 1,
     image: "/images/hero-section/hero-1.jpeg",
@@ -18,6 +18,30 @@ const defaultHeroSlides = [
     subtitle: "Empowering Innovation Through Technology",
     description: "Join a community of forward-thinking electrical engineers...",
     badge: "Innovation Hub",
+  },
+  {
+    id: 2,
+    image: "/images/hero-section/hero-2.jpeg",
+    title: "Innovating for a Better Future",
+    subtitle: "Excellence in Research and Development",
+    description: "Discover ground-breaking projects and collaborate with brilliant minds.",
+    badge: "Research",
+  },
+  {
+    id: 3,
+    image: "/images/hero-section/hero-3.jpeg",
+    title: "Empowering the Next Generation",
+    subtitle: "Building the Engineers of Tomorrow",
+    description: "Participate in workshops, seminars, and networking events.",
+    badge: "Education",
+  },
+  {
+    id: 4,
+    image: "/images/hero-section/hero-4.jpeg",
+    title: "Connecting Professionals",
+    subtitle: "A Strong Alumni Network",
+    description: "Engage with industry leaders and alumni from around the globe.",
+    badge: "Community",
   }
 ];
 
