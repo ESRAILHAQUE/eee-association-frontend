@@ -461,10 +461,11 @@ export async function toggleUserBlock(userId: string, isBlock: boolean): Promise
 export async function verifyUser(userId: string): Promise<void> { await apiRequest(`/users/${userId}/verify`, { method: "PATCH" }); }
 
 // ─── Batches ──────────────────────────────────────────────────────────────────
-export interface BatchItem { id: string; name: string; createdAt: string; crId: string | null; cr: { id: string; fullName: string; registrationNumber: string; } | null; }
+export interface BatchItem { id: string; name: string; createdAt: string; studentCount?: number; crs: { id: string; fullName: string; registrationNumber: string; }[]; }
 export async function fetchBatches(): Promise<BatchItem[]> { return apiRequest<BatchItem[]>("/batches"); }
 export async function createBatch(name: string): Promise<BatchItem> { return apiRequest<BatchItem>("/batches", { method: "POST", body: JSON.stringify({ name }) }); }
-export async function assignBatchCR(batchId: string, crId: string | null): Promise<BatchItem> { return apiRequest<BatchItem>(`/batches/${batchId}/cr`, { method: "PATCH", body: JSON.stringify({ crId }) }); }
+export async function addBatchCR(batchId: string, crId: string): Promise<BatchItem> { return apiRequest<BatchItem>(`/batches/${batchId}/cr`, { method: "POST", body: JSON.stringify({ crId }) }); }
+export async function removeBatchCR(batchId: string, crId: string): Promise<BatchItem> { return apiRequest<BatchItem>(`/batches/${batchId}/cr/${crId}`, { method: "DELETE" }); }
 
 // ─── Fees / Payments ──────────────────────────────────────────────────────────
 export interface FeeRecord { id: string; semesterNumber: number; feeAmount: string; paidAmount: string; dueAmount: string; paymentStatus: "paid" | "partial" | "unpaid"; paymentMethod: string | null; transactionReference: string | null; paymentDate: string | null; user?: { id: string; fullName: string; registrationNumber: string; profile?: { batch: string | null; rollNumber: string | null; } | null; }; }
@@ -493,3 +494,12 @@ export async function fetchHomepageSettings(): Promise<any> { return apiRequest<
 export async function updateHomepageSettings(payload: any): Promise<any> { return apiRequest<any>("/homepage", { method: "PUT", body: JSON.stringify(payload) }); }
 
 export async function updateMyProfile(payload: { personalEmail?: string; phoneNumber?: string }): Promise<void> { return apiRequest("/users/me", { method: "PATCH", body: JSON.stringify(payload) }); }
+
+export async function bulkAddStudents(students: { fullName: string; registrationNumber: string; institutionalEmail: string; phoneNumber?: string; batch: string }[]): Promise<void> {
+  return apiRequest("/users/bulk", { method: "POST", body: JSON.stringify({ students }) });
+}
+export async function deleteBatch(batchId: string): Promise<void> {
+  return apiRequest(`/batches/${batchId}`, { method: "DELETE" });
+}
+
+export async function fetchClubMembers(clubId: string): Promise<any[]> { return apiRequest(`/clubs/${clubId}/members`); }

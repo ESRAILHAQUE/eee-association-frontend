@@ -9,6 +9,7 @@ import {
 import {
   fetchClubs,
   createClub,
+  fetchClubMembers,
   type ClubItem,
 } from '@/lib/api';
 
@@ -22,6 +23,26 @@ export default function AdminClubsPage() {
   const [description, setDescription] = useState('');
   const [creating, setCreating] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+
+  // Members Modal state
+  const [selectedClub, setSelectedClub] = useState<ClubItem | null>(null);
+  const [members, setMembers] = useState<any[]>([]);
+  const [loadingMembers, setLoadingMembers] = useState(false);
+  const [membersError, setMembersError] = useState<string | null>(null);
+
+  const loadMembers = async (club: ClubItem) => {
+    setSelectedClub(club);
+    setLoadingMembers(true);
+    setMembersError(null);
+    try {
+      const data = await fetchClubMembers(club.id);
+      setMembers(data);
+    } catch (err: any) {
+      setMembersError(err.message || 'Failed to fetch members');
+    } finally {
+      setLoadingMembers(false);
+    }
+  };
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -141,12 +162,75 @@ export default function AdminClubsPage() {
 
               <p className="text-sm text-slate-600 line-clamp-3">{club.description}</p>
 
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-auto pt-2 border-t border-slate-50">
-                <Users className="w-3.5 h-3.5" />
-                {club._count.members} member(s)
+              <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                  <Users className="w-3.5 h-3.5" />
+                  {club._count.members} member(s)
+                </div>
+                <button
+                  type="button"
+                  onClick={() => loadMembers(club)}
+                  className="text-xs font-semibold text-primary hover:text-blue-700 hover:underline"
+                >
+                  View Members
+                </button>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* View Members Modal */}
+      {selectedClub && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-primary" />
+                <h2 className="font-bold text-slate-900">{selectedClub.name} Members</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedClub(null)}
+                className="text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto">
+              {loadingMembers ? (
+                <div className="flex items-center justify-center py-10 text-slate-500">
+                  <Loader2 className="w-6 h-6 animate-spin mr-2" />
+                  Loading members...
+                </div>
+              ) : membersError ? (
+                <div className="text-red-500 p-4 bg-red-50 rounded-lg border border-red-100">
+                  {membersError}
+                </div>
+              ) : members.length === 0 ? (
+                <div className="text-center py-10 text-slate-500">
+                  No members found in this club yet.
+                </div>
+              ) : (
+                <div className="grid gap-3">
+                  {members.map((member: any) => (
+                    <div key={member.id} className="flex items-center justify-between p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
+                      <div>
+                        <p className="font-semibold text-slate-900">{member.fullName}</p>
+                        <p className="text-xs text-slate-500">Reg: {member.registrationNumber}</p>
+                      </div>
+                      {member.profile?.batch && (
+                        <span className="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-1 rounded">
+                          Batch: {member.profile.batch}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
 

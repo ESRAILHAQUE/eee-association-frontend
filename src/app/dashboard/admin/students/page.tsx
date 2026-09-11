@@ -36,7 +36,7 @@ export default function AdminStudentsPage() {
         fetchUsers({
           search: search || undefined,
           batch: batchFilter || undefined,
-          role: 'student',
+          role: 'student,cr',
         }),
         fetchBatches()
       ]);
