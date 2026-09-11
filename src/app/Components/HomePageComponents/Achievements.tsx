@@ -1,5 +1,21 @@
 import Image from 'next/image'
 import { Trophy } from 'lucide-react'
+const hardcodedAchievements = [
+  {
+    image: "/images/achievements/Celebrating Excellence Former Adjunct Lecturer Md. Faiyaj Ahmed Limon Secures PhD Admission at Concordia University, Canada.jpg.jpeg",
+    title: "Celebrating Excellence",
+    description: "Former Adjunct Lecturer Md. Faiyaj Ahmed Limon Secures PhD Admission at Concordia University, Canada.",
+    year: "2026",
+    category: "Academic Excellence"
+  },
+  {
+    image: "/images/achievements/Runner-up in the Line Following Robot (LFR) segment at LU EEE Carnival 2026.jpg (1).jpeg",
+    title: "Runner-up in LFR Segment",
+    description: "Runner-up in the Line Following Robot (LFR) segment at LU EEE Carnival 2026.",
+    year: "2026",
+    category: "Robotics"
+  }
+];
 
 const defaultAchievements = [
   {
@@ -12,7 +28,9 @@ const defaultAchievements = [
 ];
 
 export default function Achievements({ achievements = [] }: { achievements?: any[] }) {
-  const displayAchievements = achievements.length > 0 ? achievements : defaultAchievements;
+  const displayAchievements = achievements.length > 0 
+    ? [...achievements, ...hardcodedAchievements] 
+    : [...hardcodedAchievements, ...defaultAchievements];
   return (
     <section id="achievements" className="md:py-20 py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,17 +43,12 @@ export default function Achievements({ achievements = [] }: { achievements?: any
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {displayAchievements.map((achievement, index) => (
             <div key={index} className="bg-white rounded-sm overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300">
               <div className="relative h-48">
                 <Image src={achievement.image} alt={achievement.title} fill className="object-cover" unoptimized />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                <div className="absolute top-4 right-4">
-                  <span className="inline-block bg-white/90 backdrop-blur-sm text-slate-800 text-xs font-semibold px-3 py-1 rounded-full">
-                    {achievement.year}
-                  </span>
-                </div>
               </div>
               <div className="p-6">
                 <div className="flex items-center mb-4">
