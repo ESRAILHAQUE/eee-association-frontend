@@ -51,9 +51,9 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <a href="#home" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Home</a>
-            <a href="#events" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Events</a>
-            <a href="#achievements" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Achievements</a>
+            <Link href="/#home" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Home</Link>
+            <Link href="/#events" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Events</Link>
+            <Link href="/#achievements" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Achievements</Link>
             <Link href="/faculty" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Faculty</Link>
             {isLoggedIn ? (
               <Link
@@ -79,9 +79,9 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
         {isMenuOpen && (
           <div className="lg:hidden py-4 border-t border-slate-200">
             <div className="flex flex-col space-y-4">
-              <a href="#home" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Home</a>
-              <a href="#events" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Events</a>
-              <a href="#achievements" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Achievements</a>
+              <Link href="/#home" onClick={toggleMenu} className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Home</Link>
+              <Link href="/#events" onClick={toggleMenu} className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Events</Link>
+              <Link href="/#achievements" onClick={toggleMenu} className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Achievements</Link>
               <Link href="/faculty" onClick={toggleMenu} className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Faculty</Link>
               <div className="flex flex-col gap-2 pt-4">
                 {isLoggedIn ? (
