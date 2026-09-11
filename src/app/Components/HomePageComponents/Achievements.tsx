@@ -1,31 +1,18 @@
 import Image from 'next/image'
 import { Trophy } from 'lucide-react'
 
-const achievements = [
+const defaultAchievements = [
   {
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop",
     title: "IEEE Outstanding Student Branch Award",
-    description: "Recognized nationally for exceptional technical activities, professional development initiatives, and community impact programs.",
+    description: "Recognized nationally for exceptional technical activities...",
     year: "2024",
     category: "Institutional Excellence"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=300&fit=crop",
-    title: "National Robotics Competition Champions",
-    description: "First place victory in autonomous navigation challenge, demonstrating superior engineering design and implementation.",
-    year: "2024",
-    category: "Student Achievement"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=300&fit=crop",
-    title: "Industry Partnership Excellence Award",
-    description: "Outstanding collaboration with leading technology companies on innovative research projects and internship programs.",
-    year: "2023",
-    category: "Industry Relations"
   }
-]
+];
 
-export default function Achievements() {
+export default function Achievements({ achievements = [] }: { achievements?: any[] }) {
+  const displayAchievements = achievements.length > 0 ? achievements : defaultAchievements;
   return (
     <section id="achievements" className="md:py-20 py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +26,7 @@ export default function Achievements() {
         </div>
         
         <div className="grid lg:grid-cols-3 gap-8">
-          {achievements.map((achievement, index) => (
+          {displayAchievements.map((achievement, index) => (
             <div key={index} className="bg-white rounded-sm overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300">
               <div className="relative h-48">
                 <Image src={achievement.image} alt={achievement.title} fill className="object-cover" unoptimized />

@@ -46,6 +46,7 @@ export const ROUTES = {
   adminDocuments: '/dashboard/admin/documents',
   adminReports: '/dashboard/admin/reports',
   adminSettings: '/dashboard/admin/settings',
+  adminHomepageManagement: '/dashboard/admin/homepage-management',
   // CR
   crNoticeBoard: '/dashboard/cr/notice-board',
   crEvents: '/dashboard/cr/events',
@@ -109,6 +110,7 @@ export const DASHBOARD_NAV = {
     { href: '/dashboard/admin/clubs', label: 'Clubs', icon: 'Star' },
     { href: '/dashboard/admin/documents', label: 'Documents', icon: 'FolderOpen' },
     { href: '/dashboard/admin/reports', label: 'Reports', icon: 'BarChart2' },
+    { href: '/dashboard/admin/homepage-management', label: 'Homepage', icon: 'LayoutTemplate' },
   ],
   superAdmin: [
     { href: '/dashboard/super-admin', label: 'Dashboard', icon: 'LayoutDashboard' },
@@ -119,6 +121,7 @@ export const DASHBOARD_NAV = {
     { href: '/dashboard/super-admin/roles', label: 'Role Management', icon: 'ShieldCheck' },
     { href: '/dashboard/super-admin/documents', label: 'Documents', icon: 'FolderOpen' },
     { href: '/dashboard/super-admin/newsletter', label: 'Newsletter', icon: 'Mail' },
+    { href: '/dashboard/admin/homepage-management', label: 'Homepage', icon: 'LayoutTemplate' },
     { href: '/dashboard/super-admin/logs', label: 'Logs', icon: 'FileText' },
     { href: '/dashboard/super-admin/backup', label: 'Backup', icon: 'Database' },
   ],

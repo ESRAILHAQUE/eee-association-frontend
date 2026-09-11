@@ -9,46 +9,20 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-const heroSlides = [
+// hardcoded fallback
+const defaultHeroSlides = [
   {
     id: 1,
     image: "/images/hero-section/hero-1.jpeg",
     title: "Advancing Electrical Engineering Excellence",
     subtitle: "Empowering Innovation Through Technology",
-    description:
-      "Join a community of forward-thinking electrical engineers dedicated to shaping the future of technology and innovation.",
+    description: "Join a community of forward-thinking electrical engineers...",
     badge: "Innovation Hub",
-  },
-  {
-    id: 2,
-    image: "/images/hero-section/hero-2.jpeg",
-    title: "Smart Solutions for Modern Challenges",
-    subtitle: "Research • Development • Implementation",
-    description:
-      "Collaborate on cutting-edge research projects and develop intelligent systems that address real-world engineering challenges.",
-    badge: "Research Excellence",
-  },
-  {
-    id: 3,
-    image: "/images/hero-section/hero-3.jpeg",
-    title: "Building Tomorrow's Engineers Today",
-    subtitle: "Education • Mentorship • Growth",
-    description:
-      "Experience comprehensive learning through hands-on projects, expert mentorship, and collaborative problem-solving.",
-    badge: "Academic Excellence",
-  },
-  {
-    id: 4,
-    image: "/images/hero-section/hero-4.jpeg",
-    title: "Connect, Create, Contribute.",
-    subtitle: "Professional Network • Industry Partnerships",
-    description:
-      "Build lasting professional relationships and contribute to groundbreaking innovations in electrical engineering.",
-    badge: "Professional Network",
-  },
+  }
 ];
 
 interface HeroProps {
+  slides?: any[];
   currentSlide: number;
   goToSlide: (index: number) => void;
   nextSlide: () => void;
@@ -56,11 +30,15 @@ interface HeroProps {
 }
 
 export default function Hero({
+  slides = [],
   currentSlide,
   goToSlide,
   nextSlide,
   prevSlide,
 }: HeroProps) {
+  const heroSlides = slides.length > 0 ? slides : defaultHeroSlides;
+  const slide = heroSlides[currentSlide] || heroSlides[0];
+  
   return (
     <section id="home" className="relative h-screen overflow-hidden">
       {/* Background Image Slider */}
@@ -71,13 +49,13 @@ export default function Hero({
             transform: `translateX(-${currentSlide * 100}%)`,
             transition: "transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1)",
           }}>
-          {heroSlides.map((slide, index) => (
+          {heroSlides.map((s, index) => (
             <div
-              key={slide.id}
+              key={index}
               className="relative h-full w-full flex-shrink-0 ">
               <Image
-                src={slide.image}
-                alt={slide.title}
+                src={s.image}
+                alt={s.title}
                 fill
                 className="object-cover"
                 priority={index === 0}
@@ -124,15 +102,15 @@ export default function Hero({
 
 
               <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
-                {heroSlides[currentSlide].title}
+                {slide?.title}
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-100 font-semibold drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)]">
-                {heroSlides[currentSlide].subtitle}
+                {slide?.subtitle}
               </p>
 
               <p className="text-base sm:text-lg text-slate-100 max-w-2xl leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)]">
-                {heroSlides[currentSlide].description}
+                {slide?.description}
               </p>
             </div>
           </div>

@@ -1,36 +1,18 @@
 import { Users } from 'lucide-react'
 
-const clubs = [
+const defaultClubs = [
   { 
     name: "Robotics & Automation Society", 
     members: 92, 
     description: "Hands-on robotics projects and automation research",
     activities: ["Robot Competitions", "Build Sessions", "Research Projects"],
     established: "2019",
-    image:
-      "https://plus.unsplash.com/premium_photo-1663091699742-70ca6f835197?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cm9ib3RpY3MlMjBmb3IlMjBraWRzfGVufDB8fDB8fHww",
-  },
-  { 
-    name: "Power & Energy Society", 
-    members: 78, 
-    description: "Specializing in electrical power systems and renewable energy",
-    activities: ["Field Visits", "Research Symposiums", "Industry Collaborations"],
-    established: "2020",
-    image:
-      "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=80",
-  },
-  { 
-    name: "Electronics Design Club", 
-    members: 86, 
-    description: "Circuit design, PCB development, and embedded systems",
-    activities: ["Design Challenges", "PCB Workshops", "Hardware Projects"],
-    established: "2019",
-    image:
-      "https://images.unsplash.com/photo-1557701197-2f99da0922dd?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlY3Ryb25pYyUyMGNvbXBvbmVudHxlbnwwfHwwfHx8MA%3D%3D",
+    image: "https://plus.unsplash.com/premium_photo-1663091699742-70ca6f835197?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cm9ib3RpY3MlMjBmb3IlMjBraWRzfGVufDB8fDB8fHww",
   }
-]
+];
 
-export default function Clubs() {
+export default function Clubs({ clubs = [] }: { clubs?: any[] }) {
+  const displayClubs = clubs.length > 0 ? clubs : defaultClubs;
   return (
     <section className="md:py-20 py-14 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,7 +26,7 @@ export default function Clubs() {
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {clubs.map((club, index) => (
+          {displayClubs.map((club, index) => (
             <div
               key={index}
               className="bg-white rounded-sm overflow-hidden border border-slate-200 shadow-sm flex flex-col"

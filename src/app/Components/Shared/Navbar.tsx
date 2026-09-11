@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
@@ -12,12 +14,17 @@ interface NavbarProps {
 }
 
 export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
-  const token = getStoredToken();
-  const user = getStoredUser();
-  const isLoggedIn = Boolean(token && user);
-  const dashboardHref = user?.currentRole
-    ? (ROLE_TO_DASHBOARD[user.currentRole] ?? ROUTES.member)
-    : ROUTES.member;
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [dashboardHref, setDashboardHref] = React.useState<string>(ROUTES.member);
+
+  React.useEffect(() => {
+    const token = getStoredToken();
+    const user = getStoredUser();
+    setIsLoggedIn(Boolean(token && user));
+    if (user?.currentRole) {
+      setDashboardHref(ROLE_TO_DASHBOARD[user.currentRole] ?? ROUTES.member);
+    }
+  }, []);
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200/50 shadow-sm">

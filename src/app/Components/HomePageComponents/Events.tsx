@@ -1,7 +1,7 @@
 import { Calendar, Clock, MapPin, Users, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 
-const upcomingEvents = [
+const defaultEvents = [
   {
     image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=400&fit=crop",
     date: "Dec 15, 2024",
@@ -11,40 +11,11 @@ const upcomingEvents = [
     location: "Engineering Auditorium",
     attendees: 250,
     status: "Registration Open"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
-    date: "Dec 20, 2024",
-    time: "10:00 AM - 4:00 PM",
-    title: "Advanced Robotics & AI Workshop",
-    category: "Workshop",
-    location: "Innovation Lab",
-    attendees: 75,
-    status: "Limited Seats"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1523582407565-efee5cf4a353?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-    date: "Jan 5, 2025",
-    time: "7:00 PM - 9:00 PM",
-    title: "Student Chapter Leadership Meeting",
-    category: "Meeting",
-    location: "Conference Room A",
-    attendees: 45,
-    status: "Members Only"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
-    date: "Jan 12, 2025",
-    time: "9:00 AM - 5:00 PM",
-    title: "Senior Design Project Showcase",
-    category: "Exhibition",
-    location: "Main Hall",
-    attendees: 300,
-    status: "Public Event"
   }
-]
+];
 
-export default function Events() {
+export default function Events({ events = [] }: { events?: any[] }) {
+  const displayEvents = events.length > 0 ? events : defaultEvents;
   return (
     <section id="events" className="md:py-20 py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,7 +29,7 @@ export default function Events() {
         </div>
         
         <div className="grid lg:grid-cols-2 gap-8">
-          {upcomingEvents.map((event, index) => (
+          {displayEvents.map((event, index) => (
             <div key={index} className="bg-white rounded-sm overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200">
               <div className="relative">
                 <Image src={event.image} alt={event.title} width={600} height={400} className="w-full h-48 sm:h-56 object-cover" unoptimized />

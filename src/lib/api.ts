@@ -487,3 +487,7 @@ export async function fetchLoginLogs(params?: { userId?: string; limit?: number 
 export interface NewsletterItem { id: string; title: string; content: string; createdAt: string; createdBy: { id: string; fullName: string; }; }
 export async function fetchNewsletters(): Promise<NewsletterItem[]> { return apiRequest<NewsletterItem[]>("/newsletter"); }
 export async function sendNewsletter(payload: { subject: string; body: string }): Promise<NewsletterItem> { return apiRequest<NewsletterItem>("/newsletter/send", { method: "POST", body: JSON.stringify(payload) }); }
+
+// ─── Homepage Settings ────────────────────────────────────────────────────────
+export async function fetchHomepageSettings(): Promise<any> { return apiRequest<any>("/homepage"); }
+export async function updateHomepageSettings(payload: any): Promise<any> { return apiRequest<any>("/homepage", { method: "PUT", body: JSON.stringify(payload) }); }
