@@ -143,7 +143,7 @@ export async function fetchNotices(params?: {
   targetType?: NoticeTarget;
 }): Promise<Notice[]> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const qs = new URLSearchParams();
   if (params?.batch) qs.set("batch", params.batch);
   if (params?.targetType) qs.set("targetType", params.targetType);
@@ -157,12 +157,12 @@ export async function fetchNotices(params?: {
 
 export async function createNotice(payload: CreateNoticePayload): Promise<Notice> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/notices`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      ...(!token ? {} : { Authorization: `Bearer ${token}` }),
     },
     body: JSON.stringify(payload),
   });
@@ -173,7 +173,7 @@ export async function createNotice(payload: CreateNoticePayload): Promise<Notice
 
 export async function deleteNotice(id: string): Promise<void> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/notices/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
@@ -228,7 +228,7 @@ export async function fetchEvents(params?: {
   targetBatch?: string;
 }): Promise<Event[]> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const qs = new URLSearchParams();
   if (params?.status) qs.set("status", params.status);
   if (params?.targetBatch) qs.set("targetBatch", params.targetBatch);
@@ -242,12 +242,12 @@ export async function fetchEvents(params?: {
 
 export async function createEvent(payload: CreateEventPayload): Promise<Event> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/events`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      ...(!token ? {} : { Authorization: `Bearer ${token}` }),
     },
     body: JSON.stringify(payload),
   });
@@ -261,12 +261,12 @@ export async function updateEventStatus(
   status: EventStatus,
 ): Promise<Event> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/events/${id}/status`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      ...(!token ? {} : { Authorization: `Bearer ${token}` }),
     },
     body: JSON.stringify({ status }),
   });
@@ -277,7 +277,7 @@ export async function updateEventStatus(
 
 export async function rsvpEvent(id: string): Promise<void> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/events/${id}/rsvp`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -290,7 +290,7 @@ export async function rsvpEvent(id: string): Promise<void> {
 
 export async function cancelRsvpEvent(id: string): Promise<void> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/events/${id}/rsvp`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
@@ -303,7 +303,7 @@ export async function cancelRsvpEvent(id: string): Promise<void> {
 
 export async function deleteEvent(id: string): Promise<void> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/events/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
@@ -342,7 +342,7 @@ export interface UserProfile {
 
 export async function fetchProfile(): Promise<ProfileResponse["data"]> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const res = await fetch(`${API_BASE}/auth/me`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -355,13 +355,13 @@ export async function fetchProfile(): Promise<ProfileResponse["data"]> {
 // ─── Shared helper ────────────────────────────────────────────────────────────
 async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getStoredToken();
-  if (!token) throw new Error("Not authenticated");
+  
   const isFormData = options.body instanceof FormData;
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers: {
       ...(!isFormData ? { "Content-Type": "application/json" } : {}),
-      Authorization: `Bearer ${token}`,
+      ...(!token ? {} : { Authorization: `Bearer ${token}` }),
       ...(options.headers ?? {}),
     },
   });
