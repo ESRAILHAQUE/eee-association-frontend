@@ -54,7 +54,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
             <a href="#home" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Home</a>
             <a href="#events" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Events</a>
             <a href="#achievements" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Achievements</a>
-            <a href="#contact" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Contact</a>
+            <Link href="/faculty" className="text-slate-700 hover:text-slate-800 hover:underline underline-offset-4 transition-colors font-medium">Faculty</Link>
             {isLoggedIn ? (
               <Link
                 href={dashboardHref}
@@ -82,7 +82,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
               <a href="#home" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Home</a>
               <a href="#events" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Events</a>
               <a href="#achievements" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Achievements</a>
-              <a href="#contact" className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Contact</a>
+              <Link href="/faculty" onClick={toggleMenu} className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-colors px-2 py-1">Faculty</Link>
               <div className="flex flex-col gap-2 pt-4">
                 {isLoggedIn ? (
                   <Link
