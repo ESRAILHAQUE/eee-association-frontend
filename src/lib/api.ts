@@ -419,6 +419,7 @@ export async function fetchMyClubs(): Promise<ClubItem[]> { return apiRequest<Cl
 export async function joinClub(id: string): Promise<void> { await apiRequest(`/clubs/${id}/join`, { method: "POST" }); }
 export async function leaveClub(id: string): Promise<void> { await apiRequest(`/clubs/${id}/leave`, { method: "DELETE" }); }
 export async function createClub(payload: { name: string; description: string; }): Promise<ClubItem> { return apiRequest<ClubItem>("/clubs", { method: "POST", body: JSON.stringify(payload) }); }
+export async function deleteClub(id: string): Promise<void> { await apiRequest(`/clubs/${id}`, { method: "DELETE" }); }
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
 export interface ProjectItem { id: string; title: string; abstract: string; category: string; batch: string | null; githubUrl: string | null; docUrl: string | null; likes: number; createdAt: string; user: { id: string; fullName: string; }; }

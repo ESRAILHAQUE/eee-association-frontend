@@ -9,6 +9,7 @@ import {
 import {
   fetchClubs,
   createClub,
+  deleteClub,
   fetchClubMembers,
   type ClubItem,
 } from '@/lib/api';
@@ -80,10 +81,14 @@ export default function AdminClubsPage() {
     }
   };
 
-  const handleDelete = (id: string, clubName: string) => {
+  const handleDelete = async (id: string, clubName: string) => {
     if (!confirm(`Delete club "${clubName}"? This action cannot be undone.`)) return;
-    // UI-only: remove from local state
-    setClubs((prev) => prev.filter((c) => c.id !== id));
+    try {
+      await deleteClub(id);
+      setClubs((prev) => prev.filter((c) => c.id !== id));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Failed to delete club');
+    }
   };
 
   return (
